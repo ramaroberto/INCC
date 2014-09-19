@@ -1,5 +1,5 @@
 screenNum =0;
-res =[1024 768];
+res =[1281 800];
 teclaApretada = [];
 apariciones = [];
 clrdepth=32;
@@ -22,8 +22,8 @@ imagenesSecundarias = [[]];
 imagenesSubliminalesFruta = [];
 imagenesSecundariasFruta = [[]];
 
-wait_pl1 = 2;  % Tiempo que dura la primer pantalla para limpiar retina
-wait_is = 0.50;   % Tiempo que se muestra la imagen subliminal
+wait_pl1 = 1;  % Tiempo que dura la primer pantalla para limpiar retina
+wait_is = 0.030;   % Tiempo que se muestra la imagen subliminal
 wait_pl2 = 2;  % Tiempo que dura la segunda pantalla para limpiar retina
 
 imgsec_space = 20; % Tamanio en pixels para los espacios entre las imagenes secundarias
@@ -57,14 +57,21 @@ Screen('Flip', win);
 
 semaforo = 0;
 tic
-for i=1:1
-    
-    Screen('FillRect', win, white); % Limpia retina
-    Screen('Flip', win);
-    WaitSecs(wait_pl1);
-    
+Screen('FillRect', win, white); % Limpia retina
+Screen('TextFont',win, 'Helvetica');
+Screen('TextSize',win, 30);
+Screen('TextStyle', win, 1);
+Screen('DrawText', win, 'A continuación aparecerán grupos de 3 imágenes.', 280, 250, [0 1 1], [0, 0, 255, 255]);
+Screen('DrawText', win, 'La tarea consiste en escribir una palabra que se relacione con ellas.', 130, 350, [0 1 1], [0, 0, 255, 255]);
+Screen('DrawText', win, 'Deberá oprimir la barra espaciadora recién cuando esté listo para escribir la palabra.', 30, 450, [0 1 1], [0, 0, 255, 255]);
+Screen('TextSize',win, 50);
+Screen('DrawText', win, 'Presione una tecla para continuar...', 220, 650, [0 1 1], [0, 0, 255, 255]);
+Screen('Flip', win);
+KbWait;
+WaitSecs(wait_pl1);
+for i=1:1   
     % Mostramos la imagen subliminal
-    imsub=imread('test.png', 'png');
+    imsub=imread('Equipo.jpg', 'jpg');
     Screen('PutImage', win, imsub);
     Screen('Flip', win);
     WaitSecs(wait_is);
@@ -75,9 +82,9 @@ for i=1:1
     
     % Mostramos imagenes secundarias
     % Cargamos las imagenes
-    imsec1=imread('test.png', 'png');
-    imsec2=imread('test.png', 'png');
-    imsec3=imread('test.png', 'png');
+    imsec1=imread('Matafuegos.png', 'png');
+    imsec2=imread('Matafuegos.png', 'png');
+    imsec3=imread('Matafuegos.png', 'png');
     
     % Obtenemos el alto mas grande de las tres imagenes
     max_height=max([size(imsec1,1); size(imsec2,1); size(imsec3,1)]);
