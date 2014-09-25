@@ -130,7 +130,13 @@ for i=1:1
         [pressed, secs, kbData] = KbCheck;
     end;
     %TODO: Como obtengo el tiempo aca?
-    
+    % Draw the characters...
+    Screen('FillRect', win, white);
+    % First draw the instructions
+    %Screen('DrawText', win, 'This is the typing test.', 100, 100);
+    Screen('DrawText', win, 'Ingresar una unica palabra. Apriete la barra espaciadora cuando haya terminado.', 100, 150);
+    Screen('TextSize', win, 20);
+    Screen('Flip', win);
     FlushEvents('keyDown');
     charBuffer='';
     stopLoop=0;
