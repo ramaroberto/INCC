@@ -12,7 +12,7 @@ refresh = Screen('GetFlipInterval',win);
 vbl = Screen('Flip', win);
 % Loop : Cycle through 300 images :
 %myImage=255*rand(100, 100);
-%Screen(?FrameOval?, window, color, boundingrect [, penWidth]);
+%Screen('FrameOval', window, color, boundingrect [, penWidth]);
 %Screen('MakeTexture', win, myImage);
 %Screen('DrawTexture', win, textureIndex);
 
