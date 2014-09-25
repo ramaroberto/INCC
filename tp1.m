@@ -61,9 +61,9 @@ Screen('FillRect', win, white); % Limpia retina
 Screen('TextFont',win, 'Helvetica');
 Screen('TextSize',win, 30);
 Screen('TextStyle', win, 1);
-Screen('DrawText', win, 'A continuaciÛn aparecer·n grupos de 3 im·genes.', 280, 250, [0 1 1], [0, 0, 255, 255]);
+Screen('DrawText', win, 'A continuaci√≥n aparecer√°n grupos de 3 im√°genes.', 280, 250, [0 1 1], [0, 0, 255, 255]);
 Screen('DrawText', win, 'La tarea consiste en escribir una palabra que se relacione con ellas.', 130, 350, [0 1 1], [0, 0, 255, 255]);
-Screen('DrawText', win, 'Deber· oprimir la barra espaciadora reciÈn cuando estÈ listo para escribir la palabra.', 30, 450, [0 1 1], [0, 0, 255, 255]);
+Screen('DrawText', win, 'Deber√° oprimir la barra espaciadora reci√©n cuando est√© listo para escribir la palabra.', 30, 450, [0 1 1], [0, 0, 255, 255]);
 Screen('TextSize',win, 50);
 Screen('DrawText', win, 'Presione una tecla para continuar...', 220, 650, [0 1 1], [0, 0, 255, 255]);
 Screen('Flip', win);
@@ -76,9 +76,17 @@ for i=1:1
     Screen('Flip', win);
     WaitSecs(wait_is);
     
-    Screen('FillRect', win, white); % Limpia retina
-    Screen('Flip', win);
-    WaitSecs(wait_pl2);
+    %Screen('FillRect', win, white); % Limpia retina
+    %Screen('Flip', win);
+    %WaitSecs(wait_pl2);
+    
+    % Pantalla de ruido blanco:
+    % win = Referencia a la ventana, winRect = Referencia al rectangulo de
+    % la ventana, nframes = Cantidad de frames que dura la pantalla con
+    % ruido blanco (ahora en 100 frames), rectSize = Tama√±o de la pantalla 
+    % de ruido blanco. El cuadrado de ruido blanco queda centrado.
+    whiteNoiseScreen(win, winRect, 100, 1281);
+    
     
     % Mostramos imagenes secundarias
     % Cargamos las imagenes
