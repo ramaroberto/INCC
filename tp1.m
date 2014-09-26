@@ -11,15 +11,29 @@ Screen('FillRect',win,black);
 refresh = Screen('GetFlipInterval',win);
 vbl = Screen('Flip', win);
 
-%TODO: Recorrer directorio con imagenes y armar vectores
-imagenesSubliminales = [];
-imagenesSecundarias = [[]];
-
 wait_pl1 = 1;  % Tiempo que dura la primer pantalla para limpiar retina
-wait_is = 0.030;   % Tiempo que se muestra la imagen subliminal
+wait_is = 2;   % Tiempo que se muestra la imagen subliminal
 wait_pl2 = 2;  % Tiempo que dura la segunda pantalla para limpiar retina
 
 imgsec_space = 20; % Tamanio en pixels para los espacios entre las imagenes secundarias
+
+% ------------------------------------------ %
+% ------------ Carga de imagenes ----------- %
+% ------------------------------------------ %
+
+% Recorremos el directorio imgs y armamos los vectores
+[imagenesSubliminales, imagenesSecundarias] = getImgsPaths('imgs');
+
+% Sacamos exactamente n/4 pares de numeros sin reposicion.
+pairs = datasample(1:size(imagenesSubliminales, 1), floor(size(imagenesSubliminales, 1)/4)*2, 'Replace', false);
+ 
+% Intercambiamos los valores entre pares, de forma tal de generar frula.
+base = floor(size(pairs,2)/2);
+for i = 1:base
+    aux = imagenesSubliminales{pairs(i)};
+    imagenesSubliminales{pairs(i)} = imagenesSubliminales{pairs(base+i)};
+    imagenesSubliminales{pairs(base+i)} = aux;
+end
 
 % El try-catch-end es para evitar que quede colgado en caso de excepcion.
 try
@@ -68,6 +82,7 @@ try
         imsec1=imread('Matafuegos.png', 'png');
         imsec2=imread('Matafuegos.png', 'png');
         imsec3=imread('Matafuegos.png', 'png');
+        % TODO: Resizear imagenes segun el maximo de resolucion.
 
         % Obtenemos el alto mas grande de las tres imagenes
         max_height=max([size(imsec1,1); size(imsec2,1); size(imsec3,1)]);
@@ -140,7 +155,7 @@ try
             end
 
             % Guardamos el caracter
-            charBuffer=[charBuffer c];
+            charBuffer = [charBuffer c];
 
             % Instrucciones
             Screen('FillRect', win, white);
