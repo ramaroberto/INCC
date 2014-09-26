@@ -12,7 +12,8 @@ wait_is = 2;   % Tiempo que se muestra la imagen subliminal
 wait_pl2 = 2;  % Tiempo que dura la segunda pantalla para limpiar retina
 
 % Cantidad de brillo agregado a la imagen subliminal
-qlight = 1;
+% Con 0 <= bright_intensity < 1. 0 = imagen normal, 0.99 = imagen blanca. 
+bright_intensity = 0.5;
 
 % Tamanio en pixels para los espacios horizontales entre las imagenes secundarias
 imgsec_space = 100;
@@ -97,7 +98,6 @@ try
     ord = 1:size(imagenesSubliminales,1);
     ord = ord(randperm(length(ord)));
     
-    
     i = 0;
     % TODO: Descomentar cuando terminemos de testear 
     % for i = 1:size(imagenesSubliminales,1)
@@ -112,6 +112,7 @@ try
 
         % Cargamos, aclaramos y mostramos la imagen
         imsub = imgLoadAndResize(imagenesSubliminales{i}, sub_bounds);
+        imsub = imadjust(imsub,[0 1-bright_intensity],[bright_intensity 1]);
         Screen('PutImage', win, imsub);
         Screen('Flip', win);
 
@@ -278,7 +279,14 @@ for i=1:size(data,1)
 end
 
 % Exportamos
+% TODO: Exportar los datos a donde?
 data
+
+M = size(img,1);
+N = size(img,2);
+map = reshape(img, [M*N 3]);
+map = brighten(map, 1);
+img = reshape(map, [M N 3]);
 
 %Sabri: Esto lo dejo por las dudas
 %Screen('Preference','SkipSyncTests', skipTestFlagOld);
