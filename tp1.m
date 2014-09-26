@@ -68,8 +68,8 @@ try
         % Mostrar imagen
         % TODO: Falta resize de imagen dependiendo de resolucion.
         % TODO: Descomentar cuando este listo el resize
-        % TODO: Autodetectar extension?
-        % imsub=imread(imagenesSubliminales{i}, 'png');
+        % [pathstr,name,ext] = fileparts(imagenesSubliminales{i});
+        % imsub=imread(imagenesSubliminales{i}, ext(2:end));
         imsub=imread('Equipo.jpg', 'jpg');
         Screen('PutImage', win, imsub);
         Screen('Flip', win);
@@ -87,10 +87,12 @@ try
         % Cargamos las imagenes
         % TODO: Falta resize de imagen dependiendo de resolucion.
         % TODO: Descomentar cuando este listo el resize
-        % TODO: Autodetectar extension?
-        % imsec1=imread(imagenesSecundarias{i,1}, 'png');
-        % imsec2=imread(imagenesSecundarias{i,2}, 'png');
-        % imsec3=imread(imagenesSecundarias{i,3}, 'png');
+        % [pathstr,name,ext1] = fileparts(imagenesSecundarias{i,1});
+        % [pathstr,name,ext2] = fileparts(imagenesSecundarias{i,2});
+        % [pathstr,name,ext3] = fileparts(imagenesSecundarias{i,3});
+        % imsec1=imread(imagenesSecundarias{i,1}, ext1(2:end);
+        % imsec2=imread(imagenesSecundarias{i,2}, ext2(2:end));
+        % imsec3=imread(imagenesSecundarias{i,3}, ext3(2:end));
         imsec1=imread('Matafuegos.png', 'png');
         imsec2=imread('Matafuegos.png', 'png');
         imsec3=imread('Matafuegos.png', 'png');
