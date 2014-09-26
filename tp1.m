@@ -282,12 +282,6 @@ end
 % TODO: Exportar los datos a donde?
 data
 
-M = size(img,1);
-N = size(img,2);
-map = reshape(img, [M*N 3]);
-map = brighten(map, 1);
-img = reshape(map, [M N 3]);
-
 %Sabri: Esto lo dejo por las dudas
 %Screen('Preference','SkipSyncTests', skipTestFlagOld);
 %Screen('Preference','SuppressAllWarnings', suppressAllWarningsFlagOld);
