@@ -1,21 +1,26 @@
-screenNum =0;
-res =[1281 800];
-teclaApretada = [];
-apariciones = [];
-clrdepth=32;
-Screen('Preference', 'SkipSyncTests', 1)
+% Inicializacion de pantalla
+res = [1281 800];
+screenNum = 0;
+clrdepth = 32;
+Screen('Preference', 'SkipSyncTests', 1);
 [win,rect]=Screen('OpenWindow',screenNum,0,[0 0 res(1) res(2)], clrdepth);
-black=BlackIndex(win);
-white=WhiteIndex (win) ;
-Screen('FillRect',win,black);
-refresh = Screen('GetFlipInterval',win);
-vbl = Screen('Flip', win);
+
+% Variables varias
+width = res(1);
+height = res(2);
 
 wait_pl1 = 1;  % Tiempo que dura la primer pantalla para limpiar retina
 wait_is = 2;   % Tiempo que se muestra la imagen subliminal
 wait_pl2 = 2;  % Tiempo que dura la segunda pantalla para limpiar retina
 
 imgsec_space = 20; % Tamanio en pixels para los espacios entre las imagenes secundarias
+
+% Definimos colores y hacemos el primer flip
+black = BlackIndex(win);
+white = WhiteIndex (win) ;
+Screen('FillRect',win,black);
+refresh = Screen('GetFlipInterval',win);
+vbl = Screen('Flip', win);
 
 % ------------------------------------------ %
 % ------------ Carga de imagenes ----------- %
