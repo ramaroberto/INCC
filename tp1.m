@@ -68,6 +68,7 @@ try
         % Mostrar imagen
         % TODO: Falta resize de imagen dependiendo de resolucion.
         % TODO: Descomentar cuando este listo el resize
+        % TODO: Autodetectar extension?
         % imsub=imread(imagenesSubliminales{i}, 'png');
         imsub=imread('Equipo.jpg', 'jpg');
         Screen('PutImage', win, imsub);
@@ -86,6 +87,7 @@ try
         % Cargamos las imagenes
         % TODO: Falta resize de imagen dependiendo de resolucion.
         % TODO: Descomentar cuando este listo el resize
+        % TODO: Autodetectar extension?
         % imsec1=imread(imagenesSecundarias{i,1}, 'png');
         % imsec2=imread(imagenesSecundarias{i,2}, 'png');
         % imsec3=imread(imagenesSecundarias{i,3}, 'png');
