@@ -22,7 +22,7 @@ imgsec_space = 20; % Tamanio en pixels para los espacios entre las imagenes secu
 % ------------------------------------------ %
 
 % Recorremos el directorio imgs y armamos los vectores
-[imagenesSubliminales, imagenesSecundarias] = getImgsPaths('imgs');
+[imagenesSubliminales, imagenesSecundarias, etiquetas] = getImgsPaths('imgs');
 
 % Sacamos exactamente n/4 pares de numeros sin reposicion.
 pairs = datasample(1:size(imagenesSubliminales, 1), floor(size(imagenesSubliminales, 1)/4)*2, 'Replace', false);
@@ -57,13 +57,18 @@ try
 
     % Esperamos hasta que el usuario presione una tecla
     KbWait;
-
+    
+    % TODO: Descomentar cuando terminemos de testear 
+    % for i = 1:size(imagenesSubliminales,1)
     for i=1:1
         % ------------------------------------------ %
         % ----------- Imagen subliminal ------------ %
         % ------------------------------------------ %
 
         % Mostrar imagen
+        % TODO: Falta resize de imagen dependiendo de resolucion.
+        % TODO: Descomentar cuando este listo el resize
+        % imsub=imread(imagenesSubliminales{i}, 'png');
         imsub=imread('Equipo.jpg', 'jpg');
         Screen('PutImage', win, imsub);
         Screen('Flip', win);
@@ -79,10 +84,14 @@ try
         % ------------------------------------------ %
 
         % Cargamos las imagenes
+        % TODO: Falta resize de imagen dependiendo de resolucion.
+        % TODO: Descomentar cuando este listo el resize
+        % imsec1=imread(imagenesSecundarias{i,1}, 'png');
+        % imsec2=imread(imagenesSecundarias{i,2}, 'png');
+        % imsec3=imread(imagenesSecundarias{i,3}, 'png');
         imsec1=imread('Matafuegos.png', 'png');
         imsec2=imread('Matafuegos.png', 'png');
         imsec3=imread('Matafuegos.png', 'png');
-        % TODO: Resizear imagenes segun el maximo de resolucion.
 
         % Obtenemos el alto mas grande de las tres imagenes
         max_height=max([size(imsec1,1); size(imsec2,1); size(imsec3,1)]);
