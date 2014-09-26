@@ -97,17 +97,14 @@ try
     ord = 1:size(imagenesSubliminales,1);
     ord = ord(randperm(length(ord)));
     
+    
+    i = 0;
     % TODO: Descomentar cuando terminemos de testear 
     % for i = 1:size(imagenesSubliminales,1)
-    i = 0;
     for j=1:3
         
         % Usamos como indice el orden aleatorio
         i = ord(j);
-        
-        % Obtenemos etiqueta y flag
-        label = etiquetas{i};
-        is_fruit = fruit{i};
         
         % ------------------------------------------ %
         % ----------- Imagen subliminal ------------ %
@@ -215,10 +212,10 @@ try
 
             % Dibujamos los caracteres ingresados hasta el momento
             textYPosition=startingYPosition;
-            for i=1:lineBufferIndex
-                Screen('DrawText', win, lineBuffer{i}, 100, textYPosition);
+            for z=1:lineBufferIndex
+                Screen('DrawText', win, lineBuffer{z}, 100, textYPosition);
                 if  textHeight==0
-                    textRect= Screen('TextBounds', win, lineBuffer{i});
+                    textRect= Screen('TextBounds', win, lineBuffer{z});
                     textHeight= RectHeight(textRect);
                 end
                 textYPosition= floor(textYPosition + textHeight + 0.2 * textHeight);
@@ -233,7 +230,7 @@ try
         % ------- Guardamos datos obtenidos -------- %
         % ------------------------------------------ %
         
-        data = [data; {label is_fruit time charBuffer}];
+        data = [data; [i {etiquetas{i} fruit{i} time charBuffer}]];
 
         % ------------------------------------------ %
         % --------- Siguiente experimento ---------- %
@@ -269,6 +266,18 @@ ShowCursor;
 % ------------- Exportar datos ------------- %
 % ------------------------------------------ %
 
+% Te odio matlab... ordenamos los datos por el identificador.
+for i=1:size(data,1)
+    for j=(i+1):size(data,1)
+        if data{j,1} < data{i,1}
+            aux = data(i, 1:end);
+            data(i, 1:end) = data(j, 1:end);
+            data(j, 1:end) = aux;
+        end
+    end
+end
+
+% Exportamos
 data
 
 %Sabri: Esto lo dejo por las dudas
