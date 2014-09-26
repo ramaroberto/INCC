@@ -5,7 +5,7 @@ clrdepth = 32;
 Screen('Preference', 'SkipSyncTests', 1);
 [win,rect]=Screen('OpenWindow',screenNum,0,[0 0 res(1) res(2)], clrdepth);
 
-% Variables varias
+% Variables de configuracion
 width = res(1);
 height = res(2);
 
@@ -13,7 +13,17 @@ wait_pl1 = 1;  % Tiempo que dura la primer pantalla para limpiar retina
 wait_is = 2;   % Tiempo que se muestra la imagen subliminal
 wait_pl2 = 2;  % Tiempo que dura la segunda pantalla para limpiar retina
 
-imgsec_space = 20; % Tamanio en pixels para los espacios entre las imagenes secundarias
+% Tamanio en pixels para los espacios horizontales entre las imagenes secundarias
+imgsec_space = 100;
+
+% Maximo tamanio para la imagen subliminal
+sub_bounds = res*(1/2);
+
+% Maximo tamanio para imagenes secundarias (sin concatenar)
+sec_bounds = [res(1) (res(2)*(1/2))];
+
+% Maximo tamanio para imagenes secundarias concatenadas
+conc_sec_bounds = res*(9/10);
 
 % Definimos colores y hacemos el primer flip
 black = BlackIndex(win);
@@ -65,17 +75,14 @@ try
     
     % TODO: Descomentar cuando terminemos de testear 
     % for i = 1:size(imagenesSubliminales,1)
-    for i=1:1
+    for i=1:3
         % ------------------------------------------ %
         % ----------- Imagen subliminal ------------ %
         % ------------------------------------------ %
 
         % Mostrar imagen
-        % TODO: Falta resize de imagen dependiendo de resolucion.
-        % TODO: Descomentar cuando este listo el resize
-        % [pathstr,name,ext] = fileparts(imagenesSubliminales{i});
-        % imsub=imread(imagenesSubliminales{i}, ext(2:end));
-        imsub=imread('Equipo.jpg', 'jpg');
+        imsub = imgLoadAndResize(imagenesSubliminales{i}, sub_bounds);
+        
         Screen('PutImage', win, imsub);
         Screen('Flip', win);
 
@@ -90,17 +97,9 @@ try
         % ------------------------------------------ %
 
         % Cargamos las imagenes
-        % TODO: Falta resize de imagen dependiendo de resolucion.
-        % TODO: Descomentar cuando este listo el resize
-        % [pathstr,name,ext1] = fileparts(imagenesSecundarias{i,1});
-        % [pathstr,name,ext2] = fileparts(imagenesSecundarias{i,2});
-        % [pathstr,name,ext3] = fileparts(imagenesSecundarias{i,3});
-        % imsec1=imread(imagenesSecundarias{i,1}, ext1(2:end);
-        % imsec2=imread(imagenesSecundarias{i,2}, ext2(2:end));
-        % imsec3=imread(imagenesSecundarias{i,3}, ext3(2:end));
-        imsec1=imread('Matafuegos.png', 'png');
-        imsec2=imread('Matafuegos.png', 'png');
-        imsec3=imread('Matafuegos.png', 'png');
+        imsec1 = imgLoadAndResize(imagenesSecundarias{i,1}, sec_bounds);
+        imsec2 = imgLoadAndResize(imagenesSecundarias{i,2}, sec_bounds);
+        imsec3 = imgLoadAndResize(imagenesSecundarias{i,3}, sec_bounds);
 
         % Obtenemos el alto mas grande de las tres imagenes
         max_height=max([size(imsec1,1); size(imsec2,1); size(imsec3,1)]);
@@ -122,8 +121,7 @@ try
 
         % Las pegamos
         space=ones(max_height,imgsec_space,3)*255;
-        imsecs=[imsec1 space imsec2 space imsec3];
-        size(imsecs)
+        imsecs=imgLoadAndResize('', conc_sec_bounds, [imsec1 space imsec2 space imsec3]);
 
         % Ponemos en pantalla y mostramos
         Screen('PutImage', win, imsecs);
