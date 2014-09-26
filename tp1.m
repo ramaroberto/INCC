@@ -44,6 +44,10 @@ Screen('FillRect',win,black);
 refresh = Screen('GetFlipInterval',win);
 vbl = Screen('Flip', win);
 
+% TODO: Falta la calibracion de cuantos frames tira la pantalla de ruido
+% blanco por segundo en la maquina que se ejecuta de forma tal de saber la
+% equivalencia de los frames para su duracion.
+
 % ------------------------------------------ %
 % ------------ Carga de imagenes ----------- %
 % ------------------------------------------ %
