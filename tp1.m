@@ -1,17 +1,18 @@
-% Inicializacion de pantalla
+% ------------------------------------------ %
+% -------------- Configuracion ------------- %
+% ------------------------------------------ %
+
+% Configuracion de pantalla
 res = [1281 800];
 screenNum = 0;
 clrdepth = 32;
-Screen('Preference', 'SkipSyncTests', 1);
-[win,rect]=Screen('OpenWindow',screenNum,0,[0 0 res(1) res(2)], clrdepth);
-
-% Variables de configuracion
-width = res(1);
-height = res(2);
 
 wait_pl1 = 1;  % Tiempo que dura la primer pantalla para limpiar retina
 wait_is = 2;   % Tiempo que se muestra la imagen subliminal
 wait_pl2 = 2;  % Tiempo que dura la segunda pantalla para limpiar retina
+
+% Cantidad de brillo agregado a la imagen subliminal
+qlight = 1;
 
 % Tamanio en pixels para los espacios horizontales entre las imagenes secundarias
 imgsec_space = 100;
@@ -24,6 +25,16 @@ sec_bounds = [res(1) (res(2)*(1/2))];
 
 % Maximo tamanio para imagenes secundarias concatenadas
 conc_sec_bounds = res*(9/10);
+
+% ------------------------------------------ %
+% ------------- Inicializacion ------------- %
+% ------------------------------------------ %
+
+% Inicializacion de pantalla
+width = res(1);
+height = res(2);
+Screen('Preference', 'SkipSyncTests', 1);
+[win,rect]=Screen('OpenWindow',screenNum,0,[0 0 res(1) res(2)], clrdepth);
 
 % Definimos colores y hacemos el primer flip
 black = BlackIndex(win);
@@ -41,6 +52,10 @@ vbl = Screen('Flip', win);
 
 % Sacamos exactamente n/4 pares de numeros sin reposicion.
 pairs = datasample(1:size(imagenesSubliminales, 1), floor(size(imagenesSubliminales, 1)/4)*2, 'Replace', false);
+
+% Preparamos un vector vertical de bools para saber cuales cambiamos
+fruit = cell(size(imagenesSubliminales, 1), 1);
+[fruit{:}] = deal(0);
  
 % Intercambiamos los valores entre pares, de forma tal de generar frula.
 base = floor(size(pairs,2)/2);
@@ -48,6 +63,8 @@ for i = 1:base
     aux = imagenesSubliminales{pairs(i)};
     imagenesSubliminales{pairs(i)} = imagenesSubliminales{pairs(base+i)};
     imagenesSubliminales{pairs(base+i)} = aux;
+    fruit{pairs(i)} = 1;
+    fruit{pairs(base+i)} = 1;
 end
 
 % El try-catch-end es para evitar que quede colgado en caso de excepcion.
@@ -73,16 +90,31 @@ try
     % Esperamos hasta que el usuario presione una tecla
     KbWait;
     
+    % Preparamos el arreglo donde guardamos los datos
+    data = [];
+    
+    % Desordenamos el orden de las imagenes
+    ord = 1:size(imagenesSubliminales,1);
+    ord = ord(randperm(length(ord)));
+    
     % TODO: Descomentar cuando terminemos de testear 
     % for i = 1:size(imagenesSubliminales,1)
-    for i=1:3
+    i = 0;
+    for j=1:3
+        
+        % Usamos como indice el orden aleatorio
+        i = ord(j);
+        
+        % Obtenemos etiqueta y flag
+        label = etiquetas{i};
+        is_fruit = fruit{i};
+        
         % ------------------------------------------ %
         % ----------- Imagen subliminal ------------ %
         % ------------------------------------------ %
 
-        % Mostrar imagen
+        % Cargamos, aclaramos y mostramos la imagen
         imsub = imgLoadAndResize(imagenesSubliminales{i}, sub_bounds);
-        
         Screen('PutImage', win, imsub);
         Screen('Flip', win);
 
@@ -131,11 +163,14 @@ try
         Screen('Flip', win);
 
         % Esperamos hasta que el usuario toque una tecla
+        tic;
         pressed = 0;
         while pressed == 0
             [pressed, secs, kbData] = KbCheck;
         end;
-        %TODO: Deberiamos registrar el tiempo en esta seccion
+        
+        % Guardamos el tiempo que tardo en hacerlo
+        time = toc;
 
         % ------------------------------------------ %
         % ---------- Escribir la palabra ----------- %
@@ -193,6 +228,12 @@ try
             end
             Screen('Flip',  win);
         end
+        
+        % ------------------------------------------ %
+        % ------- Guardamos datos obtenidos -------- %
+        % ------------------------------------------ %
+        
+        data = [data; {label is_fruit time charBuffer}];
 
         % ------------------------------------------ %
         % --------- Siguiente experimento ---------- %
@@ -214,11 +255,21 @@ try
     end;
 
 % El try-catch-end es para evitar que quede colgado en caso de excepcion.
-catch
+catch e
+    e
+    e.stack.file
+    e.stack.name
+    e.stack.line
 end
 
 Screen('CloseAll');
 ShowCursor;
+
+% ------------------------------------------ %
+% ------------- Exportar datos ------------- %
+% ------------------------------------------ %
+
+data
 
 %Sabri: Esto lo dejo por las dudas
 %Screen('Preference','SkipSyncTests', skipTestFlagOld);
