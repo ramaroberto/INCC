@@ -7,9 +7,9 @@ res = [1281 800];
 screenNum = 0;
 clrdepth = 32;
 
-wait_pl1 = 1;  % Tiempo que dura la primer pantalla para limpiar retina
+wait_pl1 = 0.5;  % Tiempo que dura la primer pantalla para limpiar retina
 wait_is = 2;   % Tiempo que se muestra la imagen subliminal
-wait_pl2 = 2;  % Tiempo que dura la segunda pantalla para limpiar retina
+wait_pl2 = 0.5;  % Tiempo que dura la segunda pantalla para limpiar retina
 
 % Cantidad de brillo agregado a la imagen subliminal
 % Con 0 <= bright_intensity < 1. 0 = imagen normal, 0.99 = imagen blanca. 
@@ -44,9 +44,8 @@ Screen('FillRect',win,black);
 refresh = Screen('GetFlipInterval',win);
 vbl = Screen('Flip', win);
 
-% TODO: Falta la calibracion de cuantos frames tira la pantalla de ruido
-% blanco por segundo en la maquina que se ejecuta de forma tal de saber la
-% equivalencia de los frames para su duracion.
+% Calibracion de los FPS para la pantalla de ruido blanco
+updaterate = whiteNoiseScreen(win, rect, 50, max(res));
 
 % ------------------------------------------ %
 % ------------ Carga de imagenes ----------- %
@@ -119,12 +118,15 @@ try
         imsub = imadjust(imsub,[0 1-bright_intensity],[bright_intensity 1]);
         Screen('PutImage', win, imsub);
         Screen('Flip', win);
+        
+        % Mostrar ruido para limpiar la retina
+        % whiteNoiseScreen(win, rect, wait_pl1*updaterate, max(res));
 
         % La mostramos por wait_is segundos
         WaitSecs(wait_is);
 
         % Mostrar ruido para limpiar la retina
-        whiteNoiseScreen(win, rect, 5, 1281);
+        whiteNoiseScreen(win, rect, wait_pl2*updaterate, max(res));
 
         % ------------------------------------------ %
         % ---------- Imagenes secundarias ---------- %
