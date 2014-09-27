@@ -1,4 +1,6 @@
-function [] = whiteNoiseScreen(win, winRect, nframes, rectSize, numRects, scale, syncToVBL, dontclear)
+function [updaterate] = whiteNoiseScreen(win, winRect, nframes, rectSize, numRects, scale, syncToVBL, dontclear)
+
+updaterate = 0;
 
 if nargin < 2
     error('win and winRect parameters are mandatory.');
