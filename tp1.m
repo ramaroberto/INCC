@@ -6,14 +6,14 @@ function [data] = tp1(output_filename)
     
     % Si no nos pasaron el nombre de archivo de salida, salimos.
     if nargin < 1
-        error('Please specify an output non-existent filename.');
+        error('Especificar nombre de archivo de salida.');
     end
     
     % Si el archivo de salida ya existe, salimos.
     % Esto es para no pisar datos en caso de descuido.
-    output_path = strcat('.\data\', output_filename, '.csv');
+    output_path = strcat('./data/', output_filename, '.csv');
     if exist(output_path, 'file')
-        error(strcat('File "',output_path,'" already exists. Choose another name.'))
+        error(strcat('File "',output_path,'" ya existe. Elegir otro nombre.'))
     end
     
     % ------------------------------------------ %
@@ -21,12 +21,12 @@ function [data] = tp1(output_filename)
     % ------------------------------------------ %
 
     % Configuracion de pantalla
-    res = [1281 800];
+    res = [1921 1080];
     screenNum = 0;
     clrdepth = 32;
 
     wait_pl1 = 0.5;  % Tiempo que dura la primer pantalla para limpiar retina
-    wait_is = 2;   % Tiempo que se muestra la imagen subliminal
+    wait_is = 0.0003;   % Tiempo que se muestra la imagen subliminal
     wait_pl2 = 0.5;  % Tiempo que dura la segunda pantalla para limpiar retina
 
     % Cantidad de brillo agregado a la imagen subliminal
@@ -44,6 +44,10 @@ function [data] = tp1(output_filename)
 
     % Maximo tamanio para imagenes secundarias concatenadas
     conc_sec_bounds = res*(9/10);
+    
+    % Offset izquierdo de texto en px
+    text_offset = 300;
+    text_offset_y = 100;
 
     % ------------------------------------------ %
     % ------------- Inicializacion ------------- %
@@ -100,13 +104,14 @@ function [data] = tp1(output_filename)
         Screen('TextStyle', win, 1);
         Screen('TextSize',win, 30);
         Screen('TextFont',win, 'Helvetica');
+        Screen('Preference', 'TextAlphaBlending', 0);
 
-        Screen('DrawText', win, 'A continuacion apareceran grupos de 3 imagenes.', 280, 250, [0 1 1], [0, 0, 255, 255]);
-        Screen('DrawText', win, 'La tarea consiste en escribir una palabra que se relacione con ellas.', 130, 350, [0 1 1], [0, 0, 255, 255]);
-        Screen('DrawText', win, 'Debera oprimir la barra espaciadora recien cuando este listo para escribir la palabra.', 30, 450, [0 1 1], [0, 0, 255, 255]);
+        Screen('DrawText', win, 'A continuacion apareceran grupos de 3 imagenes.', text_offset+280, 250);
+        Screen('DrawText', win, 'La tarea consiste en escribir una palabra que se relacione con ellas.', text_offset+130, 350);
+        Screen('DrawText', win, 'Debera oprimir la barra espaciadora recien cuando este listo para escribir la palabra.', text_offset+30, 450);
 
         Screen('TextSize',win, 50);
-        Screen('DrawText', win, 'Presione una tecla para continuar...', 220, 650, [0 1 1], [0, 0, 255, 255]);
+        Screen('DrawText', win, 'Presione una tecla para continuar...', text_offset+220, 650);
         Screen('Flip', win);
 
         % Esperamos hasta que el usuario presione una tecla
@@ -120,8 +125,8 @@ function [data] = tp1(output_filename)
         ord = ord(randperm(length(ord)));
 
         i = 0;
-        for j = 1:size(imagenesSubliminales,1)
-        % for j=1:3 %Descomentar y comentar la linea superior para testing
+        %for j = 1:size(imagenesSubliminales,1)
+        for j = 1:2
 
             % Usamos como indice el orden aleatorio
             i = ord(j);
@@ -130,14 +135,21 @@ function [data] = tp1(output_filename)
             % ----------- Imagen subliminal ------------ %
             % ------------------------------------------ %
 
+            % Mostrar ruido para limpiar la retina
+            whiteNoiseScreen(win, rect, wait_pl1*updaterate, max(res));
+            
             % Cargamos, aclaramos y mostramos la imagen
+            Screen('FillRect', win, white);
+            Screen('Flip', win);
+            
             imsub = imgLoadAndResize(imagenesSubliminales{i}, sub_bounds);
             imsub = imadjust(imsub,[0 1-bright_intensity],[bright_intensity 1]);
+            
             Screen('PutImage', win, imsub);
             Screen('Flip', win);
-
-            % Mostrar ruido para limpiar la retina
-            % whiteNoiseScreen(win, rect, wait_pl1*updaterate, max(res));
+            
+            Screen('FillRect', win, white);
+            Screen('Flip', win);
 
             % La mostramos por wait_is segundos
             WaitSecs(wait_is);
@@ -179,8 +191,8 @@ function [data] = tp1(output_filename)
             % Ponemos en pantalla y mostramos
             Screen('PutImage', win, imsecs);
             Screen('TextSize',win, 20);
-            Screen('DrawText', win, 'Presione la barra de espacio cuando este listo para escribir la palabra...', 300, 700, [0 1 1], [0, 0, 255, 255]);
-            Screen('DrawText', win, 'y comience a escribir', 500, 750, [0 1 1], [0, 0, 255, 255]);
+            %Screen('DrawText', win, 'Presione la barra de espacio cuando este listo para escribir la palabra...', text_offset+300, text_offset_y+700);
+            %Screen('DrawText', win, 'y comience a escribir', text_offset+500, text_offset_y+750);
             Screen('Flip', win);
 
             % Esperamos hasta que el usuario toque una tecla
@@ -199,7 +211,7 @@ function [data] = tp1(output_filename)
 
             % Mensaje de continuacion
             Screen('FillRect', win, white);
-            Screen('DrawText', win, 'Ingresar una unica palabra. Apriete la barra espaciadora cuando haya terminado.', 100, 150);
+            Screen('DrawText', win, 'Ingresar una unica palabra. Apriete la barra espaciadora cuando haya terminado.', text_offset+100, text_offset_y+150);
             Screen('TextSize', win, 20);
             Screen('Flip', win);
 
@@ -231,7 +243,7 @@ function [data] = tp1(output_filename)
 
                 % Instrucciones
                 Screen('FillRect', win, white);
-                Screen('DrawText', win, 'Ingresar una unica palabra. Apriete la barra espaciadora cuando haya terminado.', 100, 150);
+                Screen('DrawText', win, 'Ingresar una unica palabra. Apriete la barra espaciadora cuando haya terminado.', text_offset+100, 150);
                 Screen('TextSize', win, 20);
 
                 % Dibujamos los caracteres ingresados hasta el momento
@@ -264,8 +276,8 @@ function [data] = tp1(output_filename)
             FlushEvents('keyDown');
             Screen('FillRect', win, white);
             Screen('TextSize', win, 20);
-            Screen('DrawText', win, 'Aguardar al proximo test.', 100, 250);
-            Screen('DrawText', win, 'Presionar una tecla cuando este listo.', 100, 350);
+            Screen('DrawText', win, 'Aguardar al proximo test.', text_offset+100, 250);
+            Screen('DrawText', win, 'Presionar una tecla cuando este listo.', text_offset+100, 350);
             Screen('Flip', win);
 
             % Esperamos que presione alguna tecla
@@ -274,6 +286,27 @@ function [data] = tp1(output_filename)
             WaitSecs(0.005);
 
         end;
+        
+        Screen('CloseAll');
+        ShowCursor;
+
+        % ------------------------------------------ %
+        % ------------- Exportar datos ------------- %
+        % ------------------------------------------ %
+
+        % Te odio matlab... ordenamos los datos por el identificador.
+        for i=1:size(data,1)
+            for j=(i+1):size(data,1)
+                if data{j,1} < data{i,1}
+                    aux = data(i, 1:end);
+                    data(i, 1:end) = data(j, 1:end);
+                    data(j, 1:end) = aux;
+                end
+            end
+        end
+
+        % Exportamos los datos al archivo
+        cell2csv(output_path, data);
 
     % El try-catch-end es para evitar que quede colgado en caso de excepcion.
     catch e
@@ -281,28 +314,12 @@ function [data] = tp1(output_filename)
         e.stack.file
         e.stack.name
         e.stack.line
+        
+        Screen('CloseAll');
+        ShowCursor;
     end
 
-    Screen('CloseAll');
-    ShowCursor;
-
-    % ------------------------------------------ %
-    % ------------- Exportar datos ------------- %
-    % ------------------------------------------ %
-
-    % Te odio matlab... ordenamos los datos por el identificador.
-    for i=1:size(data,1)
-        for j=(i+1):size(data,1)
-            if data{j,1} < data{i,1}
-                aux = data(i, 1:end);
-                data(i, 1:end) = data(j, 1:end);
-                data(j, 1:end) = aux;
-            end
-        end
-    end
-
-    % Exportamos los datos al archivo
-    cell2csv(output_path, data);
+    
 
 %Sabri: Esto lo dejo por las dudas
 %Screen('Preference','SkipSyncTests', skipTestFlagOld);
