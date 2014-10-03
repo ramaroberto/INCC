@@ -21,7 +21,7 @@ function [data] = tp1(output_filename)
     % ------------------------------------------ %
 
     % Configuracion de pantalla
-    res = [1921 1080];
+    res = [1361 768];
     screenNum = 0;
     clrdepth = 32;
 
@@ -106,7 +106,7 @@ function [data] = tp1(output_filename)
         Screen('TextFont',win, 'Helvetica');
         Screen('Preference', 'TextAlphaBlending', 0);
 
-        Screen('DrawText', win, 'A continuacion apareceran grupos de 3 imagenes.', text_offset+280, 250);
+        Screen('DrawText', win, 'A continuación apareceran grupos de 3 imagenes.', text_offset+280, 250);
         Screen('DrawText', win, 'La tarea consiste en escribir una palabra que se relacione con ellas.', text_offset+130, 350);
         Screen('DrawText', win, 'Debera oprimir la barra espaciadora recien cuando este listo para escribir la palabra.', text_offset+30, 450);
 
@@ -126,7 +126,7 @@ function [data] = tp1(output_filename)
 
         i = 0;
         %for j = 1:size(imagenesSubliminales,1)
-        for j = 1:2
+        for j = 1:10
 
             % Usamos como indice el orden aleatorio
             i = ord(j);
@@ -209,12 +209,14 @@ function [data] = tp1(output_filename)
             % ---------- Escribir la palabra ----------- %
             % ------------------------------------------ %
 
+
             % Mensaje de continuacion
             Screen('FillRect', win, white);
-            Screen('DrawText', win, 'Ingresar una unica palabra. Apriete la barra espaciadora cuando haya terminado.', text_offset+100, text_offset_y+150);
+            Screen('DrawText', win, 'Ingresar una unica palabra. Aprete la barra espaciadora cuando haya terminado.', text_offset+100, text_offset_y+150);
             Screen('TextSize', win, 20);
             Screen('Flip', win);
-
+            tic;
+            
             % Habilitamos la escritura
             FlushEvents('keyDown');
             charBuffer='';
@@ -228,19 +230,29 @@ function [data] = tp1(output_filename)
             Screen('TextSize', win, 20);
             charsPerLine=100;
             totalLines=5;
+            i = 1;
             while ~stopLoop
                 % Obtenemos el caracter
                 c=GetChar;
+                %Espero a que toque una tecla
+                pressed = 0;
+                while pressed == 0
+                  [pressed, secs, kbData] = KbCheck;
+                end;
+                 % Guardamos el tiempo que tardo en hacerlo
+                timePrimerLetra(i) = toc;
+                i = i+1;
                 totalChars=totalChars+1;
 
                 % Si apreto la barra espaciadora, terminamos.
-                if streq(upper(c), ' ') || lineBufferIndex > totalLines
+                %if streq(upper(c), ' ') || lineBufferIndex > totalLines
+                if streq(c, KbName('return')) || streq(upper(c), ' ') || lineBufferIndex > totalLines
                     break;
                 end
 
                 % Guardamos el caracter
                 charBuffer = [charBuffer c];
-
+        
                 % Instrucciones
                 Screen('FillRect', win, white);
                 Screen('DrawText', win, 'Ingresar una unica palabra. Apriete la barra espaciadora cuando haya terminado.', text_offset+100, 150);
@@ -266,7 +278,7 @@ function [data] = tp1(output_filename)
             % ------- Guardamos datos obtenidos -------- %
             % ------------------------------------------ %
 
-            data = [data; [i {etiquetas{i} fruit{i} time charBuffer}]];
+            data = [data; [i {etiquetas{i} fruit{i} time timePrimerLetra(1) charBuffer}]];
 
             % ------------------------------------------ %
             % --------- Siguiente experimento ---------- %
