@@ -48,6 +48,9 @@ function [data] = tp1(output_filename)
     % Offset izquierdo de texto en px
     text_offset = 300;
     text_offset_y = 100;
+    
+    % Caracteres validos
+    valid_keys = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z'];
 
     % ------------------------------------------ %
     % ------------- Inicializacion ------------- %
@@ -230,24 +233,26 @@ function [data] = tp1(output_filename)
             Screen('TextSize', win, 20);
             charsPerLine=100;
             totalLines=5;
-            i = 1;
+            time_first_letter = -1;
             while ~stopLoop
                 % Obtenemos el caracter
                 c=GetChar;
-                %Espero a que toque una tecla
-                pressed = 0;
-                while pressed == 0
-                  [pressed, secs, kbData] = KbCheck;
-                end;
-                 % Guardamos el tiempo que tardo en hacerlo
-                timePrimerLetra(i) = toc;
-                i = i+1;
-                totalChars=totalChars+1;
-
+                
+                % Guardamos el tiempo que tardo en apretar la primera letra
+                if time_first_letter == -1
+                    time_first_letter = toc;
+                end
+                
                 % Si apreto la barra espaciadora, terminamos.
-                %if streq(upper(c), ' ') || lineBufferIndex > totalLines
-                if streq(c, KbName('return')) || streq(upper(c), ' ') || lineBufferIndex > totalLines
+                if streq(upper(c), ' ')
                     break;
+                end
+                
+                % Si no es un caracter valido lo dejamos como vacio.
+                if ismember(c, valid_keys)
+                    totalChars = totalChars+1;
+                else
+                    c = '';
                 end
 
                 % Guardamos el caracter
@@ -255,7 +260,7 @@ function [data] = tp1(output_filename)
         
                 % Instrucciones
                 Screen('FillRect', win, white);
-                Screen('DrawText', win, 'Ingresar una unica palabra. Apriete la barra espaciadora cuando haya terminado.', text_offset+100, 150);
+                Screen('DrawText', win, 'Ingresar una unica palabra. Apriete la barra espaciadora cuando haya terminado.', text_offset+100, text_offset_y+150);
                 Screen('TextSize', win, 20);
 
                 % Dibujamos los caracteres ingresados hasta el momento
@@ -278,7 +283,7 @@ function [data] = tp1(output_filename)
             % ------- Guardamos datos obtenidos -------- %
             % ------------------------------------------ %
 
-            data = [data; [i {etiquetas{i} fruit{i} time timePrimerLetra(1) charBuffer}]];
+            data = [data; [i {etiquetas{i} fruit{i} time time_first_letter charBuffer}]];
 
             % ------------------------------------------ %
             % --------- Siguiente experimento ---------- %
