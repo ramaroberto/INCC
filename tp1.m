@@ -136,8 +136,8 @@ function [data] = tp1(output_filename)
         ord = [1 ord];
 
         i = 0;
-        %for j = 1:size(ord,2)
-        for j = 1:10
+        for j = 1:size(ord,2)
+        %for j = 1:10
 
             % Usamos como indice el orden aleatorio
             i = ord(j);
