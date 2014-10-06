@@ -21,7 +21,7 @@ function [data] = tp1(output_filename)
     % ------------------------------------------ %
 
     % Configuracion de pantalla
-    res = [1361 768];
+    res = [1921 1080];
     screenNum = 0;
     clrdepth = 32;
 
@@ -50,7 +50,7 @@ function [data] = tp1(output_filename)
     text_offset_y = 100;
     
     % Caracteres validos
-    valid_keys = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','�','o','p','q','r','s','t','u','v','w','x','y','z'];
+    valid_keys = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','�','o','p','q','r','s','t','u','v','w','x','y','z'];
 
     % ------------------------------------------ %
     % ------------- Inicializacion ------------- %
@@ -109,9 +109,9 @@ function [data] = tp1(output_filename)
         Screen('TextFont',win, 'Helvetica');
         Screen('Preference', 'TextAlphaBlending', 0);
 
-        Screen('DrawText', win, 'A continuación apareceran grupos de 3 imagenes.', text_offset+280, 250);
+        Screen('DrawText', win, 'A continuación aparecerán grupos de 3 imágenes.', text_offset+280, 250);
         Screen('DrawText', win, 'La tarea consiste en escribir una palabra que se relacione con ellas.', text_offset+130, 350);
-        Screen('DrawText', win, 'Debera oprimir la barra espaciadora recien cuando este listo para escribir la palabra.', text_offset+30, 450);
+        Screen('DrawText', win, 'Deberá oprimir la barra espaciadora recién cuando esté listo para escribir la palabra.', text_offset+30, 450);
 
         Screen('TextSize',win, 50);
         Screen('DrawText', win, 'Presione una tecla para continuar...', text_offset+220, 650);
@@ -126,9 +126,17 @@ function [data] = tp1(output_filename)
         % Desordenamos el orden de las imagenes
         ord = 1:size(imagenesSubliminales,1);
         ord = ord(randperm(length(ord)));
+        
+        % Agregamos imagen de ejemplo adelante
+        imagenesSubliminales = ['imgs_exmp/Desierto/s.jpg'; imagenesSubliminales];
+        imagenesSecundarias = [{'imgs_exmp/Desierto/1- Cactus.jpg' 'imgs_exmp/Desierto/1 -camello_piola.jpg' 'imgs_exmp/Desierto/1- Escorpion.jpg'}; imagenesSecundarias];
+        fruit = [0; fruit];
+        etiquetas = ['Test'; etiquetas];
+        ord = ord + 1;
+        ord = [1 ord];
 
         i = 0;
-        %for j = 1:size(imagenesSubliminales,1)
+        %for j = 1:size(ord,2)
         for j = 1:10
 
             % Usamos como indice el orden aleatorio
@@ -215,7 +223,7 @@ function [data] = tp1(output_filename)
 
             % Mensaje de continuacion
             Screen('FillRect', win, white);
-            Screen('DrawText', win, 'Ingresar una unica palabra. Aprete la barra espaciadora cuando haya terminado.', text_offset+100, text_offset_y+150);
+            Screen('DrawText', win, 'Ingresar una única palabra. Apriete la barra espaciadora cuando haya terminado.', text_offset+100, text_offset_y+150);
             Screen('TextSize', win, 20);
             Screen('Flip', win);
             tic;
@@ -227,7 +235,7 @@ function [data] = tp1(output_filename)
             lineBuffer={};
             totalChars=0;
             lineBufferIndex=0;
-            startingYPosition=200;
+            startingYPosition=text_offset_y+200;
             textHeight=0;
             textYPosition=startingYPosition;
             Screen('TextSize', win, 20);
@@ -260,7 +268,7 @@ function [data] = tp1(output_filename)
         
                 % Instrucciones
                 Screen('FillRect', win, white);
-                Screen('DrawText', win, 'Ingresar una unica palabra. Apriete la barra espaciadora cuando haya terminado.', text_offset+100, text_offset_y+150);
+                Screen('DrawText', win, 'Ingresar una única palabra. Apriete la barra espaciadora cuando haya terminado.', text_offset+100, text_offset_y+150);
                 Screen('TextSize', win, 20);
 
                 % Dibujamos los caracteres ingresados hasta el momento
@@ -293,13 +301,19 @@ function [data] = tp1(output_filename)
             FlushEvents('keyDown');
             Screen('FillRect', win, white);
             Screen('TextSize', win, 20);
-            Screen('DrawText', win, 'Aguardar al proximo test.', text_offset+100, 250);
-            Screen('DrawText', win, 'Presionar una tecla cuando este listo.', text_offset+100, 350);
+            Screen('DrawText', win, 'Aguardar al próximo test.', text_offset+100, 250);
+            Screen('DrawText', win, 'Presionar una tecla cuando esté listo.', text_offset+100, 350);
             Screen('Flip', win);
 
             % Esperamos que presione alguna tecla
             GetChar;
             FlushEvents('keyDown');
+            
+            if j == 1
+                GetChar;
+                FlushEvents('keyDown');
+            end
+            
             WaitSecs(0.005);
 
         end;
