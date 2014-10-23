@@ -1,10 +1,20 @@
 
-myvars = who;
+vectorSubliminal = ones(1,length(s));
+vectorTresIm = ones(1,length(s));
+vectorIncorrecto = ones(1,length(s));
 
-for i=1:length(myvars)
-    media = median(eval(myvars{i}(:,3)));
-    mediaVect = ones(26,1)*media;
-    plot(mediaVect);
-    hold on;
-    plot(eval(myvars{i}(:,3)));
+for i=1:length(s)
+    
+    vectorSubliminal(i) = sum(s{i}(:,5));
+    vectorTresIm(i) = sum(s{i}(:,6));
+    vectorIncorrecto(i) = sum(s{i}(:,7));
 end
+sumaS = sum(vectorSubliminal);
+sumaT = sum(vectorTresIm);
+sumaI = sum(vectorIncorrecto);
+
+bar(1, sumaS);
+hold on
+bar(3, sumaT);
+hold on
+bar(5, sumaI);
