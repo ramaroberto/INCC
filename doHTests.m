@@ -7,13 +7,13 @@ for i=1:length(s)
     
     for j=1:length(s{i})
         % Si tenemos un dato acertado y correspondiente a fruta
-        if s{i}(j,2)*s{i}(j,6) == 1
+        if s{i}(j,6) == 1
             dfr = [dfr s{i}(j,3)];
         end
         
         % Si tenemos un dato acertado y correspondiente a subliminal
-        if resta(j)*s{i}(j,5) == 1
-            dsb = [dfr s{i}(j,3)];
+        if s{i}(j,5) == 1
+            dsb = [dsb s{i}(j,3)];
         end
     end
     
@@ -42,10 +42,7 @@ for i=1:length(s)
     end
 
     % Realizo el test de hipotesis.
-    dfr
-    dsb
-    h = ttest(dfr,dsb)
-        
+    [h,p] = ttest(dfr,dsb)
     
     %promedioFruta = sumaTiempoFruta/sumaDivisionFruta;
     %promedioSubl = sumaTiempoSubl/sumaDivisionSubl;
