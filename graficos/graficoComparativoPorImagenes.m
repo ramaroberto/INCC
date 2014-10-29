@@ -16,9 +16,13 @@ end
 for i=1:25
     promedioFruta(i) = promedioFruta(i)/(sumaFruta(i)+0.0000000000001);
     promedioSubl(i) = promedioSubl(i)/(sumaSubl(i)+0.0000000000001);
-    bar(i+(i-1)*2, promedioFruta(i))
-    hold on
-    bar(i+(i-1)*2+1,promedioSubl(i))
-    hold on
-end
+    %bar(i+(i-1)*2, promedioFruta(i))
+    %hold on
+    %bar(i+(i-1)*2+1,promedioSubl(i))
+    %hold on
     
+    hold on
+    bar(i, promedioSubl(i)-promedioFruta(i))
+end
+
+set(gca,'xtick', 1:25)
