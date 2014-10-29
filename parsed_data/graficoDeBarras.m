@@ -1,20 +1,11 @@
 
-vectorSubliminal = ones(1,length(s));
-vectorTresIm = ones(1,length(s));
-vectorIncorrecto = ones(1,length(s));
-
 for i=1:length(s)
-    
-    vectorSubliminal(i) = sum(s{i}(:,5));
-    vectorTresIm(i) = sum(s{i}(:,6));
-    vectorIncorrecto(i) = sum(s{i}(:,7));
+    [m n] = size(s{i});
+    sumaDivision = sum(s{i}(:,2));
+    for j=1:m
+        sumaTiempo(i) = sum(s{i}(j,2)*s{i}(j,3));
+    end
+    promedio(i) = sumaTiempo/sumaDivision;
+    bar(i, promedio(i));
+    hold on
 end
-sumaS = sum(vectorSubliminal);
-sumaT = sum(vectorTresIm);
-sumaI = sum(vectorIncorrecto);
-
-bar(1, sumaS);
-hold on
-bar(3, sumaT);
-hold on
-bar(5, sumaI);
