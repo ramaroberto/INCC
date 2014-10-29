@@ -9,7 +9,7 @@ for i=1:length(s)
 end
 for i=1:25    
     hold on
-    bar(i, sumaTiempo(i))
+    bar(i, sumaTiempo(i)/25)
 end
 
 set(gca,'xtick', 1:25)
