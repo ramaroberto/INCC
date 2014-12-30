@@ -105,9 +105,13 @@ resHTImg
 % Calculo means
 meanTiempoSubl = [];
 meanTiempoFruta = [];
+varTiempoSubl = [];
+varTiempoFruta = [];
 for i=1:25
     meanTiempoSubl = [meanTiempoSubl mean(tiempoSubl{i})];
     meanTiempoFruta = [meanTiempoFruta mean(tiempoFruta{i})];
+    varTiempoSubl = [varTiempoSubl var(tiempoSubl{i})];
+    varTiempoFruta = [varTiempoFruta var(tiempoFruta{i})];
 end
 
 resTot = [];
@@ -117,12 +121,12 @@ for i=1:length(s)
     for j=1:length(s{i})
         % Si tenemos un dato acertado y correspondiente a fruta
         if s{i}(j,6) == 1
-            dfr = [dfr s{i}(j,3)-meanTiempoFruta(j)];
+            dfr = [dfr (s{i}(j,3)-meanTiempoFruta(j))/varTiempoFruta(j)];
         end
         
         % Si tenemos un dato acertado y correspondiente a subliminal
         if s{i}(j,5) == 1
-            dsb = [dsb s{i}(j,3)-meanTiempoSubl(j)];
+            dsb = [dsb (s{i}(j,3)-meanTiempoSubl(j))/varTiempoSubl(j)];
         end
     end
 end
@@ -155,7 +159,7 @@ if length(dfr) ~= length(dsb)
 end
 
 % Realizo el test de hipotesis.
-[h,p] = ttest(dfr,dsb)
+[h,p] = ttest2(dfr,dsb)
 
 
 

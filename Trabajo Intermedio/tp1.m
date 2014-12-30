@@ -21,7 +21,7 @@ function [data] = tp1(output_filename)
     % ------------------------------------------ %
 
     % Configuracion de pantalla
-    res = [1921 1080];
+    res = [1281 801];
     screenNum = 0;
     clrdepth = 32;
 
