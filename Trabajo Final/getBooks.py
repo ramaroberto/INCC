@@ -34,18 +34,19 @@ for line in file_in:
         
         if have_cat:
             title = re.search("title: ([\w\d \:]*)", cache).group(1)
+            code = re.search("ASIN: (\d*)", cache).group(1)
             salesrank = re.search("salesrank: (\d*)", cache).group(1)
             reviews = re.search("reviews: total: (\d*)  downloaded: (\d*)  avg rating: (\d*\.?\d*)", cache)
             quantity = int(reviews.group(1))
             score = float(reviews.group(3))
             
-            books.append((quantity, score, title))
+            books.append((quantity, score, title, code))
     if line.lstrip().rstrip() == '':
         cache = ""
         is_book = False
     
 # Sort them
-sorted_books = sorted(books, key=operator.itemgetter(0), reverse=True)
+sorted_books = sorted(books, key=operator.itemgetter(1,0), reverse=True)
 
 print " \n(Cantidad de reviews, Score, Titulo)"
 for book in sorted_books:
