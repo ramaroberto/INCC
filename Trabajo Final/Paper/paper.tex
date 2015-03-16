@@ -683,6 +683,27 @@ Neurociencia, Simple English, Lenguaje, Calificación.
 
 
 \section{Introducción}
+En la actualidad, el avance de la tecnología permite compartir expcalificar todo tipo de producto que se adquiere En el mundo de hoy, hay distintas tiendas online en donde se pueden adquirir productos y luego como comprador uno puede darle una puntuacion al producto y opcionalmente escribir un comentario. Esta gran cantidad de datos disponibles desperto el interes para analizar ciertos angulos. Entre ellas sentiment analysis que relaciona los comentarios con el score que se les dio, para poder predecir si futuros comentarios sin score son buenos o malos, o la sugerencia de productos basada en productos que ya hayamos comprado. Entre estos productos se encuentran los libros. Nuestro analisis se focalizo, a diferencia de las tecnicas mencionadas anteriormente, en relacionar el producto mismo (ya que al ser un libro puede ser analizado) con el score que recibio de los lectores. Nuestra hipotesis es que utilizando alguna o varias metricas puede analizarse el contenido del libro y relacionarse de forma significativa con su puntaje.
+Tambien describe como esta relacionado el paper y que es lo que se explica en cada seccion.
+
+-- 2. Trabajo relacionado: Se nombran ciertos papers de trabajos parecidos y hasta aquellos que sirvieron de inspiracion. Aca podriamos nombrar el de Diego por ejemplo. <-- Gus si queres vos podes investigar bien esto.
+
+-- 3. Explicacion detallada de lo realizamos: Antes de entrar a las subsecciones deberiamos explicar por arriba lo que realizamos. Estaria bueno dar la idea de lo que queremos hacer: "Para nuestro analisis tuvimos que hayar una base de datos de alguna tienda online donde se detalle cada producto y el score que recibio por parte de los usuarios. Seleccionamos libros de las categorias mas generales con scores opuestos y analizamos las mediciones con respecto a una metrica creada."
+   -- 3.1 Recursos utilizados: Explicar de donde sacamos la base de datos de amazon y detallar su composicion. Aca deberiamos decir tambien los problemas que encontramos con la misma, como las categorias y que habia productos repetidos. Podriamos mostrar un histograma en donde se vea la distribucion de los puntajes en relacion a la cantidad de libros y otro con la cantidad de scores (para que se vea que hay pocos libros con muchos scores y muchos con pocos). Podemos explicar que la obtencion de los libros en si se dificulto un poco para los puntajes bajos y en donde la cantidad de scores era menor a 100.
+  -- 3.2 Filtrado de los libros: Aca podemos explicar como hicimos para ordenar los libros de la lista para seleccionar a mano y como funciona el script (getBooks.py)
+  -- 3.3 Metricas utilizadas: Explicacion de la metrica de simple english y de la metrica de repeticiones (quizas?). Explicacion del algoritmo utilizado para generar la metrica, explicar por que utilizamos un diccionario para filtrar palabras positivas. Explicar cantidad de apariciones (que al final no nos sirvio) contra cantidad de vocabulario simple (que es la que se presento relevante). Explicar como hicimos para validar la metrica (libros de whinny pooh, textos de harry potter vs edades recomendadas). No dar resultados de las metricas, eso se da en la proxima seccion.
+
+-- 4. Resultados: 
+  -- 4.1 Eleccion de libros analizados: Aca podemos justificar el armado de las categorias "Buenos" y "Malos" y porque decidimos dejar los que estaban calificados como 4.0 fuera. Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). 
+  -- 4.2 Resultados de las metricas: Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros "Buenos" y otros para los "Malos" de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40% y 50% para todos los libros.
+  -- 4.3 Test de hipotesis: Lo primero que va aca es la justificacion por el teorema central del limite de que podemos considerar los datos provenientes de una distribucion normal. Hay que citar alguna fuente en donde clarifique que arriba de 30 es aceptable utilizarlo. Luego, para cada metrica mostramos los resultados de las medias y la varianza y el resultado del test de hipotesis.
+
+-- 5. Conclusiones y trabajo futuro: Dar algo de conclusion funciono / no funciono. Por lo que vi vamos a tener que decir que obtuvimos resultados significativos pero los numeros estan demasiado cercanos como para utilizar la metrica como criterio. Explicar que otras metricas se nos ocurren para lo cual podria funcionar. Por ejemplo, a mi se me ocurre que una metrica mutli-variable con elementos de procesamiento de lenguaje natural podria dar mejores resultados, es decir metricas que describan mejor la forma en que el libro esta escrito.
+
+-- 6. Referencias.
+
+Esto es una primera idea de como organizar todo, seguramente termine muy cambiado pero es una enumeracion de lo que creo que deberia estar expresado. No hay que extenderse demasiado para cada parte. Acordarse que el paper son entre 2 y 4 hojas!
+
 % Computer Society journal papers do something a tad strange with the very
 % first section heading (almost always called "Introduction"). They place it
 % ABOVE the main text! IEEEtran.cls currently does not do this for you.
