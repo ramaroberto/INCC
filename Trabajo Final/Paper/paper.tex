@@ -635,17 +635,9 @@ pdfkeywords={Computer Society, IEEEtran, journal, LaTeX, paper,
 % use for special paper notices
 %\IEEEspecialpapernotice{(Invited Paper)}
 
-
-
-% for Computer Society papers, we must declare the abstract and index terms
-% PRIOR to the title within the \IEEEtitleabstractindextext IEEEtran
-% command as these need to go into the title area created by \maketitle.
-% As a general rule, do not put math, special symbols or citations
-% in the abstract or keywords.
 \IEEEtitleabstractindextext{%
 \begin{abstract}
-En el siguiente trabajo, se intenta encontrar una relación entre la dificultad de vocabulario encontrada en libros literarios y las calificaciones obtenidas por parte de sus lectores. Para ello, se utilizó una lista de palabras catalogadas como Simple English\footnote{$http://simple.wikipedia.org/wiki/Main\_Page$} y la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html}.
-%Luego de un análisis exhaustivo, logramos concluir que ...
+En el siguiente trabajo, se intenta encontrar una relación entre la dificultad de vocabulario encontrada en libros literarios y las calificaciones obtenidas por parte de sus lectores. Para ello, se utilizó una lista de palabras catalogadas como Simple English\footnote{$http://simple.wikipedia.org/wiki/Main\_Page$}, la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html} y distintas métricas que nos permitieron extraer conclusiones relevantes. %acá sino podríamos decir: que nos permitieron concluir blabla
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
@@ -683,28 +675,29 @@ Neurociencia, Simple English, Lenguaje, Calificación.
 
 
 \section{Introducción}
-En la actualidad, el avance de la tecnología permite compartir experiencias de distinta índole. Entre ellas, el intercambio de críticas y comentarios sobre diferentes productos pueden causar la popularidad o decadencia del mismo, llevando a un aumento o disminución de sus ventas. A partir de esto, surgen dudas sobre los motivos de los usuarios a la hora de calificar. En nuestro caso, nos pareció interesante analizar las puntuaciones recibidas por los libros. Una hipótesis posible es que existe una correlación entre éstas y el grado de dificultad del vocabulario encontrado en los mismos. Para verificar dicha hipótesis, realizamos un análisis exhaustivo que incluyó estudiar la relación entre una amplia variedad de libros con distintas calificaciones y el grado de dificultad de inglés empleado, lo que consiste en un sentiment analysis.
+\IEEEPARstart{E}{n} la actualidad, el avance de la tecnología permite compartir experiencias de distinta índole. Entre ellas, el intercambio de críticas y comentarios sobre diferentes productos pueden causar la popularidad o decadencia del mismo, llevando a un aumento o disminución de sus ventas. A partir de esto, surgen dudas sobre los motivos de los usuarios a la hora de calificar. En nuestro caso, nos pareció interesante analizar las puntuaciones recibidas por los libros. 
+
+Una hipótesis posible es que existe una correlación entre éstas y el grado de dificultad del vocabulario encontrado en los mismos. Para verificar dicha hipótesis, realizamos un análisis exhaustivo que incluyó estudiar la relación entre una amplia variedad de libros con distintas calificaciones y el grado de dificultad de inglés empleado, lo que consiste en un sentiment analysis.
 
 La idea del proyecto consiste en poder predecir si futuros comentarios sin score son buenos o malos, o la sugerencia de productos basada en productos que ya hayamos comprado. Entre estos productos se encuentran los libros. Nuestro analisis se focalizo, a diferencia de las tecnicas mencionadas anteriormente, en relacionar el producto mismo (ya que al ser un libro puede ser analizado) con el score que recibio de los lectores. Nuestra hipotesis es que utilizando alguna o varias metricas puede analizarse el contenido del libro y relacionarse de forma significativa con su puntaje.
 Tambien describe como esta relacionado el paper y que es lo que se explica en cada seccion.
 
--- 2. Trabajo relacionado: Se nombran ciertos papers de trabajos parecidos y hasta aquellos que sirvieron de inspiracion. Aca podriamos nombrar el de Diego por ejemplo. <-- Gus si queres vos podes investigar bien esto.
+\section{Trabajos relacionados:}
 
--- 3. Explicacion detallada de lo realizamos: Antes de entrar a las subsecciones deberiamos explicar por arriba lo que realizamos. Estaria bueno dar la idea de lo que queremos hacer: ``Para nuestro analisis tuvimos que hayar una base de datos de alguna tienda online donde se detalle cada producto y el score que recibio por parte de los usuarios. Seleccionamos libros de las categorias mas generales con scores opuestos y analizamos las mediciones con respecto a una metrica creada.''
-   -- 3.1 Recursos utilizados: Explicar de donde sacamos la base de datos de amazon y detallar su composicion. Aca deberiamos decir tambien los problemas que encontramos con la misma, como las categorias y que habia productos repetidos. Podriamos mostrar un histograma en donde se vea la distribucion de los puntajes en relacion a la cantidad de libros y otro con la cantidad de scores (para que se vea que hay pocos libros con muchos scores y muchos con pocos). Podemos explicar que la obtencion de los libros en si se dificulto un poco para los puntajes bajos y en donde la cantidad de scores era menor a 100.
-  -- 3.2 Filtrado de los libros: Aca podemos explicar como hicimos para ordenar los libros de la lista para seleccionar a mano y como funciona el script (getBooks.py)
-  -- 3.3 Metricas utilizadas: Explicacion de la metrica de simple english y de la metrica de repeticiones (quizas?). Explicacion del algoritmo utilizado para generar la metrica, explicar por que utilizamos un diccionario para filtrar palabras positivas. Explicar cantidad de apariciones (que al final no nos sirvio) contra cantidad de vocabulario simple (que es la que se presento relevante). Explicar como hicimos para validar la metrica (libros de whinny pooh, textos de harry potter vs edades recomendadas). No dar resultados de las metricas, eso se da en la proxima seccion.
+Para orientar nuestra investigación revisamos la literatura sobre el área encontrando varios estudios, en uno de los más importantes (\textit{Graesser, A. C. et al., 2004}) los autores utilizan un software para clasificar los textos según la dificultad de lectura que presentan (avanzado, intermedio, principiante). De esta forma se intenta probar si hay diferencias significativas entre dos métodos para evaluar comprensibilidad de textos simplificados en inglés. Además otro trabajo del mismo grupo (\textit{Crossley, S. A., et al., 2011}) sirvió de orientación en lo que respecta a procesamiento automático de textos con el fin de obtener algún parámetro numérico sobre su contenido. En el mismo los autores desarrollaron una herramienta computacional para medir coherencia, legibilidad y otros constructos en textos de forma sencilla en un gran corpus de texto. Finalmente el trabajo presentado durante las clases teóricas (\textit{Diuk, C. G., et. al., 2012})  fue útil como inspiración sobre la potencialidad del análisis de grandes repositorios de datos con el fin de hacer predicciones. En el mismo se utilizaron  textos de distintas épocas en orden cronológico con el fin de probar si el constructo introspección creció o disminuyó a lo largo de los años.
 
--- 4. Resultados: 
-  -- 4.1 Eleccion de libros analizados: Aca podemos justificar el armado de las categorias ``Buenos'' y ``Malos'' y porque decidimos dejar los que estaban calificados como 4.0 fuera. Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). 
-  -- 4.2 Resultados de las metricas: Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros ``Buenos'' y otros para los ``Malos'' de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40\% y 50\% para todos los libros.
-  -- 4.3 Test de hipotesis: Lo primero que va aca es la justificacion por el teorema central del limite de que podemos considerar los datos provenientes de una distribucion normal. Hay que citar alguna fuente en donde clarifique que arriba de 30 es aceptable utilizarlo. Luego, para cada metrica mostramos los resultados de las medias y la varianza y el resultado del test de hipotesis.
+\section{Explicación:} detallada de lo realizamos: Antes de entrar a las subsecciones deberiamos explicar por arriba lo que realizamos. Estaria bueno dar la idea de lo que queremos hacer: ``Para nuestro analisis tuvimos que hayar una base de datos de alguna tienda online donde se detalle cada producto y el score que recibio por parte de los usuarios. Seleccionamos libros de las categorias mas generales con scores opuestos y analizamos las mediciones con respecto a una metrica creada.''
+\subsection{Recursos utilizados:}
+ Explicar de donde sacamos la base de datos de amazon y detallar su composicion. Aca deberiamos decir tambien los problemas que encontramos con la misma, como las categorias y que habia productos repetidos. Podriamos mostrar un histograma en donde se vea la distribucion de los puntajes en relacion a la cantidad de libros y otro con la cantidad de scores (para que se vea que hay pocos libros con muchos scores y muchos con pocos). Podemos explicar que la obtencion de los libros en si se dificulto un poco para los puntajes bajos y en donde la cantidad de scores era menor a 100.
+\subsection{Filtrado de los libros:} Aca podemos explicar como hicimos para ordenar los libros de la lista para seleccionar a mano y como funciona el script (getBooks.py)
+\subsection{Métricas utilizadas:} Explicacion de la metrica de simple english y de la metrica de repeticiones (quizas?). Explicacion del algoritmo utilizado para generar la metrica, explicar por que utilizamos un diccionario para filtrar palabras positivas. Explicar cantidad de apariciones (que al final no nos sirvio) contra cantidad de vocabulario simple (que es la que se presento relevante). Explicar como hicimos para validar la metrica (libros de whinny pooh, textos de harry potter vs edades recomendadas). No dar resultados de las metricas, eso se da en la proxima seccion.
 
--- 5. Conclusiones y trabajo futuro: Dar algo de conclusion funciono / no funciono. Por lo que vi vamos a tener que decir que obtuvimos resultados significativos pero los numeros estan demasiado cercanos como para utilizar la metrica como criterio. Explicar que otras metricas se nos ocurren para lo cual podria funcionar. Por ejemplo, a mi se me ocurre que una metrica mutli-variable con elementos de procesamiento de lenguaje natural podria dar mejores resultados, es decir metricas que describan mejor la forma en que el libro esta escrito.
+\section{Resultados:}
+\subsection{Elección de libros analizados:} Aca podemos justificar el armado de las categorias ``Buenos'' y ``Malos'' y porque decidimos dejar los que estaban calificados como 4.0 fuera. Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). \subsection{Resultados de las métricas:} Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros ``Buenos'' y otros para los ``Malos'' de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40\% y 50\% para todos los libros.\\
 
--- 6. Referencias.
+\subsection{Test de hipótesis:} Lo primero que va aca es la justificacion por el teorema central del limite de que podemos considerar los datos provenientes de una distribucion normal. Hay que citar alguna fuente en donde clarifique que arriba de 30 es aceptable utilizarlo. Luego, para cada metrica mostramos los resultados de las medias y la varianza y el resultado del test de hipotesis.
 
-Esto es una primera idea de como organizar todo, seguramente termine muy cambiado pero es una enumeracion de lo que creo que deberia estar expresado. No hay que extenderse demasiado para cada parte. Acordarse que el paper son entre 2 y 4 hojas!
+\section{Conclusiones y trabajo futuro:} Dar algo de conclusion funciono / no funciono. Por lo que vi vamos a tener que decir que obtuvimos resultados significativos pero los numeros estan demasiado cercanos como para utilizar la metrica como criterio. Explicar que otras metricas se nos ocurren para lo cual podria funcionar. Por ejemplo, a mi se me ocurre que una metrica mutli-variable con elementos de procesamiento de lenguaje natural podria dar mejores resultados, es decir metricas que describan mejor la forma en que el libro esta escrito.\\
 
 % Computer Society journal papers do something a tad strange with the very
 % first section heading (almost always called "Introduction"). They place it
@@ -742,26 +735,9 @@ Esto es una primera idea de como organizar todo, seguramente termine muy cambiad
 % 
 % Here we have the typical use of a "T" for an initial drop letter
 % and "HIS" in caps to complete the first word.
-\IEEEPARstart{T}{his} demo file is intended to serve as a ``starter file''
-for IEEE Computer Society journal papers produced under \LaTeX\ using
-IEEEtran.cls version 1.8 and later.
+
 % You must have at least 2 lines in the paragraph with the drop letter
 % (should never be an issue)
-I wish you the best of success.
-
-\hfill mds
- 
-\hfill December 27, 2012
-
-\subsection{Subsection Heading Here}
-Subsection text here.
-
-% needed in second column of first page if using \IEEEpubid
-%\IEEEpubidadjcol
-
-\subsubsection{Subsubsection Heading Here}
-Subsubsection text here.
-
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
@@ -851,14 +827,6 @@ Subsubsection text here.
 % stfloats package.
 
 
-
-\section{Conclusion}
-The conclusion goes here.
-
-
-
-
-
 % if have a single appendix:
 %\appendix[Proof of the Zonklar Equations]
 % or
@@ -874,28 +842,24 @@ The conclusion goes here.
 %
 
 
-\appendices
-\section{Proof of the First Zonklar Equation}
-Appendix one text goes here.
+%\appendices
+%\section{Proof of the First Zonklar Equation}
+%Appendix one text goes here.
 
 % you can choose not to have a title for an appendix
 % if you want by leaving the argument blank
-\section{}
-Appendix two text goes here.
+%\section{}
+%Appendix two text goes here.
 
 
 % use section* for acknowledgement
-\ifCLASSOPTIONcompsoc
+%\ifCLASSOPTIONcompsoc
   % The Computer Society usually uses the plural form
-  \section*{Acknowledgments}
-\else
+%  \section*{Acknowledgments}
+%\else
   % regular IEEE prefers the singular form
-  \section*{Acknowledgment}
-\fi
-
-
-The authors would like to thank...
-
+ % \section*{Acknowledgment}
+%\fi
 
 % Can use something like this to put references on a page
 % by themselves when using endfloat and the captionsoff option.
@@ -930,8 +894,16 @@ The authors would like to thank...
 \begin{thebibliography}{1}
 
 \bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to {\LaTeX}}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+Graesser,~A.~C.,~McNamara,~D.~S.,~Louwerse,~M.~M., \& Cai,~Z. (2004). ``Coh-Metrix: Analysis of text on cohesion and language.''\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Behavior Research Methods,Instruments, \& Computers}, 36(2), 193-202.
+
+\bibitem{IEEEhowto:kopka}
+Crossley,~S.~A.,~Allen,~D.~B., \& McNamara,~D.~S. (2011). ``Text Readability and Intuitive Simplification: A Comparison of Readability Formulas.''\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Reading in a foreign language}, 23(1), 84-101.
+
+\bibitem{IEEEhowto:kopka}
+Diuk,~C.~G.,~Slezak,~D.~F.,~Raskovsky,~I.,~Sigman,~M., \& Cecchi,~G.~A. (2012). ``A quantitative philology of introspection.''\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Frontiers in integrative neuroscience}, 6.
 
 \end{thebibliography}
 
@@ -946,22 +918,6 @@ H.~Kopka and P.~W. Daly, \emph{A Guide to {\LaTeX}}, 3rd~ed.\hskip 1em plus
 %\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
 % or if you just want to reserve a space for a photo:
 
-\begin{IEEEbiography}{Michael Shell}
-Biography text here.
-\end{IEEEbiography}
-
-% if you will not have a photo at all:
-\begin{IEEEbiographynophoto}{John Doe}
-Biography text here.
-\end{IEEEbiographynophoto}
-
-% insert where needed to balance the two columns on the last page with
-% biographies
-%\newpage
-
-\begin{IEEEbiographynophoto}{Jane Doe}
-Biography text here.
-\end{IEEEbiographynophoto}
 
 % You can push biographies down or up by placing
 % a \vfill before or after them. The appropriate
