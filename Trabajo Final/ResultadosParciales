@@ -705,6 +705,112 @@ Positivos:
 	Watership Down - Richard Adams.txt
 	Relacion de cantidad:  52.217757416 %
 	Relacion de vocabulario:  9.3119135627 %
+
+A Taste of Chicken Soup for the Teenage So - Jack Canfield.txt
+Relacion de cantidad:  44.619088077 %
+Relacion de vocabulario:  16.4378337147 %
+
+Alanna_ The First Adventure - Tamora Pierce.txt
+Relacion de cantidad:  46.4425037681 %
+Relacion de vocabulario:  13.3440146487 %
+
+Beauty - Beauty.txt
+Relacion de cantidad:  48.5120860509 %
+Relacion de vocabulario:  11.0232158212 %
+
+Dealing with Dragons - Patricia C. Wrede.txt
+Relacion de cantidad:  48.9297687613 %
+Relacion de vocabulario:  13.7122128174 %
+
+Immortals 01 - Wild Magic - Tamora Pierce.txt
+Relacion de cantidad:  46.379814333 %
+Relacion de vocabulario:  11.7510699001 %
+
+Intro - Mick Foley.txt
+Relacion de cantidad:  47.7188014998 %
+Relacion de vocabulario:  7.52870693959 %
+
+LD01 - Lonesome Dove - Larry McMurtry.txt
+Relacion de cantidad:  49.3539748856 %
+Relacion de vocabulario:  7.48959778086 %
+
+Old Kingdom 01_ Sabriel - Garth Nix.txt
+[Error] Source file doesn't exist.
+
+Paradise - Judith McNaught.txt
+Relacion de cantidad:  46.9266239064 %
+Relacion de vocabulario:  6.39653414883 %
+
+R A Salvatore - The Dark Elf 01 - Homeland.txt
+Relacion de cantidad:  48.5161378556 %
+Relacion de vocabulario:  8.94202898551 %
+
+MacBook-Pro-de-Sabrina:Trabajo Final sizcovich$ ./getSimpleEnglish.py Libros\ nuevos/
+A Ring of Endless Light - Madeleine L'engle.txt
+Relacion de cantidad:  49.4064714946 %
+Relacion de vocabulario:  11.1092323301 %
+
+A Taste of Chicken Soup for the Teenage So - Jack Canfield.txt
+Relacion de cantidad:  44.619088077 %
+Relacion de vocabulario:  16.4378337147 %
+
+Alanna_ The First Adventure - Tamora Pierce.txt
+Relacion de cantidad:  46.4425037681 %
+Relacion de vocabulario:  13.3440146487 %
+
+Beauty - Beauty.txt
+Relacion de cantidad:  48.5120860509 %
+Relacion de vocabulario:  11.0232158212 %
+
+Bruce Coville - [The Unicorn Chronicles 01 - Into The Land Of Unicorns (YA Fantasy).txt
+Relacion de cantidad:  48.174282809 %
+Relacion de vocabulario:  14.3249931262 %
+
+Dealing with Dragons - Patricia C. Wrede.txt
+Relacion de cantidad:  48.9297687613 %
+Relacion de vocabulario:  13.7122128174 %
+
+If Chins Could Kill_ Confessions of a B Mo - Bruce Campbell.txt
+Relacion de cantidad:  46.6477668358 %
+Relacion de vocabulario:  8.10038119441 %
+
+Immortals 01 - Wild Magic - Tamora Pierce.txt
+Relacion de cantidad:  46.379814333 %
+Relacion de vocabulario:  11.7510699001 %
+
+John Marsden - Tomorrow 1 - When The War Began.txt
+Relacion de cantidad:  47.6614188285 %
+Relacion de vocabulario:  11.4233149356 %
+
+LD01 - Lonesome Dove - Larry McMurtry.txt
+Relacion de cantidad:  49.3539748856 %
+Relacion de vocabulario:  7.48959778086 %
+
+ManKind Have a nice day - Mick Foley.txt
+Relacion de cantidad:  47.7188014998 %
+Relacion de vocabulario:  7.52870693959 %
+
+Megan McCafferty - Second Helpings.txt
+Relacion de cantidad:  45.9779400676 %
+Relacion de vocabulario:  7.99906443691 %
+
+Paradise - Judith McNaught.txt
+Relacion de cantidad:  46.9266239064 %
+Relacion de vocabulario:  6.39653414883 %
+
+Point of Impact - Stephen Hunter.txt
+Relacion de cantidad:  49.3745213173 %
+Relacion de vocabulario:  7.47199220653 %
+
+R A Salvatore - The Dark Elf 01 - Homeland.txt
+Relacion de cantidad:  48.5161378556 %
+Relacion de vocabulario:  8.94202898551 %
+
+The Dark is Rising - Susan Cooper.txt
+Relacion de cantidad:  55.1478799895 %
+Relacion de vocabulario:  10.9066577451 %
+
+
     
 Negativos:
     3001_ The Final Odyssey - Arthur C Clarke.txt
