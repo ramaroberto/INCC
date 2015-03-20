@@ -1,0 +1,3 @@
+ 
+(Cantidad de reviews, Score, Titulo)
+
