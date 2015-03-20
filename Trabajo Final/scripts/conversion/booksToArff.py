@@ -51,7 +51,7 @@ for line in file_in:
                     categories[book_category] += 1
                 else:
                     categories[book_category] = 1
-        
+
     if line.lstrip().rstrip() == '':
         cache = ""
         is_book = False
@@ -105,29 +105,27 @@ for line in file_in:
             salesrank = re.search("salesrank: (\d*)", cache).group(1)
             quantity = reviews.group(1)
             score = reviews.group(3)
-            
+
             if code == "":
                 code = "0"
             if salesrank == "":
                 salesrank = "0"
-            
+
             cat_vector = [0 for k in range(len(catindex.items()))]
-            
+
             book_categories = re.findall("\|([\w \&\,\-]*)\[\d*\]", cache)
             for book_category in book_categories:
                 book_category = book_category.replace(" ", "_").replace("&", "And").replace(",", "")
                 if book_category in catindex:
                     cat_vector[catindex[book_category]] = 1
-                    if book_category == "Mysteries_And_Thrillers":
-                        print book_categories, catindex[book_category], catindex
-                
+
             # Print the data
             #file_out.write("\"" + title + "\"," + code + "," + score + "," + quantity)
             file_out.write(code + "," + salesrank + "," + score + "," + quantity)
             for catbool in cat_vector:
                 file_out.write("," + str(catbool))
             file_out.write("\n")
-        
+
     if line.lstrip().rstrip() == '':
         cache = ""
         is_book = False
