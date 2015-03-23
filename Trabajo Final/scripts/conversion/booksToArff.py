@@ -5,7 +5,7 @@ import os.path
 import operator
 
 # Constants
-qlimit = 50
+qlimit = 1
 catlimit = 200
 
 # If not enough parameters are provided
