@@ -5,8 +5,8 @@ import os.path
 import operator
 
 # Constants
-qlimit = 10
-catlimit = 300
+qlimit = 1
+catlimit = 200
 
 # If not enough parameters are provided
 if len(sys.argv) < 2:
