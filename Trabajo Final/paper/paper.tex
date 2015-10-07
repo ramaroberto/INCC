@@ -5,23 +5,24 @@
 \newcommand\MYhyperrefoptions{bookmarks=true,bookmarksnumbered=true,
 pdfpagemode={UseOutlines},plainpages=false,pdfpagelabels=true,
 colorlinks=true,linkcolor={black},citecolor={black},urlcolor={black},
-pdftitle={Estudio sobre la relación entre la dificultad del vocabulario y la calificación obtenida de libros},
+pdftitle={Relación entre la dificultad del vocabulario de libros y sus respectivas calificaciones},
 pdfsubject={Neurociencia},
 pdfauthor={Gustavo Juantorena, Roberto Rama, Sabrina Izcovich},
-pdfkeywords={Computer Society, IEEEtran, journal, LaTeX, paper,
-             template}}
+pdfkeywords={Neurociencia, Vocabulario, Libro, Simple English}}
 
 \hyphenation{op-tical net-works semi-conduc-tor}
 \begin{document}
-\title{Estudio sobre la relación entre la calificación y la dificultad del vocabulario en libros\\ para INCC}
+\title{Relación entre la dificultad del vocabulario de libros y sus respectivas calificaciones}
 
-\author{Gustavo~Juantorena,~\IEEEmembership{Estudiante~de~Lic.~en~Cs.~Biológicas,~UBA,}
-        Roberto~Rama,~\IEEEmembership{Estudiante~de~Lic.~en~Cs.~de~la~Computación,~UBA,}
-        y~Sabrina~Izcovich,~\IEEEmembership{Estudiante~de~Lic.~en~Cs.~de~la~Computación,~UBA,}}
+\author{Gustavo~Juantorena~~~~~~
+        Roberto~Rama~~~~~~
+        Sabrina~Izcovich\\
+        \textit{Facultad de Ciencias Exactas, UBA}}
+
 
 \IEEEtitleabstractindextext{
 \begin{abstract}
-En el siguiente trabajo, se intenta encontrar una relación entre la dificultad de vocabulario encontrada en libros literarios y las calificaciones obtenidas por parte de sus lectores. Para ello, se utilizó una lista de palabras catalogadas como Simple English\footnote{$http://simple.wikipedia.org/wiki/Main\_Page$}, la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html} y distintas métricas que nos permitieron extraer conclusiones al respecto. %acá sino podríamos decir: que nos permitieron concluir blabla
+En el siguiente trabajo, se intenta encontrar una relación entre la dificultad del vocabulario encontrado en libros literarios y las calificaciones obtenidas por parte de sus lectores. Para ello, se utilizó una lista de palabras catalogadas como Simple English\footnote{$http://simple.wikipedia.org/wiki/Main\_Page$}, la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html} y distintas métricas que nos permitieron extraer conclusiones al respecto. Entre las mismas, pudimos encontrar que ....
 \end{abstract}
 
 
@@ -34,12 +35,13 @@ Neurociencia, Simple English, Vocabulario, Reseñas.
 \IEEEpeerreviewmaketitle
 
 \section{Introducción}
-\IEEEPARstart{E}{n la actualidad,} el avance de la tecnología permite compartir experiencias de distinta índole. Entre ellas, el intercambio de críticas y comentarios sobre diferentes productos pueden causar la popularidad o decadencia del mismo, llevando a un aumento o disminución de sus ventas. A partir de esto, surgen dudas sobre los motivos de los usuarios a la hora de calificar. En este caso, nos pareció interesante analizar las puntuaciones recibidas por los libros respecto del vocabulario empleado en los mismos. 
+\IEEEPARstart{E}{n la actualidad,} el avance de la tecnología permite compartir experiencias de distinta índole. Entre ellas, el intercambio de críticas y comentarios sobre diferentes productos pueden causar la popularidad o descrédito de los mismos, llevando a un aumento o disminución de sus ventas. A partir de esto, surgen dudas sobre los motivos de los usuarios a la hora de calificar sus nuevas adquisiciones. En este caso, nos pareció interesante analizar libros. En particular, basamos nuestro estudio en el nivel de dificultad del vocabulario utilizado en los mismos. 
 
-En el siguiente trabajo, se presenta un estudio exhaustivo que busca encontrar una correlación entre las calificaciones que reciben distintos libros a través de un sitio de Compra/Venta de internet ($Amazon$), y el grado de dificultad del vocabulario encontrado en los mismos. Para ello, fue menester investigar una amplia variedad de libros escritos por distintos autores, de distintos géneros y formatos, y con distintas calificaciones recibidas por sus lectores. Por otro lado, debimos considerar una forma de medir el grado de dificultad del inglés utilizado. Para ellos, tuvimos en cuenta la categorización de Simple English de Wikipedia.
+En lo que sigue, se presenta un estudio exhaustivo que busca encontrar una correlación entre las calificaciones que reciben distintos libros a través de un sitio de Compra/Venta de internet ($Amazon$\footnote{www.amazon.com}), y el grado de dificultad del vocabulario de los mismos. Para ello, fue menester investigar una amplia variedad de libros escritos por distintos autores, de distintos géneros y formatos, y con distintas calificaciones recibidas por sus lectores. Por otro lado, debimos considerar una forma de medir el grado de dificultad del inglés utilizado. Para ello, tuvimos en cuenta la categorización de Simple English provista por Wikipedia\footnote{https://simple.wikipedia.org/wiki/Main\_Page}.
 
-La idea del proyecto consiste en poder predecir si futuros comentarios sin score son buenos o malos, o la sugerencia de productos basada en productos que ya hayamos comprado. Entre estos productos se encuentran los libros. Nuestro analisis se focalizo, a diferencia de las tecnicas mencionadas anteriormente, en relacionar el producto mismo (ya que al ser un libro puede ser analizado) con el score que recibio de los lectores. Nuestra hipotesis es que utilizando alguna o varias metricas puede analizarse el contenido del libro y relacionarse de forma significativa con su puntaje.
-Tambien describe como esta relacionado el paper y que es lo que se explica en cada seccion.
+La idea del proyecto consiste en poder predecir futuras calificaciones de acuerdo al vocabulario del libro en cuestión, partiendo de la hipótesis de que, a partir de ciertas métricas, puede analizarse el contenido del mismo y relacionarse significativamente con su puntaje.
+
+En primer lugar, se explicará el proceso realizado a lo largo del estudio y las herramientas empleadas detalladamente, incluyendo el criterio de clasificación de los libros y sus puntajes, como también las métricas empleadas. Luego, se expondrán los resultados empíricos obtenidos por categoría y la correlación entre éstos. Más tarde, presentaremos un análisis estadístico de los resultados medidos que nos permitirán, finalmente, extraer las conclusiones adecuadas.
 
 \section{Trabajos relacionados:}
 
