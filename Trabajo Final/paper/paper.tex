@@ -35,35 +35,45 @@ Neurociencia, Simple English, Vocabulario, Reseñas.
 \IEEEpeerreviewmaketitle
 
 \section{Introducción}
-\IEEEPARstart{E}{n la actualidad,} el avance de la tecnología permite compartir experiencias de distinta índole. Entre ellas, el intercambio de críticas y comentarios sobre diferentes productos pueden causar la popularidad o descrédito de los mismos, llevando a un aumento o disminución de sus ventas. A partir de esto, surgen dudas sobre los motivos de los usuarios a la hora de calificar sus nuevas adquisiciones. En este caso, nos pareció interesante analizar libros. En particular, basamos nuestro estudio en el nivel de dificultad del vocabulario utilizado en los mismos. 
+\IEEEPARstart{E}{n la actualidad,} el avance de la tecnología permite compartir experiencias de distinta índole. Entre ellas, el intercambio de críticas y comentarios sobre diferentes productos puede causar la popularidad o descrédito de los mismos, llevando a un aumento o disminución de sus ventas. A partir de esto, surgen dudas sobre los motivos de los usuarios a la hora de calificar sus nuevas adquisiciones. En este caso, nos pareció interesante analizar libros. En particular, basamos nuestro estudio en el nivel de dificultad del vocabulario utilizado en los mismos. 
 
 En lo que sigue, se presenta un estudio exhaustivo que busca encontrar una correlación entre las calificaciones que reciben distintos libros a través de un sitio de Compra/Venta de internet ($Amazon$\footnote{www.amazon.com}), y el grado de dificultad del vocabulario de los mismos. Para ello, fue menester investigar una amplia variedad de libros escritos por distintos autores, de distintos géneros y formatos, y con distintas calificaciones recibidas por sus lectores. Por otro lado, debimos considerar una forma de medir el grado de dificultad del inglés utilizado. Para ello, tuvimos en cuenta la categorización de Simple English provista por Wikipedia\footnote{https://simple.wikipedia.org/wiki/Main\_Page}.
 
-La idea del proyecto consiste en poder predecir futuras calificaciones de acuerdo al vocabulario del libro en cuestión, partiendo de la hipótesis de que, a partir de ciertas métricas, puede analizarse el contenido del mismo y relacionarse significativamente con su puntaje.
+La idea del proyecto consiste en poder predecir futuras calificaciones de acuerdo al vocabulario del libro en cuestión, partiendo de la hipótesis de que, a partir de ciertas métricas, puede analizarse la redacción de su contenido y, luego, relacionarla significativamente con su puntaje.
 
 En primer lugar, se explicará el proceso realizado a lo largo del estudio y las herramientas empleadas detalladamente, incluyendo el criterio de clasificación de los libros y sus puntajes, como también las métricas empleadas. Luego, se expondrán los resultados empíricos obtenidos por categoría y la correlación entre éstos. Más tarde, presentaremos un análisis estadístico de los resultados medidos que nos permitirán, finalmente, extraer las conclusiones adecuadas.
 
-\section{Trabajos relacionados:}
+\section{Trabajos relacionados}
+Con el fin de orientar nuestra investigación, revisamos distintos estudios realizados y ciertos documentos correspondientes al área. En uno de los más relevantes (\textit{Graesser, A. C. et al., 2004} \cite{graesser}), los autores utilizaron el software \textit{Coh-metrix} para clasificar los textos según la dificultad de lectura que presentan (avanzado, intermedio, principiante). A partir de esto, se intentó probar si existen diferencias significativas entre dos métodos para evaluar comprensibilidad de textos simplificados en inglés.\\
+Por otro lado, a partir de otro trabajo del mismo grupo (\textit{Crossley, S. A., et al., 2011} \cite{crossley}), pudimos orientarnos en lo que respecta el procesamiento automático de textos con el fin de obtener algún parámetro numérico sobre su contenido. En el mismo, los autores desarrollaron una herramienta computacional para medir coherencia, legibilidad y otros constructos en textos de forma sencilla en un gran corpus de texto.\\
+Finalmente, el trabajo presentado durante las clases teóricas (\textit{Diuk, C. G., et. al., 2012} \cite{diuk}), resultó de gran utilidad como inspiración sobre la potencialidad del análisis de grandes repositorios de datos con el fin de hacer predicciones. En el mismo, se utilizaron  textos de distintas épocas en orden cronológico con el fin de probar si el constructo introspección creció o disminuyó a lo largo de los años.
 
-Para orientar nuestra investigación revisamos documentos del área y encontramos varios estudios realizados. En uno de los más relevantes (\textit{Graesser, A. C. et al., 2004}), los autores utilizaron un software para clasificar los textos según la dificultad de lectura que presentan (avanzado, intermedio, principiante). De esta forma, se intentó probar si existen diferencias significativas entre dos métodos para evaluar comprensibilidad de textos simplificados en inglés.\\
-Por otro lado, a partir de otro trabajo del mismo grupo (\textit{Crossley, S. A., et al., 2011}), pudimos orientarnos en lo que respecta el procesamiento automático de textos con el fin de obtener algún parámetro numérico sobre su contenido. En el mismo, los autores desarrollaron una herramienta computacional para medir coherencia, legibilidad y otros constructos en textos de forma sencilla en un gran corpus de texto.\\
-Finalmente, el trabajo presentado durante las clases teóricas (\textit{Diuk, C. G., et. al., 2012}), resultó de gran utilidad como inspiración sobre la potencialidad del análisis de grandes repositorios de datos con el fin de hacer predicciones. En el mismo, se utilizaron  textos de distintas épocas en orden cronológico con el fin de probar si el constructo introspección creció o disminuyó a lo largo de los años.
+\section{Explicación}
+Para la experimentación, creamos distintos scripts que nos permitieron manipular los libros descargados con el fin de poder catalogarlos. Entre éstos, se encuentra un filtro de \textit{Simple English} que contabiliza la cantidad de palabras consideradas ``simples'' (que se encuentran en el archivo \textit{my.dict}) y calcula la proporción de las mismas en cada obra. Con el fin de comprobar la exactitud de dichas operaciones, evaluamos nuestro script en la saga \textit{Harry Potter}\footnote{$http://harrypotter.wikia.com/wiki/Harry\_Potter\_\%28book_series\%29$}, que presenta una dificultad ascendente en el vocabulario empleado a lo largo de la evolución del personaje según lo descrito por su autora\footnote{http://www.jkrowling.com/}. Al observar una disminución progresiva del porcentaje calculado (que pasó del 12\% en el primer tomo al 7.04\% en el séptimo), pudimos constatar la correctitud de nuestro programa.
+Luego, consideramos los tipos de libros a evaluar. Para eso, estudiamos el conjunto de categorías presentadas por Amazon y las posibles reseñas (una escala del 0 al 5), para realizar la clasificación que sigue. En primer lugar, dividimos las reseñas en tres: las bajas, las medianas y las altas. Luego, dividimos las categorías en cuatro clusters (que numeramos del 1 al 4). Por último, seleccionamos libros de las categorías más generales con scores opuestos y analizamos las mediciones respecto a la métrica creada. En lo que sigue, detallamos dicha elección como también las herramientas utilizadas para la clasificación realizada.
 
-\section{Explicación:} 
-explicar el programa que hicimos medio por arriba
-hay que decir que para ver que funcionara bien nuestro programa lo probamos con los libros de harry potter y vimos que el nivel de dificultad del vocabulario aumenta con los libros, lo que es consistente respecto de lo que dice la autora
-Antes de entrar a las subsecciones deberiamos explicar por arriba lo que realizamos. Estaria bueno dar la idea de lo que queremos hacer: ``Para nuestro analisis tuvimos que hayar una base de datos de alguna tienda online donde se detalle cada producto y el score que recibio por parte de los usuarios. Seleccionamos libros de las categorias mas generales con scores opuestos y analizamos las mediciones con respecto a una metrica creada.''
-\subsection{Recursos utilizados:}
+\subsection{Recursos utilizados}
  Explicar de donde sacamos la base de datos de amazon y detallar su composicion. Aca deberiamos decir tambien los problemas que encontramos con la misma, como las categorias y que habia productos repetidos. Podriamos mostrar un histograma en donde se vea la distribucion de los puntajes en relacion a la cantidad de libros y otro con la cantidad de scores (para que se vea que hay pocos libros con muchos scores y muchos con pocos). Podemos explicar que la obtencion de los libros en si se dificulto un poco para los puntajes bajos y en donde la cantidad de scores era menor a 100.
-\subsection{Filtrado de los libros:} Aca podemos explicar como hicimos para ordenar los libros de la lista para seleccionar a mano y como funciona el script (getBooks.py)
-\subsection{Métricas utilizadas:} Explicacion de la metrica de simple english y de la metrica de repeticiones (quizas?). Explicacion del algoritmo utilizado para generar la metrica, explicar por que utilizamos un diccionario para filtrar palabras positivas. Explicar cantidad de apariciones (que al final no nos sirvio) contra cantidad de vocabulario simple (que es la que se presento relevante). Explicar como hicimos para validar la metrica (libros de whinny pooh, textos de harry potter vs edades recomendadas). No dar resultados de las metricas, eso se da en la proxima seccion.
 
-\section{Resultados:}
-\subsection{Elección de libros analizados:} Aca podemos justificar el armado de las categorias ``Buenos'' y ``Malos'' y porque decidimos dejar los que estaban calificados como 4.0 fuera. Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). \subsection{Resultados de las métricas:} Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros ``Buenos'' y otros para los ``Malos'' de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40\% y 50\% para todos los libros.\\
+Para lograr resultados significativos, analizamos 156 libros que clasificamos de acuerdo a las categorías con requerimientos de palabras clave provistas por Amazon.com\footnote{http://cor.to/categories}. Para lograr mayor organización y homogeneidad en nuestro análisis, decidimos unificarlas en los siguientes clusters:
+\begin{itemize}
+\item Cluster Nº1: Science Fiction and Fantasy, Classics, Fantasy, World Literature
+\item Cluster Nº2: Religion and Spirituality, Fiction, Health Mind and Body, Self-Help
+\item Cluster Nº3: Mystery and Thrillers, Thrillers, Biographies and Memoirs, Suspense, Nonfiction, History, Politics, Social Science
+\item Cluster Nº4: Other categories
+\end{itemize}
+De este modo, conseguimos una cantidad uniforme de libros por cluster.
 
-\subsection{Test de hipótesis:} Lo primero que va aca es la justificacion por el teorema central del limite de que podemos considerar los datos provenientes de una distribucion normal. Hay que citar alguna fuente en donde clarifique que arriba de 30 es aceptable utilizarlo. Luego, para cada metrica mostramos los resultados de las medias y la varianza y el resultado del test de hipotesis.
 
-\section{Conclusiones y trabajo futuro:} Por lo que vi vamos a tener que decir que obtuvimos resultados significativos pero los numeros estan demasiado cercanos como para utilizar la metrica como criterio. Explicar que otras metricas se nos ocurren para lo cual podria funcionar. Por ejemplo, a mi se me ocurre que una metrica mutli-variable con elementos de procesamiento de lenguaje natural podria dar mejores resultados, es decir metricas que describan mejor la forma en que el libro esta escrito.\\
+\subsection{Filtrado de los libros} Aca podemos explicar como hicimos para ordenar los libros de la lista para seleccionar a mano y como funciona el script (getBooks.py)
+\subsection{Métricas utilizadas} Explicacion de la metrica de simple english y de la metrica de repeticiones (quizas?). Explicacion del algoritmo utilizado para generar la metrica, explicar por que utilizamos un diccionario para filtrar palabras positivas. Explicar cantidad de apariciones (que al final no nos sirvio) contra cantidad de vocabulario simple (que es la que se presento relevante). Explicar como hicimos para validar la metrica (libros de whinny pooh, textos de harry potter vs edades recomendadas). No dar resultados de las metricas, eso se da en la proxima seccion.
+
+\section{Resultados}
+\subsection{Elección de libros analizados} Aca podemos justificar el armado de las categorias ``Buenos'' y ``Malos'' y porque decidimos dejar los que estaban calificados como 4.0 fuera. Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). \subsection{Resultados de las métricas} Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros ``Buenos'' y otros para los ``Malos'' de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40\% y 50\% para todos los libros.\\
+
+\subsection{Test de hipótesis} Lo primero que va aca es la justificacion por el teorema central del limite de que podemos considerar los datos provenientes de una distribucion normal. Hay que citar alguna fuente en donde clarifique que arriba de 30 es aceptable utilizarlo. Luego, para cada metrica mostramos los resultados de las medias y la varianza y el resultado del test de hipotesis.
+
+\section{Conclusiones y trabajo futuro} Por lo que vi vamos a tener que decir que obtuvimos resultados significativos pero los numeros estan demasiado cercanos como para utilizar la metrica como criterio. Explicar que otras metricas se nos ocurren para lo cual podria funcionar. Por ejemplo, a mi se me ocurre que una metrica mutli-variable con elementos de procesamiento de lenguaje natural podria dar mejores resultados, es decir metricas que describan mejor la forma en que el libro esta escrito.\\
 
 %\begin{figure}[!t]
 %\centering
@@ -126,15 +136,15 @@ Antes de entrar a las subsecciones deberiamos explicar por arriba lo que realiza
 
 \begin{thebibliography}{1}
 
-\bibitem{IEEEhowto:kopka}
-Graesser,~A.~C.,~McNamara,~D.~S.,~Louwerse,~M.~M., \& Cai,~Z. (2004). ``Coh-Metrix: Analysis of text on cohesion and language.''\hskip 1em plus
+\bibitem{graesser}
+Graesser,~A.~C.,~McNamara,~D.~S.,~Louwerse,~M.~M., \& Cai,~Z. (2004). ``Coh-Metrix: Analysis of text on cohesion and language.''\footnote{http://cor.to/graesser} \hskip 1em plus
   0.5em minus 0.4em\relax \emph{Behavior Research Methods,Instruments, \& Computers}, 36(2), 193-202.
 
-\bibitem{IEEEhowto:kopka}
+\bibitem{crossley}
 Crossley,~S.~A.,~Allen,~D.~B., \& McNamara,~D.~S. (2011). ``Text Readability and Intuitive Simplification: A Comparison of Readability Formulas.''\hskip 1em plus
   0.5em minus 0.4em\relax \emph{Reading in a foreign language}, 23(1), 84-101.
 
-\bibitem{IEEEhowto:kopka}
+\bibitem{diuk}
 Diuk,~C.~G.,~Slezak,~D.~F.,~Raskovsky,~I.,~Sigman,~M., \& Cecchi,~G.~A. (2012). ``A quantitative philology of introspection.''\hskip 1em plus
   0.5em minus 0.4em\relax \emph{Frontiers in integrative neuroscience}, 6.
 
