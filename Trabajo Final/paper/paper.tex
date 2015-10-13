@@ -7,7 +7,7 @@ pdfpagemode={UseOutlines},plainpages=false,pdfpagelabels=true,
 colorlinks=true,linkcolor={black},citecolor={black},urlcolor={black},
 pdftitle={Relación entre la dificultad del vocabulario de libros y sus respectivas calificaciones},
 pdfsubject={Neurociencia},
-pdfauthor={Gustavo Juantorena, Roberto Rama, Sabrina Izcovich},
+pdfauthor={Sabrina Izcovich, Roberto Rama, Gustavo Juantorena},
 pdfkeywords={Neurociencia, Vocabulario, Libro, Simple English}}
 
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -37,7 +37,7 @@ Neurociencia, Simple English, Vocabulario, Reseñas.
 \section{Introducción}
 \IEEEPARstart{E}{n la actualidad,} el avance de la tecnología permite compartir experiencias de distinta índole. Entre ellas, el intercambio de críticas y comentarios sobre diferentes productos puede causar la popularidad o descrédito de los mismos, llevando a un aumento o disminución de sus ventas. A partir de esto, surgen dudas sobre los motivos de los usuarios a la hora de calificar sus nuevas adquisiciones. En este caso, nos pareció interesante analizar libros. En particular, basamos nuestro estudio en el nivel de dificultad del vocabulario utilizado en los mismos. 
 
-En lo que sigue, se presenta un estudio exhaustivo que busca encontrar una correlación entre las calificaciones que reciben distintos libros a través de un sitio de Compra/Venta de internet ($Amazon$\footnote{www.amazon.com}), y el grado de dificultad del vocabulario de los mismos. Para ello, fue menester investigar una amplia variedad de libros escritos por distintos autores, de distintos géneros y formatos, y con distintas calificaciones recibidas por sus lectores. Por otro lado, debimos considerar una forma de medir el grado de dificultad del inglés utilizado. Para ello, tuvimos en cuenta la categorización de Simple English provista por Wikipedia\footnote{https://simple.wikipedia.org/wiki/Main\_Page}.
+En lo que sigue, se presenta un estudio exhaustivo que busca encontrar una correlación entre las calificaciones que reciben distintos libros a través del sitio de Compra/Venta de Internet $Amazon$\footnote{www.amazon.com}, y el grado de dificultad del vocabulario de los mismos. Para ello, fue menester investigar una amplia variedad de libros escritos por distintos autores, de distintos géneros y formatos, y con distintas calificaciones recibidas por sus lectores. Por otro lado, debimos considerar una forma de medir el grado de dificultad del inglés utilizado. Para ello, tuvimos en cuenta la categorización de Simple English provista por Wikipedia\footnote{https://simple.wikipedia.org/wiki/Main\_Page}.
 
 La idea del proyecto consiste en poder predecir futuras calificaciones de acuerdo al vocabulario del libro en cuestión, partiendo de la hipótesis de que, a partir de ciertas métricas, puede analizarse la redacción de su contenido y, luego, relacionarla significativamente con su puntaje.
 
@@ -53,8 +53,11 @@ Para la experimentación, creamos distintos scripts que nos permitieron manipula
 Luego, consideramos los tipos de libros a evaluar. Para eso, estudiamos el conjunto de categorías presentadas por Amazon y las posibles reseñas (una escala del 0 al 5), para realizar la clasificación que sigue. En primer lugar, dividimos las reseñas en tres: las bajas, las medianas y las altas. Luego, dividimos las categorías en cuatro clusters (que numeramos del 1 al 4). Por último, seleccionamos libros de las categorías más generales con scores opuestos y analizamos las mediciones respecto a la métrica creada. En lo que sigue, detallamos dicha elección como también las herramientas utilizadas para la clasificación realizada.
 
 \subsection{Recursos utilizados}
- Explicar de donde sacamos la base de datos de amazon y detallar su composicion. Aca deberiamos decir tambien los problemas que encontramos con la misma, como las categorias y que habia productos repetidos. Podriamos mostrar un histograma en donde se vea la distribucion de los puntajes en relacion a la cantidad de libros y otro con la cantidad de scores (para que se vea que hay pocos libros con muchos scores y muchos con pocos). Podemos explicar que la obtencion de los libros en si se dificulto un poco para los puntajes bajos y en donde la cantidad de scores era menor a 100.
+Primero, descargamos la base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html} en donde se detallan productos (dentro de los cuales 393.561 son libros), ranking de ventas, categoría de los mismos y reseñas en el sitio de Amazon.com. Al analizarla, nos encontramos con que, además de que la mayoría de los libros se encontraba en diversas categorías a la vez, éstas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'', ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Por otro lado, nos encontramos con que gran parte de los productos se encontraban repetidos, ya sea por poseer distintas ediciones, distintos formatos (tapa blanda/tapa dura, con audio, con dibujos, etc) o por estar clasificados de forma diferente. 
+%Podriamos mostrar un histograma en donde se vea la distribucion de los puntajes en relacion a la cantidad de libros y otro con la cantidad de scores (para que se vea que hay pocos libros con muchos scores y muchos con pocos). Podemos explicar que la obtencion de los libros en si se dificulto un poco para los puntajes bajos y en donde la cantidad de scores era menor a 100.
+Luego, procedimos a descargar los libros, tarea que resultó altamente dificultosa para las obras poco populares o de bajo puntaje dada la falta de interés a digitalizarlos. La selección de los mismos se realizó como se explica a continuación.
 
+\subsection{Filtrado de los libros} Aca podemos explicar como hicimos para ordenar los libros de la lista para seleccionar a mano y como funciona el script (getBooks.py)
 Para lograr resultados significativos, analizamos 156 libros que clasificamos de acuerdo a las categorías con requerimientos de palabras clave provistas por Amazon.com\footnote{http://cor.to/categories}. Para lograr mayor organización y homogeneidad en nuestro análisis, decidimos unificarlas en los siguientes clusters:
 \begin{itemize}
 \item Cluster Nº1: Science Fiction and Fantasy, Classics, Fantasy, World Literature
@@ -64,8 +67,6 @@ Para lograr resultados significativos, analizamos 156 libros que clasificamos de
 \end{itemize}
 De este modo, conseguimos una cantidad uniforme de libros por cluster.
 
-
-\subsection{Filtrado de los libros} Aca podemos explicar como hicimos para ordenar los libros de la lista para seleccionar a mano y como funciona el script (getBooks.py)
 \subsection{Métricas utilizadas} Explicacion de la metrica de simple english y de la metrica de repeticiones (quizas?). Explicacion del algoritmo utilizado para generar la metrica, explicar por que utilizamos un diccionario para filtrar palabras positivas. Explicar cantidad de apariciones (que al final no nos sirvio) contra cantidad de vocabulario simple (que es la que se presento relevante). Explicar como hicimos para validar la metrica (libros de whinny pooh, textos de harry potter vs edades recomendadas). No dar resultados de las metricas, eso se da en la proxima seccion.
 
 \section{Resultados}
