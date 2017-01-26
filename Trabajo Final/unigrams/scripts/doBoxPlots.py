@@ -5,7 +5,7 @@ import matplotlib as mpl
 mpl.use('agg')
 import matplotlib.pyplot as plt
 
-def doPlot(vbs, name="fig", path="."):
+def doPlot(vbs, name="fig", path=".", normalize=True):
     plt.clf()
     data_to_plot = []
     keys = sorted(vbs.keys())
@@ -32,14 +32,15 @@ def doPlot(vbs, name="fig", path="."):
     data_to_plot = [reduce(lambda x,y: x+y, data_to_plot[0:3])] + data_to_plot[3:]
     
     # Normalize
-    if name == "FleschReadingEase":
-        data_to_plot = map(lambda xs: 
-                        map(lambda x: 0.5-((x-min_value)/max_value), xs),
-                        data_to_plot)
-    else:
-        data_to_plot = map(lambda xs: 
-                        map(lambda x: (x-min_value)/max_value, xs),
-                        data_to_plot)
+    if normalize:
+        if name == "FleschReadingEase":
+            data_to_plot = map(lambda xs: 
+                            map(lambda x: 0.5-((x-min_value)/max_value), xs),
+                            data_to_plot)
+        else:
+            data_to_plot = map(lambda xs: 
+                            map(lambda x: (x-min_value)/max_value, xs),
+                            data_to_plot)
     
     # Create a figure instance
     plt.title(name)
@@ -48,10 +49,11 @@ def doPlot(vbs, name="fig", path="."):
     ax = fig.add_subplot(111)
     # Create the boxplot
     bp = ax.boxplot(data_to_plot)
-    ax.set_ylim([0,1])
+    if normalize:
+        ax.set_ylim([0,1])
     plt.xticks([1, 2, 3, 4, 5, 6], labels_x)
     # Save the figure
-    fig.savefig(path+"/"+name+".png", bbox_inches='tight')
+    fig.savefig(path+"/"+("" if normalize else "not-normalized-")+name+".png", bbox_inches='tight')
 
 folder = "boxplots"
 starting = 3
@@ -78,7 +80,9 @@ for metric in metrics:
             else:
                 values_by_scores[score].append(value)
     
-    doPlot(values_by_scores, name=str(labels[metric-starting]), path=folder)
+    doPlot(values_by_scores, name=str(labels[metric-starting]), path=folder, normalize=True)
+    print "Finished normalized plot for metric \"" + labels[metric-starting] + "\""
+    doPlot(values_by_scores, name=str(labels[metric-starting]), path=folder, normalize=False)
     print "Finished plot for metric \"" + labels[metric-starting] + "\""
 
 print "All plots finished."
