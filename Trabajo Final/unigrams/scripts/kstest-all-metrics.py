@@ -2,14 +2,33 @@
 from scipy import stats
 import operator, math
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    BLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    GREEN = '\033[92m'
+    RED = '\033[91m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+
+    def disable(self):
+        self.HEADER = ''
+        self.OKBLUE = ''
+        self.OKGREEN = ''
+        self.WARNING = ''
+        self.FAIL = ''
+        self.ENDC = ''
+
 def evaluate_results(n1, n2, a, pvalue, statistic):
     e_a = math.sqrt(-1*float(1/2.0)*math.log(a/2))
     condition = e_a * math.sqrt(float(n1+n2) / float(n1*n2))
     if (pvalue < a) and (condition < statistic):
-        print "Hipotesis nula rechazada",
+        print bcolors.GREEN+"Hipotesis nula rechazada",
     else:
-        print "Hipotesis nula NO rechazada",
-    print "("+str(pvalue), "<", str(a), "y", str(condition), "<", str(statistic)+")"
+        print bcolors.RED+"Hipotesis nula NO rechazada",
+    print "("+str(pvalue), "<", str(a), "y", str(condition), "<", str(statistic)+")"+bcolors.ENDC
 
 
 labels = ["Kincaid","ARI","Coleman-Liau","FleschReadingEase","GunningFogIndex",\
