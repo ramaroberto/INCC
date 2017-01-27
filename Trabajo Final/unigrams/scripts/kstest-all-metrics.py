@@ -8,8 +8,8 @@ def evaluate_results(n1, n2, a, pvalue, statistic):
     if (pvalue < a) and (condition < statistic):
         print "Hipotesis nula rechazada",
     else:
-        print "Hipotesis nula no rechazada",
-    print "("+str(pvalue), "<", str(a), "y", str(condition), "<", str(statistic)+")" + "\n"
+        print "Hipotesis nula NO rechazada",
+    print "("+str(pvalue), "<", str(a), "y", str(condition), "<", str(statistic)+")"
 
 
 labels = ["Kincaid","ARI","Coleman-Liau","FleschReadingEase","GunningFogIndex",\
@@ -19,6 +19,7 @@ starting = 3
 a = 0.01
 metrics = range(starting, 8+starting)
 
+results = []
 for metric in metrics:
     values_low_rating = []
     values_high_rating = []
@@ -33,10 +34,14 @@ for metric in metrics:
             if score == 3.0 or score == 2.5 or score == 2.0 or score == 1.5:
                 values_low_rating.append(value)
     [statistic, pvalue] = stats.ks_2samp(values_high_rating, values_low_rating)
-    result.append(tuple((labels[metric-starting],pvalue,statistic)))
-    result = sorted(result, key=operator.itemgetter(2))
-    n1 = len(values_low_rating)
-    n2= len(values_high_rating)
-    print labels[metric-starting]
-    print "pvalue: " + str(pvalue)
+    results.append(tuple((labels[metric-starting], statistic, pvalue)))
+
+n1 = len(values_low_rating)
+n2= len(values_high_rating)
+results = sorted(results, key=operator.itemgetter(2), reverse=True)
+for result in results:
+    label, statistic, pvalue = result
+    print label
+    print "pvalue: " + str(pvalue) + ", statistic: " + str(statistic)
     evaluate_results(n1,n2,a,pvalue,statistic)
+    print
