@@ -57,9 +57,9 @@ def doPlot(vbs, name="fig", path=".", normalize=True):
 
 folder = "boxplots"
 starting = 3
-number = 8
+number = 9
 labels = ["Kincaid","ARI","Coleman-Liau","FleschReadingEase","GunningFogIndex",\
-    "LIX","SMOGIndex","RIX","characters_per_word","syll_per_word","words_per_sentence",\
+    "LIX","SMOGIndex","RIX","Dale-Chall","characters_per_word","syll_per_word","words_per_sentence",\
     "sentences_per_paragraph","type_token_ratio","characters","syllables","words",\
     "wordtypes","sentences","paragraphs","long_words","complex_words","tobeverb",\
     "auxverb","conjunction","pronoun","preposition","nominalization",\
@@ -70,9 +70,9 @@ labels = labels[0:number+1]
 for metric in metrics:
     values_by_scores = {}
 
-    with open('filesRatingsScores.csv', 'r') as file:
-        for line in file:
-            data = line.split(",")
+    with open('filesRatingsScores.csv', 'r') as finput:
+        finput = csv.reader(finput, delimiter=',')
+        for data in finput:
             score = float(data[1])
             value = float(data[metric])
             if score not in values_by_scores:

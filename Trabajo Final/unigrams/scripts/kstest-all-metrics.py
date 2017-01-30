@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import csv
 from scipy import stats
 import operator, math
 
@@ -32,20 +33,21 @@ def evaluate_results(n1, n2, a, pvalue, statistic):
 
 
 labels = ["Kincaid","ARI","Coleman-Liau","FleschReadingEase","GunningFogIndex",\
-        "LIX","SMOGIndex","RIX"]
+        "LIX","SMOGIndex","RIX","Dale-Chall"]
 folder="plots"
 starting = 3
-a = 0.01
-metrics = range(starting, 8+starting)
+number = 9
+a = 0.001
+metrics = range(starting, number+starting)
 
 results = []
 for metric in metrics:
     values_low_rating = []
     values_high_rating = []
     result = []
-    with open('filesRatingsScores.csv', 'r') as file:
-        for line in file:
-            data = line.split(",")
+    with open('filesRatingsScores.csv', 'r') as finput:
+        finput = csv.reader(finput, delimiter=',')
+        for data in finput:
             score = float(data[1])
             value = float(data[metric])
             if score == 4.5 or score == 5.0:
