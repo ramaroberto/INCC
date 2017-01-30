@@ -1,0 +1,3 @@
+*.bak
+Trabajo\ Final/unigrams/Books/All-TXT/*.txt
+.DS_Store
