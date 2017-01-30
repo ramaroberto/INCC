@@ -16,7 +16,7 @@ with open('filesRatingsScores.csv', 'w') as output:
         result = map(lambda v: v.strip(), result)
         filename = result[0]
         if filename in myDictionary:
-            line = '"'+result[0]+'",' + ",".join(result[1:]) + myDictionary[filename] + "\n"
+            line = '"'+result[0]+'",' + ",".join(result[1:]) + "," + myDictionary[filename] + "\n"
             output.write(line)
         else:
             print filename
