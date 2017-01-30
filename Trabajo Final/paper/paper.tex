@@ -2,12 +2,14 @@
 \documentclass[12pt,journal,compsoc]{IEEEtran}
 \usepackage[spanish]{babel}
 \usepackage{array}
+\usepackage{graphicx}
 \usepackage{diagbox}
+\usepackage{float}
 \usepackage[utf8]{inputenc}
 \newcommand\MYhyperrefoptions{bookmarks=true,bookmarksnumbered=true,
 pdfpagemode={UseOutlines},plainpages=false,pdfpagelabels=true,
 colorlinks=true,linkcolor={black},citecolor={black},urlcolor={black},
-pdftitle={Relación entre la legibilidad de libros y sus respectivas calificaciones},
+pdftitle={Relación entre la legibilidad de una serie de libros y sus respectivas calificaciones},
 pdfsubject={Neurociencia},
 pdfauthor={Sabrina Izcovich, Roberto Rama, Gustavo Juantorena},
 pdfkeywords={Neurociencia, Vocabulario, Libro, Métricas, Legibilidad}}
@@ -23,7 +25,7 @@ pdfkeywords={Neurociencia, Vocabulario, Libro, Métricas, Legibilidad}}
 
 \IEEEtitleabstractindextext{
 \begin{abstract}
-En el siguiente trabajo, se intenta encontrar una relación entre la legibilidad en libros y las calificaciones obtenidas por parte de sus lectores. Para ello, se utilizó una serie de métricas expuestas en el Readability test\footnote{http://shop.niace.org.uk/media/catalog/product/R/e/Readability.pdf} en conjunto con distintos libros de la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html}. Con el fin de estudiar correctamente los resultados de las métricas, se dividieron los libros en clusters de acuerdo a su temática y se descargaron 15 libros de cada puntaje (de menos de 3.0 a 5.0, avanzando de a 0.5) de cada cluster. Luego de los análisis correspondientes, se comprobó que la legibilidad de los libros analizados se relaciona con las calificaciones otorgadas por los usuarios a través de Amazon, existiendo una tendencia a ser menores a menor legibilidad.
+En el siguiente trabajo, se intenta encontrar una relación entre la legibilidad de ciertos libros y las calificaciones obtenidas por parte de sus lectores. Para ello, se utilizó una serie de métricas expuestas en el Readability test en conjunto con distintos libros de la base de datos de Amazon. Con el fin de estudiar correctamente los resultados de las métricas, se dividieron los libros en clusters de acuerdo a su temática y se descargaron 15 libros de cada puntaje (de menos de 3.0 a 5.0, avanzando de a 0.5) de cada cluster. Luego de los análisis correspondientes, se comprobó que la legibilidad de los libros analizados se relaciona con las calificaciones otorgadas por los usuarios a través de Amazon, existiendo una tendencia a ser menores a menor legibilidad.
 \end{abstract}
 
 
@@ -40,7 +42,7 @@ Neurociencia, Métricas, Legibilidad, Libros, Reseñas.
 
 A continuación, se presenta un estudio cuyo fin es encontrar una relación entre las calificaciones de libros halladas en el sitio de compraventa $Amazon$\footnote{www.amazon.com}, y el grado de legibilidad de los mismos. Para ello, recompilamos una amplia variedad de libros de distintos autores, géneros y formatos, junto con la información de las calificaciones asignadas por sus lectores. Por otro lado, debimos considerar una forma de medir el grado de legibilidad, para lo que elegimos el Readability test\footnote{http://shop.niace.org.uk/media/catalog/product/R/e/Readability.pdf}, que consiste en una serie de fórmulas para evaluar la legibilidad de un texto, ya sea contando sílabas, palabras o frases.
 
-El proyecto consiste en poder predecir futuras calificaciones de acuerdo a la comprensión del libro en cuestión, partiendo de la hipótesis de que, a partir de ciertas métricas, puede analizarse su contenido y luego relacionarse significativamente con el puntaje otorgado por los lectores.
+El proyecto consiste en poder predecir futuras calificaciones de acuerdo a la comprensión del libro en cuestión, partiendo de la hipótesis de que, a partir de ciertas métricas, puede analizarse su contenido y luego relacionarse significativamente con el puntaje otorgado por los lectores\footnote{http://snap.stanford.edu/data/amazon-meta.html}.
 
 En primer lugar, se explicará el proceso realizado a lo largo del estudio y las herramientas empleadas detalladamente, incluyendo el criterio de clasificación de los libros y sus puntajes, como también las métricas empleadas. Luego, se expondrán los resultados empíricos obtenidos por categoría y la correlación entre éstos. Más tarde, presentaremos un análisis estadístico de los resultados medidos que nos permitirán, finalmente, extraer conclusiones.
 
@@ -51,86 +53,165 @@ Finalmente, el trabajo presentado durante las clases teóricas (\textit{Diuk, C.
 
 \section{Métodos}
 
-\subsection{Métricas}
-\subsection{LIX}
+En lo que sigue, se presentan los métodos utilizados para el ánalisis mencionado.
 
-Lix\footnote{http://www.readabilityformulas.com/the-LIX-readability-formula.php} es una medida de legibilidad para calcular la dificultad de lectura de un texto desarrollada por Carl-Hugo Björnsson:
+\subsection{Métricas utilizadas}
+\subsubsection{LIX}
 
-$LIX = W/P + (L * 100)/W$, where
+\textbf{LIX}\footnote{http://www.readabilityformulas.com/the-LIX-readability-formula.php} es una medida de legibilidad para calcular la dificultad de lectura de un texto desarrollada por Carl-Hugo Björnsson:\\
 
-W = Cantidad de palabras 
-P = Cantidad de períodos (definido por período, dos puntos o primera mayúscula)
-L = Cantidad de palabras largas (más de seis letras)
+$$LIX\ =\ W/P\ +\ (L\ *\ 100)/W$$
+donde\\
+\textit{W} = Cantidad de palabras \\
+\textit{P} = Cantidad de períodos (definido por período, dos puntos o primera mayúscula)\\
+\textit{L} = Cantidad de palabras largas (más de seis letras)\\
 
-En síntesis, \textbf{Lix = longitud de palabra + longitud de frase} donde \textbf{longitud de palabra = porcentaje de palabras con más de seis letras}, y \textbf{longitud de frase = promedio de palabras por frase}.
+En síntesis,
+\textit{LIX} = longitud de palabra + longitud de frase
+donde \textit{longitud de palabra} = porcentaje de palabras con más de seis letras,
+y \textit{longitud de frase} = promedio de palabras por frase.
 
 
-\subsection{ARI}
-El índice de legibilidad automatizado fue diseñado para medir la comprensividad de un texto. Su fórmula para calcular la legibilidad automática se da en la siguiente relación:
+\subsubsection{ARI}
+El índice de legibilidad automatizado (\textbf{ARI}) fue diseñado para medir la comprensividad de un texto. Su fórmula para calcular la legibilidad automática se da en la siguiente relación:
 
-$4.71 * (caracteres/palabras)+0.5*(palabras/frases) - 21.43$
+$$4.71 * (caracteres/palabras)+0.5*(palabras/frases) - 21.43$$
 
-donde caracteres corresponde a la cantidad de letras y números, palabras es la cantidad de espacios y frases la cantidad de frases.
+donde \textit{caracteres} corresponde a la cantidad de letras y números, \textit{palabras} es la cantidad de espacios y \textit{frases} la cantidad de frases.
 
-\subsection{Flesch reading ease}
+\subsubsection{Flesch reading ease}
 
-La fórmula de Flesch Reading-ease score test es:
-$206.835 - 1.015(palabras/frases) - 84.6*(silabas/palabras)$
+La fórmula de \textbf{Flesch Reading-ease score test} es la siguiente:
+$$206.835 - 1.015(palabras/frases) - 84.6*(silabas/palabras)$$
 
-\subsection{Coleman-Liau index}
-Test de legibilidad diseñado por Meri Coleman y T. L. Liau. Se lo calcula de la siguiente forma: CLI = 0.0588L - 0.296S - 15.8
-Con L el promedio de letras cada 100 palabras y S el promedio de frases cada 100 palabras.
+\subsubsection{Coleman-Liau index}
+Test de legibilidad diseñado por Meri Coleman y T. L. Liau. Se lo calcula de la siguiente forma: 
+$$CLI = 0.0588L - 0.296S - 15.8$$
+Con \textit{L} el promedio de letras cada 100 palabras y \textit{S} el promedio de frases cada 100 palabras.
 
-\subsection{SMOG}
-El grado SMOG (Medida simple de Gobbledygook) es una medida de legibilidad que estima los años de educación necesarios para entender un texto. Para calcularlo, se debe contar una serie de frases (al menos 30) y contar las polisílabas (palabras de tres o más sílabas) que posee cada una de ellas. Se calcula usando \textbf{$grado = 1.0430*\sqrt{cantidad\ de\ polisilabas * 30/(cantidad\ de\ frases)} + 3.1291$}
+\subsubsection{SMOG}
+El grado \textbf{SMOG} (Medida simple de Gobbledygook) es una medida de legibilidad que estima los años de educación necesarios para entender un texto. Para calcularlo, se debe contar una serie de frases (al menos 30) y contar las polisílabas (palabras de tres o más sílabas) que posee cada una de ellas. Se calcula usando $$grado = 1.0430*\sqrt{(cantidad\ de\ polisilabas) * 30/(cantidad\ de\ frases)} + 3.1291$$
 
+
+\subsubsection{Resultado con Harry Potter}
 \begin{tabular}{| l | l | l | l | l | l | l |}
-\diagbox[width=10em]{Libro}{Métrica} & ARI & Coleman-Liau & FleschReadingEase & LIX & SMOG & Dale-Chall\\
-HP1 & 4.481516948 & 6.371161861 & 92.57752413 & 27.00323833 & 7.178188401 & 8.767045757\\
-HP2 & 5.408105286 & 7.193069997 & 87.87801548 & 29.74381172 & 7.736996343 & 9.172415632\\
-HP3 & 5.186491732 & 7.256372575 & 87.37408964 & 29.60996451 & 7.638725771 & 9.141328847\\
-HP4 & 6.013266977 & 7.51563305 & 85.16901135 & 30.79829665 & 8.146998652 & 9.157754911\\
-HP5 & 6.668929147 & 7.821061837 & 83.34467911 & 32.84100449 & 8.489417001 & 9.220607204\\
-HP6 & 6.48106852 & 7.757711852 & 82.54966642 & 32.30298271 & 8.599174337 & 9.133273485\\
-HP7 & 5.87282531 & 7.471714618 & 85.4710048 & 30.82360611 & 8.131901232 & 8.969366814\\
+\hline
+\diagbox[width=10em]{Libro}{Métrica} & ARI & Coleman-Liau & Flesch Reading Ease & LIX & SMOG & Dale-Chall\\
+\hline
+HP1 & 4.48 & 6.37 & 92.58 & 27.00 & 7.18 & 8.77\\
+\hline
+HP2 & 5.41 & 7.19 & 87.88 & 29.74 & 7.74 & 9.17\\
+\hline
+HP3 & 5.19 & 7.26 & 87.37 & 29.61 & 7.64 & 9.14\\
+\hline
+HP4 & 6.01 & 7.52 & 85.17 & 30.80 & 8.15 & 9.16\\
+\hline
+HP5 & 6.67 & 7.82 & 83.34 & 32.84 & 8.49 & 9.22\\
+\hline
+HP6 & 6.48 & 7.76 & 82.55 & 32.30 & 8.60 & 9.13\\
+\hline
+HP7 & 5.87 & 7.47 & 85.47 & 30.82 & 8.13 & 8.97\\
+\hline
 \end{tabular}
 
-% Para probar nuestra hipótesis creamos distintos scripts que nos permitieron manipular los libros descargados con el fin de poder catalogarlos. Entre ellos se encuentra un filtro de \textit{Simple English} que contabiliza la cantidad de palabras consideradas “simples” (almacenadas en el archivo \textit{my.dict}) y calcula la proporción de las mismas en cada obra. Con el fin de comprobar la exactitud de dichas operaciones, evaluamos nuestro script utilizando la saga \textit{Harry Potter}\footnote{http://cor.to/harrypotter}, que presenta (según su autora \footnote{http://www.jkrowling.com/}) una dificultad creciente en el vocabulario de sus títulos. Al observar una disminución progresiva del porcentaje calculado (que pasó del 12\% en el primer tomo al 7.04\% en el séptimo) pudimos constatar la correctitud de nuestro programa.
-% A continuación consideramos los tipos de libros a evaluar. Para tal fin estudiamos el conjunto de categorías presentadas por Amazon y las posibles reseñas (utilizando la escala del 0 al 5), para realizar la siguiente clasificación: En primer lugar dividimos las reseñas en tres:  bajas,  medianas y  altas; Posteriormente dividimos las categorías en cuatro clusters (numerados  del 1 al 4); Finalmente seleccionamos libros de las categorías más generales con puntajes extremos y analizamos las mediciones respecto a la métrica creada. En las secciones siguientes detallamos dicha elección y las herramientas utilizadas para realizar la clasificación.
+Con el fin de comprobar la correctitud de dichas métricas, evaluamos el resultado de evaluar la saga \textit{Harry Potter}\footnote{http://cor.to/harrypotter}, que presenta (según su autora \footnote{http://www.jkrowling.com/}) una dificultad creciente en el vocabulario de sus títulos.\\
 
-\subsection{Recursos utilizados}
-Primero, descargamos la base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html} en donde se detallan productos (dentro de los cuales 393.561 son libros), ranking de ventas, categoría de los mismos y reseñas en el sitio de Amazon.com. Al analizarla, nos encontramos con que, además de que la mayoría de los libros se encontraba en diversas categorías a la vez, éstas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'', ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Por otro lado, nos encontramos con que gran parte de los productos se encontraban repetidos, ya sea por poseer distintas ediciones, distintos formatos (tapa blanda/tapa dura, con audio, con dibujos, etc) o por estar clasificados de forma diferente. 
+\subsection{Libros analizados}
+En lo que sigue, se explican las consideraciones que tuvimos en cuenta a la hora de seleccionar los libros a analizar. En primer lugar, estudiamos el conjunto de categorías presentadas por Amazon y las posibles reseñas (utilizando la escala del 0 al 5, saltando de a 0.5). Luego, decidimos dividir las categorías en cuatro clusters (numerados  del 1 al 4), y descargar 15 libros de cada reseña y cada cluster. Dado que no encontramos libros con reseñas del 0 al 1.5, y la cantidad de libros calificados con 1.5 era escasa, insertamos los libros de 1.5 a 2.5 en un mismo puntaje, y para el resto se usó la descripción anterior.\\
+
+En primer lugar, descargamos la base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html} en donde se detallan productos (dentro de los cuales 393.561 son libros), ranking de ventas, categoría de los mismos y reseñas en el sitio de Amazon.com. Al analizarla, nos encontramos con que, además de que la mayoría de los libros se encontraba en diversas categorías a la vez, éstas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'', ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Por otro lado, nos encontramos con que gran parte de los productos se encontraban repetidos, ya sea por poseer distintas ediciones, distintos formatos (tapa blanda/tapa dura, con audio, con dibujos, etc) o por estar clasificados de forma diferente. 
 %Podriamos mostrar un histograma en donde se vea la distribucion de los puntajes en relacion a la cantidad de libros y otro con la cantidad de scores (para que se vea que hay pocos libros con muchos scores y muchos con pocos). Podemos explicar que la obtencion de los libros en si se dificulto un poco para los puntajes bajos y en donde la cantidad de scores era menor a 100.
 Luego, procedimos a descargar los libros, tarea que resultó altamente dificultosa para las obras poco populares o de bajo puntaje dada la falta de interés a digitalizarlos. La selección de los mismos se realizó como se explica a continuación.
 
-\subsection{Filtrado de los libros} Aca podemos explicar como hicimos para ordenar los libros de la lista para seleccionar a mano y como funciona el script (getBooks.py)
+\subsubsection{Filtrado de los libros} Aca podemos explicar como hicimos para ordenar los libros de la lista para seleccionar a mano y como funciona el script (getBooks.py)
 Para lograr resultados significativos, analizamos 156 libros que clasificamos de acuerdo a las categorías con requerimientos de palabras clave provistas por Amazon.com\footnote{http://cor.to/categories}. Para lograr mayor organización y homogeneidad en nuestro análisis, decidimos unificarlas en los siguientes clusters:
 \begin{itemize}
-\item Cluster Nº1: Science Fiction and Fantasy, Classics, Fantasy, World Literature
-\item Cluster Nº2: Religion and Spirituality, Fiction, Health Mind and Body, Self-Help
-\item Cluster Nº3: Mystery and Thrillers, Thrillers, Biographies and Memoirs, Suspense, Nonfiction, History, Politics, Social Science
-\item Cluster Nº4: Other categories
+\item \textbf{Cluster Nº1:} Science Fiction and Fantasy, Classics, Fantasy, World Literature
+\item \textbf{Cluster Nº2:} Religion and Spirituality, Fiction, Health Mind and Body, Self-Help
+\item \textbf{Cluster Nº3:} Mystery and Thrillers, Thrillers, Biographies and Memoirs, Suspense, Nonfiction, History, Politics, Social Science
+\item \textbf{Cluster Nº4:} Other categories
 \end{itemize}
 De este modo, conseguimos una cantidad uniforme de libros por cluster.
 
-% \subsection{Métricas utilizadas} Explicacion de la metrica de simple english y de la metrica de repeticiones (quizas?). Explicacion del algoritmo utilizado para generar la metrica, explicar por que utilizamos un diccionario para filtrar palabras positivas. Explicar cantidad de apariciones (que al final no nos sirvio) contra cantidad de vocabulario simple (que es la que se presento relevante). Explicar como hicimos para validar la metrica (libros de whinny pooh, textos de harry potter vs edades recomendadas). No dar resultados de las metricas, eso se da en la proxima seccion.
+\section{Experimentos y Resultados}
+\subsection{Análisis de Datos} 
+analisis de datos de amazon y de los libros que bajamos
+%Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). \subsection{Resultados de las métricas} Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros ``Buenos'' y otros para los ``Malos'' de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40\% y 50\% para todos los libros.\\
 
-\section{Resultados}
-\subsection{Elección de libros analizados} Aca podemos justificar el armado de las categorias ``Buenos'' y ``Malos'' y porque decidimos dejar los que estaban calificados como 4.0 fuera. Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). \subsection{Resultados de las métricas} Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros ``Buenos'' y otros para los ``Malos'' de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40\% y 50\% para todos los libros.\\
+\subsection{Análisis de Resultados}
 
-\begin{tabular}{ l l l l }
+\begin{minipage}{\linewidth}
+  \centering
+  \begin{minipage}{0.25\linewidth}
+      \begin{figure}[H]
+          \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/not-normalized-ARI.png}
+          \caption{ARI}
+      \end{figure}
+  \end{minipage}
+  \hspace{0.05\linewidth}
+  \begin{minipage}{0.25\linewidth}
+      \begin{figure}[H]
+          \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/not-normalized-Coleman-Liau.png}
+          \caption{Coleman-Liau}
+      \end{figure}
+  \end{minipage}
+  \hspace{0.05\linewidth}
+  \begin{minipage}{0.25\linewidth}
+      \begin{figure}[H]
+          \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/not-normalized-SMOGIndex.png}
+          \caption{SMOGIndex}
+      \end{figure}
+  \end{minipage}
+\end{minipage}
 
+\begin{minipage}{\linewidth}
+  \centering
+  \begin{minipage}{0.25\linewidth}
+      \begin{figure}[H]
+          \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/not-normalized-FleschReadingEase.png}
+          \caption{FleschReadingEase}
+      \end{figure}
+  \end{minipage}
+  \hspace{0.05\linewidth}
+  \begin{minipage}{0.25\linewidth}
+      \begin{figure}[H]
+          \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/not-normalized-LIX.png}
+          \caption{LIX}
+      \end{figure}
+  \end{minipage}
+  \hspace{0.05\linewidth}
+  \begin{minipage}{0.25\linewidth}
+      \begin{figure}[H]
+          \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/not-normalized-Dale-Chall.png}
+          \caption{Dale-Chall}
+      \end{figure}
+  \end{minipage}
+\end{minipage}
+
+\subsection{Análisis de los Resultados del Test de Hipótesis}
+
+Para plantear los Test de Hipótesis correspondientes utilizamos el script $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy. El mismo computa el estadístico Kolmogorov-Smirnov en dos muestras. Éste es un test para la hipótesis nula de que dos muestras independientes se consiguen de la misma distribución continua. 
+
+Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (estadístico KS) y el p-valor.
+
+\begin{tabular}{ | l | l | l | l | }
+\hline
 Métrica & P-valor & D & Error tipo I\\
-ARI & 0.0316136675374 & 0.198426573427 & No rechazada \\
-RIX & 0.00582691920546 & 0.235431235431 & Hipotesis nula rechazada \\
-Kincaid & 0.00468189767192 & 0.239801864802 & Hipotesis nula rechazada \\
-LIX & 0.00217046858723 & 0.254564879565 & Hipotesis nula rechazada \\
-GunningFogIndex & 0.000850910243146 & 0.271464646465 & Hipotesis nula rechazada \\
-Coleman-Liau & 0.000782713128559 & 0.272921522922 & Hipotesis nula rechazada \\
-FleschReadingEase & 0.000174509867133 & 0.297882672883 & Hipotesis nula rechazada \\
-SMOGIndex & 5.03671154858e-06 & 0.349844599845 & Hipotesis nula rechazada \\
+\hline
+ARI & 0.0190035920384 & 0.192867390859 & Hipótesis nula NO rechazada (0.0190035920384 < 0.001 y 0.250668191907 < 0.192867390859)\\
+\hline
+LIX & 0.00168377897913 & 0.237821958052 & Hipótesis nula NO rechazada (0.00168377897913 < 0.001 y 0.250668191907 < 0.237821958052)\\
+\hline
+Coleman-Liau & 0.000597515106757 & 0.254628680741 & Hipótesis nula rechazada (0.000597515106757 < 0.001 y 0.250668191907 < 0.254628680741)\\
+\hline
+FleschReadingEase & 9.12655068247e-05 & 0.282571565211 & Hipótesis nula rechazada (9.12655068247e-05 < 0.001 y 0.250668191907 < 0.282571565211)\\
+\hline
+Dale-Chall & 2.52275648813e-05 & 0.300198128032 & Hipótesis nula rechazada (2.52275648813e-05 < 0.001 y 0.250668191907 < 0.300198128032)\\
+\hline
+SMOGIndex & 8.01109107703e-06 & 0.315091890415 & Hipótesis nula rechazada (8.01109107703e-06 < 0.001 y 0.250668191907 < 0.315091890415)\\
+\hline
 \end{tabular}
-\subsection{Test de hipótesis} Lo primero que va aca es la justificacion por el teorema central del limite de que podemos considerar los datos provenientes de una distribucion normal. Hay que citar alguna fuente en donde clarifique que arriba de 30 es aceptable utilizarlo. Luego, para cada metrica mostramos los resultados de las medias y la varianza y el resultado del test de hipotesis.
+Lo primero que va aca es la justificacion por el teorema central del limite de que podemos considerar los datos provenientes de una distribucion normal. Hay que citar alguna fuente en donde clarifique que arriba de 30 es aceptable utilizarlo. Luego, para cada metrica mostramos los resultados de las medias y la varianza y el resultado del test de hipotesis.
 
 \section{Conclusiones y trabajo futuro} Por lo que vi vamos a tener que decir que obtuvimos resultados significativos pero los numeros estan demasiado cercanos como para utilizar la metrica como criterio. Explicar que otras metricas se nos ocurren para lo cual podria funcionar. Por ejemplo, a mi se me ocurre que una metrica mutli-variable con elementos de procesamiento de lenguaje natural podria dar mejores resultados, es decir metricas que describan mejor la forma en que el libro esta escrito.\\
 
@@ -195,9 +276,9 @@ SMOGIndex & 5.03671154858e-06 & 0.349844599845 & Hipotesis nula rechazada \\
 
 \begin{thebibliography}{1}
 
-% \bibitem{graesser}
-% Graesser,~A.~C.,~McNamara,~D.~S.,~Louwerse,~M.~M., \& Cai,~Z. (2004). ``Coh-Metrix: Analysis of text on cohesion and language.''\footnote{http://cor.to/graesser} \hskip 1em plus
-%   0.5em minus 0.4em\relax \emph{Behavior Research Methods,Instruments, \& Computers}, 36(2), 193-202.
+\bibitem{graesser}
+Graesser,~A.~C.,~McNamara,~D.~S.,~Louwerse,~M.~M., \& Cai,~Z. (2004). ``Coh-Metrix: Analysis of text on cohesion and language.''\footnote{http://cor.to/graesser} \hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Behavior Research Methods,Instruments, \& Computers}, 36(2), 193-202.
 
 \bibitem{crossley}
 Crossley,~S.~A.,~Allen,~D.~B., \& McNamara,~D.~S. (2011). ``Text Readability and Intuitive Simplification: A Comparison of Readability Formulas.''\hskip 1em plus
