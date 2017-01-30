@@ -32,4 +32,4 @@ with open('fileScores.csv', 'wb') as file:
 				id = bookEntry[1]
 				entry = bookEntry[2]
 		print str(entry) + '\n'
-		file.write(f+', '+str(rating)+', '+str(id)+'\n')
+		file.write('"'+f+'", '+str(rating)+', '+str(id)+'\n')
