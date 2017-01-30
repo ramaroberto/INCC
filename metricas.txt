@@ -1,0 +1,65 @@
+X.Kincaid: Flesch–Kincaid Grade Level
+1.ARI (Automated readability index)
+1.Coleman-Liau
+1.FleschReadingEase
+X.GunningFogIndex
+1.LIX
+1.SMOGIndex (Simple Measure of Gobbledygook)
+X.RIX
+
+SMOG (Simple Measure of Gobbledygook) [http://ogg.osu.edu/site_documents/health_lit/WRRSMOG_Readability_Formula_G._Harry_McLaughlin__1969_.pdf]
+----
+The formula for calculating the SMOG grade was developed by G. Harry McLaughlin as a more accurate and more easily calculated substitute for the Gunning fog index and published in 1969. To make calculating a text's readability as simple as possible an approximate formula was also given — count the words of three or more syllables in three 10-sentence samples, estimate the count's square root (from the nearest perfect square), and add 3.
+
+Cita: McLaughlin, G. Harry (May 1969). "SMOG Grading — a New Readability Formula"
+
+Flesch–Kincaid readability tests [http://www.dtic.mil/dtic/tr/fulltext/u2/a006655.pdf]
+--------------------------------
+The Flesch–Kincaid readability tests are readability tests designed to indicate how difficult a reading passage in English is to understand. There are two tests, the Flesch Reading Ease, and the Flesch–Kincaid Grade Level. Although they use the same core measures (word length and sentence length), they have different weighting factors.
+The results of the two tests correlate approximately inversely: a text with a comparatively high score on the Reading Ease test should have a lower score on the Grade-Level test. Rudolf Flesch devised the Reading Ease evaluation; somewhat later, he and J. Peter Kincaid developed the Grade Level evaluation for the United States Navy.
+
+Cita: Kincaid JP, Fishburne RP Jr, Rogers RL, Chissom BS (February 1975). "Derivation of new readability formulas (Automated Readability Index, Fog Count and Flesch Reading Ease Formula) for Navy enlisted personnel" (PDF). Research Branch Report 8-75, Millington, TN: Naval Technical Training, U. S. Naval Air Station, Memphis, TN.
+
+FleschReadingEase vino despues del Kincaid y anda mejor. Ademas podemos justificar dejarlo afuera por esto:
+
+A 2010 study published in the Journal of the Royal College of Physicians of Edinburgh stated that “SMOG should be the preferred measure of readability when evaluating consumer-oriented healthcare material.” The study found that “The Flesch-Kincaid formula significantly underestimated reading difficulty compared with the gold standard SMOG formula.”
+Fitzsimmons,P.; Michael, B.; Hulley, J.; Scott, G. (2010). "A readability assessment of online Parkinson's disease information". J R Coll Physicians Edinb.
+http://www.rcpe.ac.uk/journal/issue/journal_40_4/fitzsimmons.pdf
+
+ARI (Automated readability index) [http://www.dtic.mil/cgi-bin/GetTRDoc?AD=AD0667273]
+---------------------------------
+Unlike the other indices, the ARI, along with the Coleman–Liau, relies on a factor of characters per word, instead of the usual syllables per word. Although opinion varies on its accuracy as compared to the syllables/word and complex words indices, characters/word is often faster to calculate, as the number of characters is more readily and accurately counted by computer programs than syllables. In fact, this index was designed for real-time monitoring of readability on electric typewriters.
+
+Cita: Senter, R.J.; Smith, E.A. (November 1967). "Automated Readability Index.". Wright-Patterson Air Force Base: iii. AMRL-TR-6620. Retrieved 2012-03-18.
+
+Reemplazable por el Coleman-Liau ya que tiene una formulacion parecida y anda mejor.
+
+LIX & RIX []
+---
+
+LIX = number of words / number of periods + 100 *(number of long words) / number of words
+
+Anderson, however, was interested. Despite the name, not another Swede, but an Australian academic working in educational research. He studied the LIX and published on his findings in the 1980s. In brief he found the LIX to work for English, German, French and Greek, and also proposed an alternative index: the RIX. Given that the RIX is simpler to calculate I’m guessing he didn’t have computer power back then either.
+
+RIX es una version simplificada de LIX
+
+Cita: Lix and Rix: Variations on a Little-known Readability Index
+Jonathan Anderson
+Journal of Reading
+Vol. 26, No. 6 (Mar., 1983), pp. 490-496
+
+Coleman–Liau index []
+-------------------
+The Coleman–Liau index was designed to be easily calculated mechanically from samples of hard-copy text. Unlike syllable-based readability indices, it does not require that the character content of words be analyzed, only their length in characters. Therefore, it could be used in conjunction with theoretically simple mechanical scanners that would only need to recognize character, word, and sentence boundaries, removing the need for full optical character recognition or manual keypunching.
+
+Cita: Coleman, Meri; and Liau, T. L. (1975); A computer readability formula designed for machine scoring, Journal of Applied Psychology, Vol. 60, pp. 283–284
+
+Dale–Chall []
+----------
+The formula was inspired by Rudolf Flesch's Flesch–Kincaid readability test which used word-length to determine how difficult a word was for readers to understand. Edgar Dale and Jeanne Chall instead used a list of 763 words that 80% of fourth-grade students were familiar with, such as "no", "yes", and other such very basic words to determine which words were difficult. The Dale-Chall Readability Formula was originally published in their 1948 article A Formula for Predicting Readability[1] and updated in 1995 in Readability Revisited: The New Dale-Chall Readability Formula, which expanded the word list to 3,000 familiar words.[2] There are online word count tools which incorporate the Dale-Chale Readability Formula.
+
+Vamos a usar la ultima version con 3000 palabras.
+
+Cita de formula original: Dale E, Chall J (1948). "A Formula for Predicting Readability". Educational Research Bulletin. 27: 11–20+28.
+Cita de formula extendida: Chall, Jeanne Sternlicht; Dale, Edgar (May 1, 1995). Readability revisited. ISBN 1571290087.
+
