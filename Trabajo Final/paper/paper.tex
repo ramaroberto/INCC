@@ -10,9 +10,8 @@ colorlinks=true,linkcolor={black},citecolor={black},urlcolor={black},
 pdftitle={Relación entre la legibilidad de libros y sus respectivas calificaciones},
 pdfsubject={Neurociencia},
 pdfauthor={Sabrina Izcovich, Roberto Rama, Gustavo Juantorena},
-pdfkeywords={Neurociencia, Vocabulario, Libro, Simple English}}
+pdfkeywords={Neurociencia, Vocabulario, Libro, Métricas, Legibilidad}}
 
-\hyphenation{op-tical net-works semi-conduc-tor}
 \begin{document}
 \title{Relación entre la legibilidad de libros y sus respectivas calificaciones}
 
@@ -24,7 +23,7 @@ pdfkeywords={Neurociencia, Vocabulario, Libro, Simple English}}
 
 \IEEEtitleabstractindextext{
 \begin{abstract}
-En el siguiente trabajo, se intenta encontrar una relación entre la legibilidad encontrada en libros literarios y las calificaciones obtenidas por parte de sus lectores. Para ello, se utilizó una serie de métricas expuestas en el Readability test\footnote{http://shop.niace.org.uk/media/catalog/product/R/e/Readability.pdf} en conjunto con distintos libros de la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html}. Con el fin de estudiar correctamente los resultados de las métricas, se dividieron los libros en clusters de acuerdo a su temática y se descargaron 15 libros de cada puntaje (de menos de 3.0 a 5.0, avanzando de a 0.5) de cada cluster. Luego de los análisis correspondientes, se comprobó que la legibilidad de los libros analizados se relaciona con las calificaciones otorgadas por los usuarios a través de Amazon, existiendo una tendencia a ser menores a menor legibilidad.
+En el siguiente trabajo, se intenta encontrar una relación entre la legibilidad en libros y las calificaciones obtenidas por parte de sus lectores. Para ello, se utilizó una serie de métricas expuestas en el Readability test\footnote{http://shop.niace.org.uk/media/catalog/product/R/e/Readability.pdf} en conjunto con distintos libros de la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html}. Con el fin de estudiar correctamente los resultados de las métricas, se dividieron los libros en clusters de acuerdo a su temática y se descargaron 15 libros de cada puntaje (de menos de 3.0 a 5.0, avanzando de a 0.5) de cada cluster. Luego de los análisis correspondientes, se comprobó que la legibilidad de los libros analizados se relaciona con las calificaciones otorgadas por los usuarios a través de Amazon, existiendo una tendencia a ser menores a menor legibilidad.
 \end{abstract}
 
 
@@ -37,9 +36,9 @@ Neurociencia, Métricas, Legibilidad, Libros, Reseñas.
 \IEEEpeerreviewmaketitle
 
 \section{Introducción}
-\IEEEPARstart{E}{n la actualidad,} el avance de la tecnología permite compartir experiencias de distinta índole. Entre ellas, el intercambio de críticas y comentarios sobre diferentes productos, las cuales pueden provocar un aumento o disminución de sus ventas. Debido a esto, conocer los motivos de los usuarios a la hora de calificar resulta útil. En este trabajo analizamos libros en base al nivel de legibilidad de los mismos con el fin de encontrar relaciones entre éste y la valoración otorgada. 
+\IEEEPARstart{E}{n la actualidad,} el avance de la tecnología permite compartir experiencias de distinta índole entre sus usuarios. Por ejemplo, el intercambio de críticas y comentarios sobre diferentes productos, que pueden ocasionar un aumento o disminución de sus respectivas ventas. Es por esto que conocer los motivos de los usuarios a la hora de calificar resulta útil cuando se desea estudiar el mercado. En este trabajo, analizamos libros en base al nivel de legibilidad de los mismos con el fin de encontrar relaciones entre éste y la valoración que reciben. 
 
-A continuación se presenta un estudio exhaustivo cuyo fin es encontrar una correlación entre las calificaciones de libros a través del sitio de compraventa en Internet $Amazon$\footnote{www.amazon.com}, y el grado de legibilidad que poseen. Para ello, recopilamos una amplia variedad de libros de distintos autores, géneros y formatos, y los comparamos con las calificaciones recibidas por sus lectores. Por otro lado, debimos considerar una forma de medir el grado de dificultad del inglés utilizado. Para ello utilizamos la categorización de Simple English provista por Wikipedia\footnote{https://simple.wikipedia.org/wiki/Main\_Page}.
+A continuación, se presenta un estudio cuyo fin es encontrar una relación entre las calificaciones de libros halladas en el sitio de compraventa $Amazon$\footnote{www.amazon.com}, y el grado de legibilidad de los mismos. Para ello, recompilamos una amplia variedad de libros de distintos autores, géneros y formatos, junto con la información de las calificaciones asignadas por sus lectores. Por otro lado, debimos considerar una forma de medir el grado de legibilidad, para lo que elegimos el Readability test\footnote{http://shop.niace.org.uk/media/catalog/product/R/e/Readability.pdf}, que consiste en una serie de fórmulas para evaluar la legibilidad de un texto, ya sea contando sílabas, palabras o frases.
 
 El proyecto consiste en poder predecir futuras calificaciones de acuerdo a la comprensión del libro en cuestión, partiendo de la hipótesis de que, a partir de ciertas métricas, puede analizarse su contenido y luego relacionarse significativamente con el puntaje otorgado por los lectores.
 
