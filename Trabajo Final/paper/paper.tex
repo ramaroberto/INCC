@@ -24,7 +24,8 @@ pdfkeywords={Neurociencia, Vocabulario, Libro, Métricas, Legibilidad}}
 
 
 \IEEEtitleabstractindextext{
-\begin{abstract}Desde tiempos inmemoriables las personas han expresado variados gustos y opiniones sobre distintos topicos, siendo la literatura uno de los mas discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas. A pesar de esto las personas son capaces de asignar un puntaje numerico comparativo a una obra, que dado un numero grande de puntajes tiende a converger a un numero, evidenciando asi una especie de acuerdo en el gusto general. Estos sistemas de puntajes son normalmente utilizados por las tiendas online, como una forma de guia confiable para otros clientes, pero ademas son una fuente de informacion muy interesante. En el presente trabajo practico ponemos a prueba la hipotesis de que la forma de escritura de un libro influye en la recepcion del mismo por la poblacion, siendo libros mas legibles mejor valorados. Demostramos la validez de esta hipotesis analizando distintas metricas de legibilidad clasicas en una fraccion de los libros de la base de datos de Amazon, asegurando cierta homogeneidad en la seleccion de los mismos utilizando sus categorias.
+
+\begin{abstract}Desde tiempos inmemoriables las personas han expresado variados gustos y opiniones sobre distintos tópicos, siendo la literatura uno de los más discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas. A pesar de esto, las personas son capaces de asignar un puntaje numérico comparativo a una obra, que dado un número grande de puntajes tiende a converger a un número, evidenciando asi una especie de acuerdo en el gusto general. Estos sistemas de puntajes son normalmente utilizados por las tiendas online, como una forma de guía confiable para otros clientes, pero además son una fuente de información muy interesante. En el presente trabajo práctico ponemos a prueba la hipótesis de que la forma de escritura de un libro influye en la recepción del mismo por la población, siendo libros mas legibles mejor valorados. Demostramos la validez de esta hipótesis analizando distintas métricas de legibilidad clásicas en una fracción de los libros de la base de datos de Amazon, asegurando cierta homogeneidad en la selección de los mismos utilizando sus categorías.
 \end{abstract}
 
 % cita en ``puntaje numerico comparativo a una obra''
@@ -241,14 +242,14 @@ analisis de datos de amazon y de los libros que bajamos
 
 Para plantear los Test de Hipótesis correspondientes utilizamos la función $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy. El mismo computa el estadístico Kolmogorov-Smirnov en dos muestras. Éste es un test para la hipótesis nula de que dos muestras independientes se consiguen de la misma distribución continua.\\
 
-Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (estadístico KS) y el p-valor. Si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son la misma.\\
+Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (o estadístico KS) y el p-valor. Si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución.\\
 
 % TODO: Falta la cita sobre la necesidad de estas condiciones
 
 La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > c(\alpha) \sqrt{\frac{n_1+n_2}{n_1\cdot n_2}}$$ donde $n_1$ y $n_2$ son los tamaños de las muestras a comparar. El valor de $c(\alpha)$ se define como:
 $$c(\alpha) = \sqrt{1/2\ log(\alpha/2)}$$
 
-Los resultados obtenidos con un nivel de significancia de 0.001 con las métricas analizadas fueron los siguientes:\\
+Los resultados obtenidos con un nivel de significancia de 0.001 para las métricas analizadas fueron los siguientes:\\
 
 \begin{tabular}{ | l | l | l | l | }
 \hline
