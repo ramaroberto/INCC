@@ -192,25 +192,38 @@ analisis de datos de amazon y de los libros que bajamos
 
 Para plantear los Test de Hipótesis correspondientes utilizamos el script $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy. El mismo computa el estadístico Kolmogorov-Smirnov en dos muestras. Éste es un test para la hipótesis nula de que dos muestras independientes se consiguen de la misma distribución continua. 
 
-Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (estadístico KS) y el p-valor.
+Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (estadístico KS) y el p-valor. Si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son la misma.
+
+Para tomar una decisión respecto de la Hipótesis nula, se calculó:
+$$c(\alpha) = \sqrt{1/2 * log(a/2)}$$
+
+siendo \textit{\alpha} = 0.001 el nivel de significancia del test.
+    % condition = e_a * math.sqrt(float(n1+n2) / float(n1*n2))
+    % if (pvalue < a) and (condition < statistic):
+    %     print bcolors.GREEN+"Hipotesis nula rechazada",
+    % else:
+    %     print bcolors.RED+"Hipotesis nula NO rechazada",
+
+Los resultados obtenidos fueron los siguientes:\\
 
 \begin{tabular}{ | l | l | l | l | }
 \hline
-Métrica & P-valor & D & Error tipo I\\
+Métrica & P-valor & D & Decisión sobre la Hipótesis nula\\
 \hline
-ARI & 0.0190035920384 & 0.192867390859 & Hipótesis nula NO rechazada (0.0190035920384 < 0.001 y 0.250668191907 < 0.192867390859)\\
+ARI & 1.9e-2 & 1.929e-2 & \textbf{NO rechazada} (1.9e-2 $<$ 0.001 y 2.5e-2 $<$ 1.929e-2)\\
 \hline
-LIX & 0.00168377897913 & 0.237821958052 & Hipótesis nula NO rechazada (0.00168377897913 < 0.001 y 0.250668191907 < 0.237821958052)\\
+LIX & 1.684e-3 & 2.378e-1 & \textbf{NO rechazada} (1.684e-3 $<$ 1e-3 y 2.5e-1 $<$ 2.378e-1)\\
 \hline
-Coleman-Liau & 0.000597515106757 & 0.254628680741 & Hipótesis nula rechazada (0.000597515106757 < 0.001 y 0.250668191907 < 0.254628680741)\\
+Coleman-Liau & 5.97e-4 & 2.546e-1 & \textbf{Rechazada} (5.97e-4 $<$ 1e-3 y 2.5e-1 $<$ 2.546e-1)\\
 \hline
-FleschReadingEase & 9.12655068247e-05 & 0.282571565211 & Hipótesis nula rechazada (9.12655068247e-05 < 0.001 y 0.250668191907 < 0.282571565211)\\
+FleschReadingEase & 9.126e-05 & 2.82e-1 & \textbf{Rechazada} (9.126e-05 $<$ 1e-3 y 2.5e-1 $<$ 2.82e-1)\\
 \hline
-Dale-Chall & 2.52275648813e-05 & 0.300198128032 & Hipótesis nula rechazada (2.52275648813e-05 < 0.001 y 0.250668191907 < 0.300198128032)\\
+Dale-Chall & 2.52e-05 & 3e-1 & \textbf{Rechazada} (2.52e-05 $<$ 1e-3 y 2.5e-1 $<$ 3e-1)\\
 \hline
-SMOGIndex & 8.01109107703e-06 & 0.315091890415 & Hipótesis nula rechazada (8.01109107703e-06 < 0.001 y 0.250668191907 < 0.315091890415)\\
+SMOGIndex & 8.01e-06 & 3.15e-1 & \textbf{Rechazada} (8.01e-06 $<$ 0.001 y 2.5e-1 $<$ 3.15e-1)\\
 \hline
 \end{tabular}
+
 Lo primero que va aca es la justificacion por el teorema central del limite de que podemos considerar los datos provenientes de una distribucion normal. Hay que citar alguna fuente en donde clarifique que arriba de 30 es aceptable utilizarlo. Luego, para cada metrica mostramos los resultados de las medias y la varianza y el resultado del test de hipotesis.
 
 \section{Conclusiones y trabajo futuro} Por lo que vi vamos a tener que decir que obtuvimos resultados significativos pero los numeros estan demasiado cercanos como para utilizar la metrica como criterio. Explicar que otras metricas se nos ocurren para lo cual podria funcionar. Por ejemplo, a mi se me ocurre que una metrica mutli-variable con elementos de procesamiento de lenguaje natural podria dar mejores resultados, es decir metricas que describan mejor la forma en que el libro esta escrito.\\
