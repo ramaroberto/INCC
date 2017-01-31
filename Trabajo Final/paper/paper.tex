@@ -27,6 +27,8 @@ pdfkeywords={Neurociencia, Vocabulario, Libro, Métricas, Legibilidad}}
 \begin{abstract}Desde tiempos inmemoriables las personas han expresado variados gustos y opiniones sobre distintos topicos, siendo la literatura uno de los mas discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas. A pesar de esto las personas son capaces de asignar un puntaje numerico comparativo a una obra, que dado un numero grande de puntajes tiende a converger a un numero, evidenciando asi una especie de acuerdo en el gusto general. Estos sistemas de puntajes son normalmente utilizados por las tiendas online, como una forma de guia confiable para otros clientes, pero ademas son una fuente de informacion muy interesante. En el presente trabajo practico ponemos a prueba la hipotesis de que la forma de escritura de un libro influye en la recepcion del mismo por la poblacion, siendo libros mas legibles mejor valorados. Demostramos la validez de esta hipotesis analizando distintas metricas de legibilidad clasicas en una fraccion de los libros de la base de datos de Amazon, asegurando cierta homogeneidad en la seleccion de los mismos utilizando sus categorias.
 \end{abstract}
 
+% cita en ``puntaje numerico comparativo a una obra''
+
 \begin{IEEEkeywords}
 Neurociencia, Métricas, Legibilidad, Libros, Reseñas.
 \end{IEEEkeywords}}
@@ -132,6 +134,62 @@ Para lograr resultados significativos, analizamos 156 libros que clasificamos de
 De este modo, conseguimos una cantidad uniforme de libros por cluster.
 
 \section{Experimentos y Resultados}
+
+\subsection{Eliminacion parcial del sesgo}
+
+Dado que libros de distintas categorias pueden presentar distinto vocabulario, los resultados pueden verse sesgados si utilizamos para el analisis muchos libros de una tematica parecida. Para asegurarnos una homogeneidad conformamos 4 conjuntos o clusters distintos de libros, en donde cada cluster esta compuesto por categorias distintas, de forma tal de asegurarnos un analisis con libros de distintas categorias, distinto vocabulario y enfocados para distinto publico.
+
+El dataset crudo presenta el problema de que las categorias no conforman conjuntos disjuntos y ademas hay cierta jerarquia presente en las mismas. Para eliminar las categorias de los niveles inferiores de la jerarquia filtramos aquellas que aparecian 50 veces o menos, resultando en una lista de 129 categorias principales. De esta lista eliminamos categorias demasiado generales o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras; llegando a una lista final de 113 categorias.
+
+% TODO: Agregamos grafo de jerarquia?
+
+Habiendo confeccionado esta lista realizamos una codificacion de la base de datos en donde cada libro puede ser descripto como una tira de ceros y unos, en donde cada cero o uno indica la pertenencia a una categoria. Utilizando Weka ejecutamos un algoritmo de clusterizacion llamado expectation maximization con 10 folds y 8 clusters. Si bien nuestro objetivo original era obtener 4 clusters, si especificabamos esta cantidad uno de los clusters agrupaba demasiados libros, ya que el algoritmo agrupa todos aquellos que no puede terminar de clasificar (por el limite asignado) en uno solo.
+
+Como en todos los clusters existen libros que contienen categorias de otros clusters, formar clusters totalmente disjuntos en las categorias es imposible. Sin embargo podemos intentar formarlos minimizando la cantidad de libros que comparten categorias con otros clusters. Probamos distintas maneras de agrupar los clusters y finalmente la composicion quedo definida de la siguente manera:
+
+~
+
+\begin{itemize}
+ \item Cluster N1: Science Fiction And Fantasy, Fantasy, Science Fiction, Classics, World Literature
+ \item Cluster N2: Religion And Spirituality, Health Mind And Body, Fiction, Self-Help
+ \item Cluster N3: Mystery And Thrillers, Thrillers, Suspense, Biographies And Memoirs, Nonfiction, History, Politics, Social Sciences
+ \item Cluster N4: El resto
+\end{itemize}
+% TODO: Falta pie de cuadro
+
+~
+
+De esta manera solo un 20\% de los libros comparte categorias de 2 clusters distintos. Un analisis rapido de las cantidades contenidas en cada cluster arroja nos dice que si bien la division esta lejos de ser perfecta en lo que respecta a cantidades nominales, nos da margen suficiente para analizar libros de distintos puntajes y clusters.
+
+~
+
+\begin{table}
+ \centering
+  \begin{tabular}{| l | l | l | l | l |}
+  \hline
+  \diagbox[width=10em]{Puntaje}{Cluster} & 1 & 2 & 3 & 4 \\
+  \hline
+  1.5  & 4     & 2    & 19   & 5    \\
+  \hline
+  2    & 6     & 4    & 35   & 27   \\
+  \hline
+  2.5  & 36    & 33   & 103  & 66   \\
+  \hline
+  3    & 107   & 139  & 414  & 237  \\
+  \hline
+  3.5  & 450   & 390  & 855  & 733  \\
+  \hline
+  4    & 1394  & 863  & 1483 & 1366 \\
+  \hline
+  4.5  & 1801  & 1661 & 1610 & 1800 \\
+  \hline
+  5    & 232   & 355  & 230  & 322  \\
+  \hline
+    Total & 4030  & 3447 & 4749 & 4556 \\
+    \hline
+  \end{tabular}
+\end{table}
+
 \subsection{Análisis de Datos} 
 analisis de datos de amazon y de los libros que bajamos
 %Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). \subsection{Resultados de las métricas} Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros ``Buenos'' y otros para los ``Malos'' de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40\% y 50\% para todos los libros.\\
