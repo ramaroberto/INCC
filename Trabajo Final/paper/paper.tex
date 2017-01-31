@@ -58,39 +58,32 @@ En lo que sigue, se presentan los métodos utilizados para el ánalisis menciona
 \subsection{Métricas utilizadas}
 \subsubsection{LIX}
 
-\textbf{LIX}\footnote{http://www.readabilityformulas.com/the-LIX-readability-formula.php} es una medida de legibilidad para calcular la dificultad de lectura de un texto desarrollada por Carl-Hugo Björnsson:\\
+\textbf{LIX}\footnote{http://www.readabilityformulas.com/the-LIX-readability-formula.php} es una medida de legibilidad para calcular la dificultad de lectura de un texto desarrollada por Carl-Hugo Björnsson:
 
-$$LIX\ =\ W/P\ +\ (L\ *\ 100)/W$$
-donde\\
-\textit{W} = Cantidad de palabras \\
-\textit{P} = Cantidad de períodos (definido por período, dos puntos o primera mayúscula)\\
-\textit{L} = Cantidad de palabras largas (más de seis letras)\\
+$$LIX\ =\ \frac{palabras}{periodos} + \ 100 \cdot \frac{palabras\ largas}{palabras}$$
 
-En síntesis,
-\textit{LIX} = longitud de palabra + longitud de frase
-donde \textit{longitud de palabra} = porcentaje de palabras con más de seis letras,
-y \textit{longitud de frase} = promedio de palabras por frase.
-
+En donde se define como períodos dos puntos o primera mayúscula\\
 
 \subsubsection{ARI}
 El índice de legibilidad automatizado (\textbf{ARI}) fue diseñado para medir la comprensividad de un texto. Su fórmula para calcular la legibilidad automática se da en la siguiente relación:
 
-$$4.71 * (caracteres/palabras)+0.5*(palabras/frases) - 21.43$$
+$$ARI = 4.71\cdot \frac{caracteres}{palabras}+0.5\cdot \frac{palabras}{frases} - 21.43$$
 
 donde \textit{caracteres} corresponde a la cantidad de letras y números, \textit{palabras} es la cantidad de espacios y \textit{frases} la cantidad de frases.
 
 \subsubsection{Flesch reading ease}
 
-La fórmula de \textbf{Flesch Reading-ease score test} es la siguiente:
-$$206.835 - 1.015(palabras/frases) - 84.6*(silabas/palabras)$$
+La fórmula de \textbf{Flesch reading ease score test} es la siguiente:
+$$FRE = 206.835 - 1.015\cdot \frac{palabras}{frases} - 84.6\cdot \frac{silabas}{palabras}$$
 
 \subsubsection{Coleman-Liau index}
 Test de legibilidad diseñado por Meri Coleman y T. L. Liau. Se lo calcula de la siguiente forma: 
-$$CLI = 0.0588L - 0.296S - 15.8$$
-Con \textit{L} el promedio de letras cada 100 palabras y \textit{S} el promedio de frases cada 100 palabras.
+$$CLI = 5.88 \cdot \frac{letras}{palabras} - 29.6 \cdot \frac{frases}{palabras} - 15.8$$
 
 \subsubsection{SMOG}
-El grado \textbf{SMOG} (Medida simple de Gobbledygook) es una medida de legibilidad que estima los años de educación necesarios para entender un texto. Para calcularlo, se debe contar una serie de frases (al menos 30) y contar las polisílabas (palabras de tres o más sílabas) que posee cada una de ellas. Se calcula usando $$grado = 1.0430*\sqrt{(cantidad\ de\ polisilabas) * 30/(cantidad\ de\ frases)} + 3.1291$$
+El grado \textbf{SMOG} (Medida simple de Gobbledygook) es una medida de legibilidad que estima los años de educación necesarios para entender un texto. Para calcularlo, se debe contar una serie de frases (al menos 30) y contar las polisílabas (palabras de tres o más sílabas) que posee cada una de ellas. Se calcula usando 
+
+$$SMOG = 1.0430\cdot \sqrt{polisilabas \cdot \frac{30}{frases}} + 3.1291$$
 
 
 \subsubsection{Resultado con Harry Potter}
@@ -246,14 +239,14 @@ analisis de datos de amazon y de los libros que bajamos
 
 \subsection{Análisis de los Resultados del Test de Hipótesis}
 
-Para plantear los Test de Hipótesis correspondientes utilizamos el script $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy. El mismo computa el estadístico Kolmogorov-Smirnov en dos muestras. Éste es un test para la hipótesis nula de que dos muestras independientes se consiguen de la misma distribución continua.\\
+Para plantear los Test de Hipótesis correspondientes utilizamos la función $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy. El mismo computa el estadístico Kolmogorov-Smirnov en dos muestras. Éste es un test para la hipótesis nula de que dos muestras independientes se consiguen de la misma distribución continua.\\
 
 Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (estadístico KS) y el p-valor. Si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son la misma.\\
 
-La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > c(\alpha) * \sqrt{(n1+n2)/(n1*n2)}$$ donde n1 y n2 son los tamaños de las muestras a comparar. El valor de $c(\alpha)$ es el que sigue:
-$$c(\alpha) = \sqrt{1/2 * log(a/2)}$$
+% TODO: Falta la cita sobre la necesidad de estas condiciones
 
-Dado que el p-valor y el estadístico KS son calculados por el script, nos limitamos a verificar que el p-valor$<\alpha$ y que la condición $<$estadístico para decidir si la Hipótesis era rechazada.\\
+La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > c(\alpha) \sqrt{\frac{n_1+n_2}{n_1\cdot n_2}}$$ donde $n_1$ y $n_2$ son los tamaños de las muestras a comparar. El valor de $c(\alpha)$ se define como:
+$$c(\alpha) = \sqrt{1/2\ log(\alpha/2)}$$
 
 Los resultados obtenidos con un nivel de significancia de 0.001 con las métricas analizadas fueron los siguientes:\\
 
