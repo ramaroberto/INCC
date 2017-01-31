@@ -25,7 +25,7 @@ pdfkeywords={Neurociencia, Vocabulario, Libro, Métricas, Legibilidad}}
 
 \IEEEtitleabstractindextext{
 \begin{abstract}
-En el siguiente trabajo, se intenta encontrar una relación entre la legibilidad de ciertos libros y las calificaciones obtenidas por parte de sus lectores. Para ello, se utilizó una serie de métricas expuestas en el Readability test en conjunto con distintos libros de la base de datos de Amazon. Con el fin de estudiar correctamente los resultados de las métricas, se dividieron los libros en clusters de acuerdo a su temática y se descargaron 15 libros de cada puntaje (de menos de 3.0 a 5.0, avanzando de a 0.5) de cada cluster. Luego de los análisis correspondientes, se comprobó que la legibilidad de los libros analizados se relaciona con las calificaciones otorgadas por los usuarios a través de Amazon, existiendo una tendencia a ser menores a menor legibilidad.
+En el siguiente trabajo, se intenta encontrar una relación entre la legibilidad de ciertos libros y las calificaciones obtenidas por parte de sus lectores. Para ello, se utilizó una serie de métricas expuestas en el Readability test en conjunto con distintos libros de la base de datos de Amazon. Con el fin de estudiar homogéneamente los resultados de las métricas, se dividieron los libros en clusters de acuerdo a su temática y se descargaron 15 libros de cada puntaje (de menos de 3.0 a 5.0, avanzando de a 0.5) de cada uno de ellos. Luego de los análisis correspondientes, se comprobó que la legibilidad de los libros analizados se relaciona con las calificaciones otorgadas por los usuarios a través de Amazon, existiendo una tendencia a ser menores a menor legibilidad.
 \end{abstract}
 
 
@@ -190,16 +190,16 @@ analisis de datos de amazon y de los libros que bajamos
 
 \subsection{Análisis de los Resultados del Test de Hipótesis}
 
-Para plantear los Test de Hipótesis correspondientes utilizamos el script $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy. El mismo computa el estadístico Kolmogorov-Smirnov en dos muestras. Éste es un test para la hipótesis nula de que dos muestras independientes se consiguen de la misma distribución continua.\\
+Para plantear los Test de Hipótesis correspondientes utilizamos el script $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy para computar el estadístico Kolmogorov-Smirnov en dos muestras. Éste es un test para la hipótesis nula que dadas dos muestras independientes evalúa si se consiguen de la misma distribución continua.\\
 
-Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (estadístico KS) y el p-valor. Si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son la misma.\\
+Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (o estadístico KS) y el p-valor. Si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución.\\
 
 La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > c(\alpha) * \sqrt{(n1+n2)/(n1*n2)}$$ donde n1 y n2 son los tamaños de las muestras a comparar. El valor de $c(\alpha)$ es el que sigue:
-$$c(\alpha) = \sqrt{1/2 * log(a/2)}$$
+$$c(\alpha) = \sqrt{1/2 * log(\alpha/2)}$$
 
-Dado que el p-valor y el estadístico KS son calculados por el script, nos limitamos a verificar que el p-valor$<\alpha$ y que la condición $<$estadístico para decidir si la Hipótesis era rechazada.\\
+Dado que el p-valor y el estadístico KS son calculados por el script, nos limitamos a verificar que el p-valor$<\alpha$ y que la condición$<$estadístico para decidir si la Hipótesis era rechazada.\\
 
-Los resultados obtenidos con un nivel de significancia de 0.001 con las métricas analizadas fueron los siguientes:\\
+Los resultados obtenidos con un nivel de significancia de 0.001 para las métricas analizadas fueron los siguientes:\\
 
 \begin{tabular}{ | l | l | l | l | }
 \hline
