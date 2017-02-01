@@ -40,15 +40,13 @@ Neurociencia, Métricas, Legibilidad, Libros, Reseñas.
 \IEEEpeerreviewmaketitle
 
 \section{Introducción}
-\IEEEPARstart{D}{esde} siempre las personas han expresado variados gustos y opiniones sobre distintos tópicos, siendo la literatura uno de los más discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas, y muchas veces estar influenciadas por la opinion del resto de los usuarios\cite{muchnik} o ser poco objetivos debido a experiencias personales (la mayoria de los usuarios solo dan una reseña cuando su relacion con el producto es muy buena o muy mala\cite{hu}). 
+\IEEEPARstart{D}{esde} siempre, las personas han expresado diferentes gustos y opiniones sobre diversos tópicos, siendo la literatura uno de los más discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas. Otras veces, los mismos pueden estar influenciados por la opinión del resto de los usuarios\cite{muchnik} o ser poco objetivos debido a experiencias personales (la mayoría de los usuarios sólo da una reseña cuando su relación con el producto es muy buena o muy mala\cite{hu}). A pesar de esto, las calificaciones que los usuarios asignan en los sitios web tienden a converger a un número mayormente positivo con el transcurso del tiempo\cite{zhang}; y aunque en general el comportamiento de éstas sigue siendo una incógnita, existen estudios que afirman se trata de una distribución binomial\cite{hu}. Sin embargo, no todo comportamiento puede ser justificado por una tendencia\cite{zhang}, por lo que su estudio sigue siendo valioso. 
 
-A pesar de esto, los puntajes de reseña que los usuarios asignan en los sitios web tienden a converger a un número, mayormente positivo a medida que transcurre el tiempo\cite{zhang}; y aunque en general el comportamiento sigue siendo una incognita, hay estudios que afirman se trata de una distribucion binomial\cite{hu}. Sin embargo, no todo su comportamiento puede ser justificado por una tendencia\cite{zhang}, por lo que su información sigue siendo valiosa. 
+En nuestro análisis, buscamos responder a la pregunta de si la legibilidad de los libros impacta de alguna forma en las reseñas que los usuarios asignan. Para esto, suponemos que los libros más faciles de leer, o sea más legibles, tienden a tener mejor puntaje que aquellos que resultan más difíciles. Para demostrar nuestra hipótesis, recompilamos una amplia variedad de libros de distintos autores, géneros y formatos, junto con la información de las calificaciones asignadas por sus lectores. Ésta última fue extraída de la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html}, que fue utilizada en un análisis del marketing viral\cite{leskovec}. Intentamos que los libros analizados conformaran un conjunto de datos lo más homogéneo posible, para evitar sesgos ocasionados por una categoría o autor en particular.
 
-En nuestro estudio intentamos responder la pregunta de si la legibilidad de los libros impacta de alguna forma en las reseñas que los usuarios otorgan. Suponemos que los libros más faciles de leer, es decir más legibles, tienden a tener mejor puntaje que aquellos que poseen una lectura mas dificultosa. Para demostrar nuestra hipotesis, recompilamos una amplia variedad de libros de distintos autores, géneros y formatos, junto con la información de las calificaciones asignadas por sus lectores, otorgada por la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html}, la cual fue usada en un análisis del marketing viral\cite{leskovec}. Intentamos que los libros analizados conformen un conjunto de datos lo mas homogeneo posible, para evitar sesgos ocasionados por una categoria u autor en particular.
+A pesar del gran esfuerzo en el área lingüística para introducir criterios computacionales que modelen y evalúen la complejidad de un texto en el sentido de legibilidad, un esquema representativo y concluyente todavía se encuentra en falta \cite{orlow, klare, kanungo, karmakar}. Por esto, y ya que los resultados entre distintas métricas clásicas pueden no ser consistentes\cite{izgi}, utilizamos un conjunto de las mismas para medir la legibilidad y contrastar los resultados. De esta manera, al observar la misma tendencia para distintas métricas, podremos evidenciar la validez de los resultados. Nos hubiese gustado utilizar métricas más avanzadas durante la experimentación como \textit{Coh-Metrix}\cite{graesser}, que parece tener una consistencia y utilidad mayores a las métricas básicas\cite{crossley}, pero no estaban disponibles para hacer de su uso fácilmente.
 
-Entendemos que a pesar del esfuerzo significativo del area linguistica para introducir criterios computacionales que modelen y evaluen la complejidad de un texto en el sentido de legibilidad, un esquema representativo y concluyente todavia esta faltando \cite{orlow, klare, kanungo, karmakar}. Por ello, para medir la legibilidad utilizamos un conjunto de metricas clasicas. De esta manera esperamos poder asegurar cierta consistencia en los resultados, que de lo contrario, utilizando una sola metrica, podria faltar ya que los resultados pueden no ser consistentes entre las mismas\cite{izgi}. Nos hubiese gustado utilizar métricas mas avanzadas durante la experimentación como \textit{Coh-Metrix}\cite{graesser}, que parecen tener una consistencia y utilidad mayores a las metricas básicas\cite{crossley}, pero no estaban disponibles para hacer de su uso fácilmente.
-
-Finalmente, el trabajo de \textit{Diuk, C. G., et. al., 2012} \cite{diuk}, resultó de gran inspiración sobre la potencialidad del análisis de grandes repositorios de datos con el fin de hacer predicciones. En el mismo, se utilizaron  textos de distintas épocas en orden cronológico con el fin de probar si el constructo introspección creció o disminuyó a lo largo de los años.
+Finalmente, el trabajo de \textit{Diuk, C. G., et. al., 2012} \cite{diuk}, resultó de gran inspiración sobre la potencialidad del análisis de grandes repositorios de datos con el fin de hacer predicciones. En el mismo, se utilizaron textos de distintas épocas en orden cronológico con el fin de probar si el constructo introspección creció o disminuyó a lo largo de los años.
 
 En la seccion ... %TODO: Completar al final
 En primer lugar, se explicará el proceso realizado a lo largo del estudio y las herramientas empleadas detalladamente, incluyendo el criterio de clasificación de los libros y sus puntajes, como también las métricas empleadas. Luego, se expondrán los resultados empíricos obtenidos por categoría y la correlación entre éstos. Más tarde, presentaremos un análisis estadístico de los resultados medidos que nos permitirán, finalmente, extraer conclusiones.
@@ -59,11 +57,11 @@ En primer lugar, se explicará el proceso realizado a lo largo del estudio y las
 % el puntaje de reseña en los sitios normalmente es muy alto \cite{chevalier, fowler}
 % los puntajes de reseña tienden a converger a números altos\cite{zhang}
 
-\section{Métodos}
+\section{Método}
 
-En lo que sigue, se presentan los métodos utilizados para el ánalisis mencionado.
+En lo que sigue, se presentan las herramientas utilizadas para el ánalisis de legibilidad de libros.
 
-\subsection{Métricas utilizadas}
+\subsection{Métricas evaluadas}
 \subsubsection{LIX}
 
 \textbf{LIX}\footnote{http://www.readabilityformulas.com/the-LIX-readability-formula.php} o la Fórmula Sueca de Legibilidad Lasbarhetsindex fue especialmente diseñada para la legibilidad de los textos de lenguajes extranjeros. Su fórmula usa la cantidad de palabras, la cantidad de períodos y la cantidad de palabras largas (de más de 6 letras). Su fórmula es la siguiente:
@@ -73,19 +71,19 @@ $$LIX\ =\ \frac{palabras}{periodos} + \ 100 \cdot \frac{palabras\ largas}{palabr
 Los $periodos$ se dividen con dos puntos o primera mayúscula.\\
 
 \subsubsection{ARI}
-El índice de legibilidad automatizado (\textbf{ARI}) posee dos variables: caracteres por palabra y palabras por frase. El resultado corresponde al nivel de grado de los Estados Unidos. Su fórmula se da en la siguiente relación:
+El índice de legibilidad automatizado (\textbf{ARI}) posee dos variables: caracteres por palabra y palabras por frase. El resultado corresponde al grado académico en los Estados Unidos. Su fórmula se da en la siguiente relación:
 
 $$ARI = 4.71\cdot \frac{caracteres}{palabras}+0.5\cdot \frac{palabras}{frases} - 21.43$$
 
 donde \textit{caracteres} corresponde a la cantidad de letras y números, \textit{palabras} es la cantidad de espacios y \textit{frases} la cantidad de frases.
 
 \subsubsection{Flesch-Kincaid Reading Ease}
-Consiste en una de las métricas más antiguas de legibilidad, comunmente utilizada en la academia e incorporada en la mayoría de los softwares de procesamiento de lenguaje. La métrica \textbf{Flesch-Kincaid Reading Ease} es el resultado de una fórmula matemática que incorpora el promedio de sílabas por palabra y el promedio de palabras por frase cada 100 palabras. Los resultados se miden en una escala del 1 al 100, donde 1 significa muy complicado de leer y 100 muy fácil.\\
+Consiste en una de las métricas más antiguas de legibilidad, comúnmente utilizada en la academia e incorporada en la mayoría de los softwares de procesamiento de lenguaje. La métrica \textbf{Flesch-Kincaid Reading Ease} es el resultado de una fórmula matemática que incorpora el promedio de sílabas por palabra y el promedio de palabras por frase cada 100 palabras. Los resultados se miden en una escala del 1 al 100, donde 1 significa muy complicado de leer y 100 muy fácil.\\
 La fórmula del test \textbf{Flesch-Kincaid Reading Ease} es la siguiente:
 $$FRE = 206.835 - 1.015\cdot \frac{palabras}{frases} - 84.6\cdot \frac{silabas}{palabras}$$
 
 \subsubsection{Coleman-Liau index}
-A diferencia del resto de los tests de legibilidad, el \textbf{Coleman-Liau Index} se basa en la cantidad de caracteres por palabra en vez del número de sílabas para su cálculo. Devuelve el nivel de grado de los Estados Unidos del libro, valor entre 1 y 12.\\
+A diferencia del resto de los tests de legibilidad, el \textbf{Coleman-Liau Index} se basa en la cantidad de caracteres por palabra en vez del número de sílabas para su cálculo. Devuelve el grado académico de los Estados Unidos necesario para entender el libro, valor entre 1 y 12.\\
 Se lo calcula de la siguiente forma: 
 $$CLI = 5.88 \cdot \frac{letras}{palabras} - 29.6 \cdot \frac{frases}{palabras} - 15.8$$
 
@@ -96,7 +94,7 @@ Se calcula usando:
 $$SMOG = 1.0430\cdot \sqrt{polisilabas \cdot \frac{30}{frases}} + 3.1291$$
 
 \subsubsection{Dale–Chall}
-A diferencia del resto de las métricas que usan la cantidad de caracteres o de sílabas en una palabra, \textbf{Dale-Chall} calcula el nivel de grado aproximado de un texto midiendo las ``palabras difíciles''. Para esto, se encuentra definida una lista de aproximadamente 3000 palabras conocidas por al menos el 80\% de los niños de quinto grado. Las palabras consideradas difíciles son las que no se encuentran en dicha lista. Cuanto más alto es el resultado, más alto es el nivel de grado del texto. 
+A diferencia del resto de las métricas que usan la cantidad de caracteres o de sílabas en una palabra, \textbf{Dale-Chall} calcula el nivel de grado aproximado de un texto midiendo las ``palabras difíciles''. Para esto, se encuentra definida una lista de aproximadamente 3.000 palabras conocidas por al menos el 80\% de los niños de quinto grado. Las palabras consideradas difíciles son las que no se encuentran en dicha lista. Cuanto más alto es el resultado, más alto es el nivel de grado del texto. 
 \\Se obtiene aplicando la siguiente fórmula:
 
 $$0.1579\left({\frac{{\mbox{palabras dificiles}}}{{\mbox{palabras}}}}\times 100\right)+0.0496\left({\frac{{\mbox{palabras}}}{{\mbox{frases}}}}\right)$$
