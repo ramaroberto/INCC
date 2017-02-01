@@ -125,9 +125,12 @@ HP7 & 5.87 & 7.47 & 85.47 & 30.82 & 8.13 & 8.97\\
 Se puede observar que, en términos generales, todas las métricas presentan una disminución de la legibilidad a medida que se avanza en la saga, comprobando los dichos de su autora.
 
 \section{Análisis del dataset}
-En lo que sigue, se explican las consideraciones que tuvimos en cuenta a la hora de seleccionar los libros a analizar. En primer lugar, estudiamos el conjunto de categorías presentadas por Amazon y las posibles reseñas (utilizando la escala del 0 al 5, saltando de a 0.5). Luego, decidimos dividir las categorías en cuatro clusters (numerados  del 1 al 4), y descargar 15 libros de cada reseña y cada cluster. Dado que no encontramos libros con reseñas del 0 al 1.5, y la cantidad de libros calificados con 1.5 era escasa, insertamos los libros de 1.5 a 2.5 en un mismo puntaje, y para el resto se usó la descripción anterior.\\
 
-En primer lugar, descargamos la base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html} en donde se detallan productos (dentro de los cuales 393.561 son libros), ranking de ventas, categoría de los mismos y reseñas en el sitio de Amazon.com. Al analizarla, nos encontramos con que, además de que la mayoría de los libros se encontraba en diversas categorías a la vez, éstas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'', ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Por otro lado, nos encontramos con que gran parte de los productos se encontraban repetidos, ya sea por poseer distintas ediciones, distintos formatos (tapa blanda/tapa dura, con audio, con dibujos, etc) o por estar clasificados de forma diferente. 
+En lo que sigue, se explican las consideraciones que tuvimos en cuenta a la hora de seleccionar los libros a analizar.
+
+\subsection{Categorías}
+En primer lugar, descargamos la base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html} en donde se detallan productos (dentro de los cuales 393.561 son libros), ranking de ventas, categoría de los mismos y reseñas en el sitio de Amazon.com. Al analizarla, nos encontramos con que, además de que la mayoría de los libros se encontraba en diversas categorías a la vez, éstas últimas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'', ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Por otro lado, nos encontramos con que gran parte de los productos se encontraban repetidos, ya sea por poseer distintas ediciones, distintos formatos (tapa blanda/tapa dura, con audio, con dibujos, etc) o por estar clasificados de forma diferente. 
+
 %Podriamos mostrar un histograma en donde se vea la distribucion de los puntajes en relacion a la cantidad de libros y otro con la cantidad de scores (para que se vea que hay pocos libros con muchos scores y muchos con pocos). Podemos explicar que la obtencion de los libros en si se dificulto un poco para los puntajes bajos y en donde la cantidad de scores era menor a 100.
 Luego, procedimos a descargar los libros, tarea que resultó altamente dificultosa para las obras poco populares o de bajo puntaje dada la falta de interés a digitalizarlos. La selección de los mismos se realizó como se explica a continuación.
 
@@ -186,7 +189,13 @@ De esta manera solo un 20\% de los libros comparte categorias de 2 clusters dist
   \end{tabular}
 \end{table}
 
-\subsection{Análisis de los libros obtenidos} 
+\subsection{Reseñas}
+
+En lo que sigue, se puede ver la distribución de los puntajes 
+\begin{figure}[H]
+  \includegraphics[width=8.0in]{imgs/grafDeBarras.png}
+  \caption{Cantidad de reviews por puntaje}
+\end{figure} 
 
 \begin{figure}[H]
 \begin{center}
@@ -203,6 +212,8 @@ De esta manera solo un 20\% de los libros comparte categorias de 2 clusters dist
 
 %Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). \subsection{Resultados de las métricas} Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros ``Buenos'' y otros para los ``Malos'' de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40\% y 50\% para todos los libros.\\
 \section{Experimentos y Resultados}
+
+ En primer lugar, estudiamos el conjunto de categorías presentadas por Amazon y las posibles reseñas (utilizando la escala del 0 al 5, saltando de a 0.5). Luego, decidimos dividir las categorías en cuatro clusters (numerados  del 1 al 4), y descargar 15 libros de cada reseña y cada cluster. Dado que no encontramos libros con reseñas del 0 al 1.5, y la cantidad de libros calificados con 1.5 era escasa, insertamos los libros de 1.5 a 2.5 en un mismo puntaje, y para el resto se usó la descripción anterior.\\
 
 \subsection{Análisis de Resultados}
 
