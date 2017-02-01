@@ -25,7 +25,8 @@ pdfkeywords={Neurociencia, Vocabulario, Libro, Métricas, Legibilidad}}
 
 \IEEEtitleabstractindextext{
 
-\begin{abstract}Desde tiempos inmemoriables las personas han expresado variados gustos y opiniones sobre distintos tópicos, siendo la literatura uno de los más discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas. A pesar de esto, las personas son capaces de asignar un puntaje numérico comparativo a una obra, que dado un número grande de puntajes tiende a converger a un número, evidenciando asi una especie de acuerdo en el gusto general. Estos sistemas de puntajes son normalmente utilizados por las tiendas online, como una forma de guía confiable para otros clientes, pero además son una fuente de información muy interesante. En el presente trabajo práctico ponemos a prueba la hipótesis de que la forma de escritura de un libro influye en la recepción del mismo por la población, siendo libros mas legibles mejor valorados. Demostramos la validez de esta hipótesis analizando distintas métricas de legibilidad clásicas en una fracción de los libros de la base de datos de Amazon, asegurando cierta homogeneidad en la selección de los mismos utilizando sus categorías.
+\begin{abstract}
+En la actualidad, el avance de la tecnología permite compartir experiencias de distinta índole entre sus usuarios. Por ejemplo, el intercambio de críticas y comentarios sobre diferentes productos, que pueden ocasionar un aumento o disminución de sus respectivas ventas. Es por esto que conocer los motivos de los usuarios a la hora de calificar resulta útil cuando se desea estudiar el mercado. En este trabajo, analizamos libros en base al nivel de legibilidad de los mismos demostrando relaciones entre éste y la valoración que reciben. Para ello, aplicamos diversas métricas clásicas de legibilidad a un subconjunto de libros extraidos de la base de datos de Amazon.
 \end{abstract}
 
 % cita en ``puntaje numerico comparativo a una obra''
@@ -39,18 +40,24 @@ Neurociencia, Métricas, Legibilidad, Libros, Reseñas.
 \IEEEpeerreviewmaketitle
 
 \section{Introducción}
-\IEEEPARstart{E}{n la actualidad,} el avance de la tecnología permite compartir experiencias de distinta índole entre sus usuarios. Por ejemplo, el intercambio de críticas y comentarios sobre diferentes productos, que pueden ocasionar un aumento o disminución de sus respectivas ventas. Es por esto que conocer los motivos de los usuarios a la hora de calificar resulta útil cuando se desea estudiar el mercado. En este trabajo, analizamos libros en base al nivel de legibilidad de los mismos con el fin de encontrar relaciones entre éste y la valoración que reciben. 
+\IEEEPARstart{D}{esde} siempre las personas han expresado variados gustos y opiniones sobre distintos tópicos, siendo la literatura uno de los más discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas, y muchas veces estar influenciadas por la opinion del resto de los usuarios\cite{muchnik} o ser poco objetivos debido a experiencias personales (la mayoria de los usuarios solo dan una reseña cuando su relacion con el producto es muy buena o muy mala\cite{hu}). 
 
-A continuación, se presenta un estudio cuyo fin es encontrar una relación entre las calificaciones de libros halladas en el sitio de compraventa $Amazon$\footnote{www.amazon.com}, y el grado de legibilidad de los mismos. Para ello, recompilamos una amplia variedad de libros de distintos autores, géneros y formatos, junto con la información de las calificaciones asignadas por sus lectores. Por otro lado, debimos considerar una forma de medir el grado de legibilidad, para lo que elegimos el Readability test\footnote{http://shop.niace.org.uk/media/catalog/product/R/e/Readability.pdf}, que consiste en una serie de fórmulas para evaluar la legibilidad de un texto, ya sea contando sílabas, palabras o frases.
+A pesar de esto, los puntajes de reseña que los usuarios asignan en los sitios web tienden a converger a un número, mayormente positivo a medida que transcurre el tiempo\cite{zhang}; y aunque en general el comportamiento sigue siendo una incognita, hay estudios que afirman se trata de una distribucion binomial\cite{hu}. Sin embargo, no todo su comportamiento puede ser justificado por una tendencia\cite{zhang}, por lo que su información sigue siendo valiosa. 
 
-El proyecto consiste en poder predecir futuras calificaciones de acuerdo a la comprensión del libro en cuestión, partiendo de la hipótesis de que, a partir de ciertas métricas, puede analizarse su contenido y luego relacionarse significativamente con el puntaje otorgado por los lectores\footnote{http://snap.stanford.edu/data/amazon-meta.html}.
+En nuestro estudio intentamos responder la pregunta de si la legibilidad de los libros impacta de alguna forma en las reseñas que los usuarios otorgan. Suponemos que los libros más faciles de leer, es decir más legibles, tienden a tener mejor puntaje que aquellos que poseen una lectura mas dificultosa. Para demostrar nuestra hipotesis, recompilamos una amplia variedad de libros de distintos autores, géneros y formatos, junto con la información de las calificaciones asignadas por sus lectores, otorgada por la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html}, la cual fue usada en un análisis del marketing viral\cite{leskovec}. Intentamos que los libros analizados conformen un conjunto de datos lo mas homogeneo posible, para evitar sesgos ocasionados por una categoria u autor en particular.
 
+Entendemos que a pesar del esfuerzo significativo del area linguistica para introducir criterios computacionales que modelen y evaluen la complejidad de un texto en el sentido de legibilidad, un esquema representativo y concluyente todavia esta faltando \cite{orlow, klare, kanungo, karmakar}. Por ello para medir la legibilidad utilizamos un conjunto de metricas clasicas, al contrario de una sola. De esta manera esperamos poder asegurar cierta consistencia en los resultados, que de lo contrario utilizando una sola metrica podria faltar ya que los resultados pueden no ser consistentes entre las mismas\cite{izgi}. Nos hubiese gustado utilizar métricas mas avanzadas durante la experimentación como \textit{Coh-Metrix}\cite{graesser}, que parecen tener una consistencia y utilidad mayores a las metricas básicas\cite{crossley}, pero no estaban disponibles para hacer de su uso fácilmente.
+
+Finalmente, el trabajo de \textit{Diuk, C. G., et. al., 2012} \cite{diuk}, resultó de gran inspiración sobre la potencialidad del análisis de grandes repositorios de datos con el fin de hacer predicciones. En el mismo, se utilizaron  textos de distintas épocas en orden cronológico con el fin de probar si el constructo introspección creció o disminuyó a lo largo de los años.
+
+En la seccion ... %TODO: Completar al final
 En primer lugar, se explicará el proceso realizado a lo largo del estudio y las herramientas empleadas detalladamente, incluyendo el criterio de clasificación de los libros y sus puntajes, como también las métricas empleadas. Luego, se expondrán los resultados empíricos obtenidos por categoría y la correlación entre éstos. Más tarde, presentaremos un análisis estadístico de los resultados medidos que nos permitirán, finalmente, extraer conclusiones.
 
-\section{Trabajos relacionados}
-Con el fin de orientar nuestra investigación, revisamos distintos estudios realizados y ciertos documentos correspondientes al área. En uno de los más relevantes (\textit{Graesser, A. C. et al., 2004} \cite{graesser}), los autores utilizaron el software \textit{Coh-metrix} para clasificar los textos según la dificultad de lectura que presentan (avanzado, intermedio, principiante). Para evaluar el constructo legibilidad (``readibility'') se implementaron dos fórmulas (``Lesch Reading Ease score'' y ``Flesch Kincaid Grade Level''), herramientas tradicionales para evaluar la complejidad de textos en inglés.\\
-Por otro lado, a partir de otro trabajo del mismo grupo (\textit{Crossley, S. A., et al., 2011} \cite{crossley}), pudimos orientarnos en lo que respecta el procesamiento automático de textos con el fin de obtener algún parámetro numérico sobre su contenido. En el mismo, los autores comparan dos herramientas (``Coh-Metrix Second Language (L2) Reading Index'' versus métodos tradicionales como los del trabajo anteriormente citado) para medir coherencia, legibilidad y otros constructos en forma sencilla en un gran corpus de texto.\\
-Finalmente, el trabajo presentado durante las clases teóricas (\textit{Diuk, C. G., et. al., 2012} \cite{diuk}), resultó de gran utilidad como inspiración sobre la potencialidad del análisis de grandes repositorios de datos con el fin de hacer predicciones. En el mismo, se utilizaron  textos de distintas épocas en orden cronológico con el fin de probar si el constructo introspección creció o disminuyó a lo largo de los años.
+% los usuarios solo escriben reviews cuando su relacion con el producto es muy buena o muy mala \cite{hu}
+% identifica el raiting como la diferencia entre la calidad real del producto y lo que esperaba el usuario \cite{talwar}
+% votos positivos crean un efecto positivo mientras que los votos negativos crean un efecto de correccion\cite{muchnik}
+% el puntaje de reseña en los sitios normalmente es muy alto \cite{chevalier, fowler}
+% los puntajes de reseña tienden a converger a números altos\cite{zhang}
 
 \section{Métodos}
 
@@ -279,7 +286,7 @@ SMOGIndex & 8.01e-06 & 3.15e-1 & \textbf{Rechazada} (8.01e-06 $<$ 0.001 y 2.5e-1
 % and a .pdf suffix will be assumed for pdflatex; or what has been declared
 % via \DeclareGraphicsExtensions.
 %\caption{Simulation Results.}
-%\label{fig_sim}
+%\label{fig_sim}  
 %\end{figure}
 
 % An example of a double column floating figure using two subfigures.
@@ -331,7 +338,33 @@ SMOGIndex & 8.01e-06 & 3.15e-1 & \textbf{Rechazada} (8.01e-06 $<$ 0.001 y 2.5e-1
 %  \newpage
 %\fi
 
+
 \begin{thebibliography}{1}
+
+\bibitem{hu} Nan Hu, Paul A Pavlou, and Jennifer Zhang, ``Can online reviews reveal a product’s true quality?: empirical findings and analytical modeling of online wordof-mouth communication,''\hskip 1em plus
+  0.5em minus 0.4em\relax in \emph{Proceedings of the 7th ACM conference on Electronic commerce}. ACM, 2006, pp. 324–330.
+  
+\bibitem{talwar} Arjun Talwar, Radu Jurca, and Boi Faltings, ``Understanding user behavior in online feedback reporting,''\hskip 1em plus
+  0.5em minus 0.4em\relax in \emph{Proceedings of the 8th ACM conference on Electronic commerce}. ACM, 2007, pp. 134–142.
+
+\bibitem{muchnik} Lev Muchnik, Sinan Aral, and Sean J Taylor,``Social influence bias: A randomized experiment,''\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Science, vol. 341(6146)}, pp. 647–651, August 2013.
+
+\bibitem{zhang}
+Zhang, Yaonan, et al. ``Online ratings: Convergence towards a positive perspective?.'' \hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Acoustics, Speech and Signal Processing (ICASSP)}, 2014 IEEE International Conference on. IEEE, 2014.
+
+\bibitem{chevalier}
+Judith A Chevalier and Dina Mayzlin, ``The effect of word of mouth on sales: Online book reviews,'' \hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Journal of marketing research}, vol. 43, pp. 354–54, August 2006.
+
+\bibitem{fowler}
+G. A. Fowler and J.D. Avila, ``On the internet, everyone’s a critic but they’re not very critical,'' \hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Wall Street Journal}, 2009.
+
+\bibitem{leskovec}
+J. Leskovec, L. Adamic and B. Adamic. ``The Dynamics of Viral Marketing''.\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{ACM Transactions on the Web (ACM TWEB)}, 1(1), 2007.
 
 \bibitem{graesser}
 Graesser,~A.~C.,~McNamara,~D.~S.,~Louwerse,~M.~M., \& Cai,~Z. (2004). ``Coh-Metrix: Analysis of text on cohesion and language.''\footnote{http://cor.to/graesser} \hskip 1em plus
@@ -344,6 +377,26 @@ Crossley,~S.~A.,~Allen,~D.~B., \& McNamara,~D.~S. (2011). ``Text Readability and
 \bibitem{diuk}
 Diuk,~C.~G.,~Slezak,~D.~F.,~Raskovsky,~I.,~Sigman,~M., \& Cecchi,~G.~A. (2012). ``A quantitative philology of introspection.''\hskip 1em plus
   0.5em minus 0.4em\relax \emph{Frontiers in integrative neuroscience}, 6.
+  
+\bibitem{orlow} 
+Paasche-Orlow MK, Taylor HA, Brancati FL (2003)`` Readability standards for informed-consent forms as compared with actual readability''.\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{New England Journal of Medicine} 348: 721–726.
+  
+\bibitem{klare} 
+Klare GR (1974) ``Assessing readability''.\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Reading Research Quarterly} 10: 62–102.
+  
+\bibitem{kanungo} 
+Kanungo T, Orr D (2009) ``Predicting the readability of short web summaries''.\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Proceedings of the Second ACM International Conference on Web Search and Data Mining} (WSDM ’09). New York: ACM Press. 202–211.
+  
+\bibitem{karmakar} 
+Karmakar S, Zhu Y (2010) ``Visualizing multiple text readability indexes''.\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{2010 International Conference on Education and Management Technology} (ICEMT). Washington, DC: IEEE. 133–137.
+
+\bibitem{izgi} 
+Izgi, Umit, and Burcu Sezginsoy Seker. ``Comparing different readability formulas on the examples of science-technology and social science textbooks.''\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Procedia-Social and Behavioral Sciences} 46 (2012): 178-182.
 
 \end{thebibliography}
 
