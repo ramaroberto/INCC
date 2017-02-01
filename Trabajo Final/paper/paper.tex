@@ -57,12 +57,11 @@ En primer lugar, se explicará el proceso realizado a lo largo del estudio y las
 % el puntaje de reseña en los sitios normalmente es muy alto \cite{chevalier, fowler}
 % los puntajes de reseña tienden a converger a números altos\cite{zhang}
 
-\section{Método}
+\section{Métricas}
 
 En lo que sigue, se presentan las herramientas utilizadas para el ánalisis de legibilidad de libros.
 
-\subsection{Métricas evaluadas}
-\subsubsection{LIX}
+\subsection{LIX}
 
 \textbf{LIX}\footnote{http://www.readabilityformulas.com/the-LIX-readability-formula.php} o la Fórmula Sueca de Legibilidad Lasbarhetsindex fue especialmente diseñada para la legibilidad de los textos de lenguajes extranjeros. Su fórmula usa la cantidad de palabras, la cantidad de períodos y la cantidad de palabras largas (de más de 6 letras). Su fórmula es la siguiente:
 
@@ -70,39 +69,39 @@ $$LIX\ =\ \frac{palabras}{periodos} + \ 100 \cdot \frac{palabras\ largas}{palabr
 
 Los $periodos$ se dividen con dos puntos o primera mayúscula.\\
 
-\subsubsection{ARI}
+\subsection{ARI}
 El índice de legibilidad automatizado (\textbf{ARI}) posee dos variables: caracteres por palabra y palabras por frase. El resultado corresponde al grado académico en los Estados Unidos. Su fórmula se da en la siguiente relación:
 
 $$ARI = 4.71\cdot \frac{caracteres}{palabras}+0.5\cdot \frac{palabras}{frases} - 21.43$$
 
 donde \textit{caracteres} corresponde a la cantidad de letras y números, \textit{palabras} es la cantidad de espacios y \textit{frases} la cantidad de frases.
 
-\subsubsection{Flesch-Kincaid Reading Ease}
+\subsection{Flesch-Kincaid Reading Ease}
 Consiste en una de las métricas más antiguas de legibilidad, comúnmente utilizada en la academia e incorporada en la mayoría de los softwares de procesamiento de lenguaje. La métrica \textbf{Flesch-Kincaid Reading Ease} es el resultado de una fórmula matemática que incorpora el promedio de sílabas por palabra y el promedio de palabras por frase cada 100 palabras. Los resultados se miden en una escala del 1 al 100, donde 1 significa muy complicado de leer y 100 muy fácil.\\
 La fórmula del test \textbf{Flesch-Kincaid Reading Ease} es la siguiente:
 $$FRE = 206.835 - 1.015\cdot \frac{palabras}{frases} - 84.6\cdot \frac{silabas}{palabras}$$
 
-\subsubsection{Coleman-Liau index}
+\subsection{Coleman-Liau index}
 A diferencia del resto de los tests de legibilidad, el \textbf{Coleman-Liau Index} se basa en la cantidad de caracteres por palabra en vez del número de sílabas para su cálculo. Devuelve el grado académico de los Estados Unidos necesario para entender el libro, valor entre 1 y 12.\\
 Se lo calcula de la siguiente forma: 
 $$CLI = 5.88 \cdot \frac{letras}{palabras} - 29.6 \cdot \frac{frases}{palabras} - 15.8$$
 
-\subsubsection{SMOG}
+\subsection{SMOG}
 El grado \textbf{SMOG} (Medida simple de Gobbledygook) es una medida de legibilidad que estima los años de educación necesarios para entender un texto. Para calcularlo, se debe contar una serie de frases (al menos 30) y contar las polisílabas (palabras de tres o más sílabas) que posee cada una de ellas.\\ 
 Se calcula usando: 
 
 $$SMOG = 1.0430\cdot \sqrt{polisilabas \cdot \frac{30}{frases}} + 3.1291$$
 
-\subsubsection{Dale–Chall}
+\subsection{Dale–Chall}
 A diferencia del resto de las métricas que usan la cantidad de caracteres o de sílabas en una palabra, \textbf{Dale-Chall} calcula el nivel de grado aproximado de un texto midiendo las ``palabras difíciles''. Para esto, se encuentra definida una lista de aproximadamente 3.000 palabras conocidas por al menos el 80\% de los niños de quinto grado. Las palabras consideradas difíciles son las que no se encuentran en dicha lista. Cuanto más alto es el resultado, más alto es el nivel de grado del texto. 
 \\Se obtiene aplicando la siguiente fórmula:
 
 $$0.1579\left({\frac{{\mbox{palabras dificiles}}}{{\mbox{palabras}}}}\times 100\right)+0.0496\left({\frac{{\mbox{palabras}}}{{\mbox{frases}}}}\right)$$
 
-\subsubsection{Resultado con Harry Potter}
+\subsection{Resultado con Harry Potter}
 
-Con el fin de comprobar la correctitud de dichas métricas, evaluamos el resultado de evaluar la saga \textit{Harry Potter}\footnote{http://cor.to/harrypotter}, que presenta (según su autora \footnote{http://www.jkrowling.com/}) una dificultad creciente en el vocabulario de sus títulos.\\
-
+Con el fin de comprobar la correctitud de dichas métricas, evaluamos el resultado de evaluar la saga \textit{Harry Potter}\footnote{http://cor.to/harrypotter}, que presenta (según su autora \footnote{http://www.jkrowling.com/}) una dificultad creciente en el vocabulario de sus títulos.
+\begin{center}
 \begin{tabular}{| l | l | l | l | l | l | l |}
 \hline
 \diagbox[width=10em]{Libro}{Métrica} & ARI & Coleman-Liau & Flesch Reading Ease & LIX & SMOG & Dale-Chall\\
@@ -122,19 +121,17 @@ HP6 & 6.48 & 7.76 & 82.55 & 32.30 & 8.60 & 9.13\\
 HP7 & 5.87 & 7.47 & 85.47 & 30.82 & 8.13 & 8.97\\
 \hline
 \end{tabular}
-
+\end{center}
 Se puede observar que, en términos generales, todas las métricas presentan una disminución de la legibilidad a medida que se avanza en la saga, comprobando los dichos de su autora.
 
-\subsection{Libros analizados}
+\section{Análisis del dataset}
 En lo que sigue, se explican las consideraciones que tuvimos en cuenta a la hora de seleccionar los libros a analizar. En primer lugar, estudiamos el conjunto de categorías presentadas por Amazon y las posibles reseñas (utilizando la escala del 0 al 5, saltando de a 0.5). Luego, decidimos dividir las categorías en cuatro clusters (numerados  del 1 al 4), y descargar 15 libros de cada reseña y cada cluster. Dado que no encontramos libros con reseñas del 0 al 1.5, y la cantidad de libros calificados con 1.5 era escasa, insertamos los libros de 1.5 a 2.5 en un mismo puntaje, y para el resto se usó la descripción anterior.\\
 
 En primer lugar, descargamos la base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html} en donde se detallan productos (dentro de los cuales 393.561 son libros), ranking de ventas, categoría de los mismos y reseñas en el sitio de Amazon.com. Al analizarla, nos encontramos con que, además de que la mayoría de los libros se encontraba en diversas categorías a la vez, éstas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'', ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Por otro lado, nos encontramos con que gran parte de los productos se encontraban repetidos, ya sea por poseer distintas ediciones, distintos formatos (tapa blanda/tapa dura, con audio, con dibujos, etc) o por estar clasificados de forma diferente. 
 %Podriamos mostrar un histograma en donde se vea la distribucion de los puntajes en relacion a la cantidad de libros y otro con la cantidad de scores (para que se vea que hay pocos libros con muchos scores y muchos con pocos). Podemos explicar que la obtencion de los libros en si se dificulto un poco para los puntajes bajos y en donde la cantidad de scores era menor a 100.
 Luego, procedimos a descargar los libros, tarea que resultó altamente dificultosa para las obras poco populares o de bajo puntaje dada la falta de interés a digitalizarlos. La selección de los mismos se realizó como se explica a continuación.
 
-\section{Experimentos y Resultados}
-
-\subsection{Eliminacion parcial del sesgo}
+\subsection{Eliminación parcial del sesgo}
 
 Dado que libros de distintas categorias pueden presentar distinto vocabulario, los resultados pueden verse sesgados si utilizamos para el analisis muchos libros de una tematica parecida. Para asegurarnos una homogeneidad conformamos 4 conjuntos o clusters distintos de libros, en donde cada cluster esta compuesto por categorias distintas, de forma tal de asegurarnos un analisis con libros de distintas categorias, distinto vocabulario y enfocados para distinto publico.
 
@@ -189,10 +186,7 @@ De esta manera solo un 20\% de los libros comparte categorias de 2 clusters dist
   \end{tabular}
 \end{table}
 
-\subsection{Análisis de Datos} 
-
-Dataset
-
+\subsection{Análisis de los libros obtenidos} 
 
 \begin{figure}[H]
 \begin{center}
@@ -208,6 +202,7 @@ Dataset
 \end{figure}
 
 %Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). \subsection{Resultados de las métricas} Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros ``Buenos'' y otros para los ``Malos'' de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40\% y 50\% para todos los libros.\\
+\section{Experimentos y Resultados}
 
 \subsection{Análisis de Resultados}
 
