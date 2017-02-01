@@ -66,35 +66,45 @@ En lo que sigue, se presentan los métodos utilizados para el ánalisis menciona
 \subsection{Métricas utilizadas}
 \subsubsection{LIX}
 
-\textbf{LIX}\footnote{http://www.readabilityformulas.com/the-LIX-readability-formula.php} es una medida de legibilidad para calcular la dificultad de lectura de un texto desarrollada por Carl-Hugo Björnsson:
+\textbf{LIX}\footnote{http://www.readabilityformulas.com/the-LIX-readability-formula.php} o la Fórmula Sueca de Legibilidad Lasbarhetsindex fue especialmente diseñada para la legibilidad de los textos de lenguajes extranjeros. Su fórmula usa la cantidad de palabras, la cantidad de períodos y la cantidad de palabras largas (de más de 6 letras). Su fórmula es la siguiente:
 
-$$LIX\ =\ \frac{palabras}{periodos} + \ 100 \cdot \frac{palabras\ largas}{palabras}$$
+$$LIX\ =\ \frac{palabras}{periodos} + \ 100 \cdot \frac{palabras\ largas}{palabras}$$\\
 
-En donde se define como períodos dos puntos o primera mayúscula\\
+Los $periodos$ se dividen con dos puntos o primera mayúscula.\\
 
 \subsubsection{ARI}
-El índice de legibilidad automatizado (\textbf{ARI}) fue diseñado para medir la comprensividad de un texto. Su fórmula para calcular la legibilidad automática se da en la siguiente relación:
+El índice de legibilidad automatizado (\textbf{ARI}) posee dos variables: caracteres por palabra y palabras por frase. El resultado corresponde al nivel de grado de los Estados Unidos. Su fórmula se da en la siguiente relación:
 
 $$ARI = 4.71\cdot \frac{caracteres}{palabras}+0.5\cdot \frac{palabras}{frases} - 21.43$$
 
 donde \textit{caracteres} corresponde a la cantidad de letras y números, \textit{palabras} es la cantidad de espacios y \textit{frases} la cantidad de frases.
 
-\subsubsection{Flesch reading ease}
-
-La fórmula de \textbf{Flesch reading ease score test} es la siguiente:
+\subsubsection{Flesch-Kincaid Reading Ease}
+Consiste en una de las métricas más antiguas de legibilidad, comunmente utilizada en la academia e incorporada en la mayoría de los softwares de procesamiento de lenguaje. La métrica \textbf{Flesch-Kincaid Reading Ease} es el resultado de una fórmula matemática que incorpora el promedio de sílabas por palabra y el promedio de palabras por frase cada 100 palabras. Los resultados se miden en una escala del 1 al 100, donde 1 significa muy complicado de leer y 100 muy fácil.\\
+La fórmula del test \textbf{Flesch-Kincaid Reading Ease} es la siguiente:
 $$FRE = 206.835 - 1.015\cdot \frac{palabras}{frases} - 84.6\cdot \frac{silabas}{palabras}$$
 
 \subsubsection{Coleman-Liau index}
-Test de legibilidad diseñado por Meri Coleman y T. L. Liau. Se lo calcula de la siguiente forma: 
+A diferencia del resto de los tests de legibilidad, el \textbf{Coleman-Liau Index} se basa en la cantidad de caracteres por palabra en vez del número de sílabas para su cálculo. Devuelve el nivel de grado de los Estados Unidos del libro, valor entre 1 y 12.\\
+Se lo calcula de la siguiente forma: 
 $$CLI = 5.88 \cdot \frac{letras}{palabras} - 29.6 \cdot \frac{frases}{palabras} - 15.8$$
 
 \subsubsection{SMOG}
-El grado \textbf{SMOG} (Medida simple de Gobbledygook) es una medida de legibilidad que estima los años de educación necesarios para entender un texto. Para calcularlo, se debe contar una serie de frases (al menos 30) y contar las polisílabas (palabras de tres o más sílabas) que posee cada una de ellas. Se calcula usando 
+El grado \textbf{SMOG} (Medida simple de Gobbledygook) es una medida de legibilidad que estima los años de educación necesarios para entender un texto. Para calcularlo, se debe contar una serie de frases (al menos 30) y contar las polisílabas (palabras de tres o más sílabas) que posee cada una de ellas.\\ 
+Se calcula usando: 
 
 $$SMOG = 1.0430\cdot \sqrt{polisilabas \cdot \frac{30}{frases}} + 3.1291$$
 
+\subsubsection{Dale–Chall}
+A diferencia del resto de las métricas que usan la cantidad de caracteres o de sílabas en una palabra, \textbf{Dale-Chall} calcula el nivel de grado aproximado de un texto midiendo las ``palabras difíciles''. Para esto, se encuentra definida una lista de aproximadamente 3000 palabras conocidas por al menos el 80\% de los niños de quinto grado. Las palabras consideradas difíciles son las que no se encuentran en dicha lista. Cuanto más alto es el resultado, más alto es el nivel de grado del texto. 
+\\Se obtiene aplicando la siguiente fórmula:
+
+$$0.1579\left({\frac{{\mbox{palabras dificiles}}}{{\mbox{palabras}}}}\times 100\right)+0.0496\left({\frac{{\mbox{palabras}}}{{\mbox{frases}}}}\right)$$
 
 \subsubsection{Resultado con Harry Potter}
+
+Con el fin de comprobar la correctitud de dichas métricas, evaluamos el resultado de evaluar la saga \textit{Harry Potter}\footnote{http://cor.to/harrypotter}, que presenta (según su autora \footnote{http://www.jkrowling.com/}) una dificultad creciente en el vocabulario de sus títulos.\\
+
 \begin{tabular}{| l | l | l | l | l | l | l |}
 \hline
 \diagbox[width=10em]{Libro}{Métrica} & ARI & Coleman-Liau & Flesch Reading Ease & LIX & SMOG & Dale-Chall\\
@@ -115,7 +125,7 @@ HP7 & 5.87 & 7.47 & 85.47 & 30.82 & 8.13 & 8.97\\
 \hline
 \end{tabular}
 
-Con el fin de comprobar la correctitud de dichas métricas, evaluamos el resultado de evaluar la saga \textit{Harry Potter}\footnote{http://cor.to/harrypotter}, que presenta (según su autora \footnote{http://www.jkrowling.com/}) una dificultad creciente en el vocabulario de sus títulos.\\
+Se puede observar que, en términos generales, todas las métricas presentan una disminución de la legibilidad a medida que se avanza en la saga, comprobando los dichos de su autora.
 
 \subsection{Libros analizados}
 En lo que sigue, se explican las consideraciones que tuvimos en cuenta a la hora de seleccionar los libros a analizar. En primer lugar, estudiamos el conjunto de categorías presentadas por Amazon y las posibles reseñas (utilizando la escala del 0 al 5, saltando de a 0.5). Luego, decidimos dividir las categorías en cuatro clusters (numerados  del 1 al 4), y descargar 15 libros de cada reseña y cada cluster. Dado que no encontramos libros con reseñas del 0 al 1.5, y la cantidad de libros calificados con 1.5 era escasa, insertamos los libros de 1.5 a 2.5 en un mismo puntaje, y para el resto se usó la descripción anterior.\\
@@ -124,23 +134,13 @@ En primer lugar, descargamos la base de datos \textit{Amazon product co-purchasi
 %Podriamos mostrar un histograma en donde se vea la distribucion de los puntajes en relacion a la cantidad de libros y otro con la cantidad de scores (para que se vea que hay pocos libros con muchos scores y muchos con pocos). Podemos explicar que la obtencion de los libros en si se dificulto un poco para los puntajes bajos y en donde la cantidad de scores era menor a 100.
 Luego, procedimos a descargar los libros, tarea que resultó altamente dificultosa para las obras poco populares o de bajo puntaje dada la falta de interés a digitalizarlos. La selección de los mismos se realizó como se explica a continuación.
 
-\subsubsection{Filtrado de los libros} Aca podemos explicar como hicimos para ordenar los libros de la lista para seleccionar a mano y como funciona el script (getBooks.py)
-Para lograr resultados significativos, analizamos 156 libros que clasificamos de acuerdo a las categorías con requerimientos de palabras clave provistas por Amazon.com\footnote{http://cor.to/categories}. Para lograr mayor organización y homogeneidad en nuestro análisis, decidimos unificarlas en los siguientes clusters:
-\begin{itemize}
-\item \textbf{Cluster Nº1:} Science Fiction and Fantasy, Classics, Fantasy, World Literature
-\item \textbf{Cluster Nº2:} Religion and Spirituality, Fiction, Health Mind and Body, Self-Help
-\item \textbf{Cluster Nº3:} Mystery and Thrillers, Thrillers, Biographies and Memoirs, Suspense, Nonfiction, History, Politics, Social Science
-\item \textbf{Cluster Nº4:} Other categories
-\end{itemize}
-De este modo, conseguimos una cantidad uniforme de libros por cluster.
-
 \section{Experimentos y Resultados}
 
 \subsection{Eliminacion parcial del sesgo}
 
 Dado que libros de distintas categorias pueden presentar distinto vocabulario, los resultados pueden verse sesgados si utilizamos para el analisis muchos libros de una tematica parecida. Para asegurarnos una homogeneidad conformamos 4 conjuntos o clusters distintos de libros, en donde cada cluster esta compuesto por categorias distintas, de forma tal de asegurarnos un analisis con libros de distintas categorias, distinto vocabulario y enfocados para distinto publico.
 
-El dataset crudo presenta el problema de que las categorias no conforman conjuntos disjuntos y ademas hay cierta jerarquia presente en las mismas. Para eliminar las categorias de los niveles inferiores de la jerarquia filtramos aquellas que aparecian 50 veces o menos, resultando en una lista de 129 categorias principales. De esta lista eliminamos categorias demasiado generales o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras; llegando a una lista final de 113 categorias.
+El dataset crudo presenta el problema de que las categorias no conforman conjuntos disjuntos y ademas hay cierta jerarquia presente en las mismas. Para eliminar las categorias de los niveles inferiores de la jerarquia filtramos aquellas que aparecian 50 veces o menos, resultando en una lista de 129 categorias principales. De esta lista eliminamos categorias\footnote{http://cor.to/categories} demasiado generales o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras; llegando a una lista final de 113 categorias.
 
 % TODO: Agregamos grafo de jerarquia?
 
@@ -151,10 +151,10 @@ Como en todos los clusters existen libros que contienen categorias de otros clus
 ~
 
 \begin{itemize}
- \item Cluster N1: Science Fiction And Fantasy, Fantasy, Science Fiction, Classics, World Literature
- \item Cluster N2: Religion And Spirituality, Health Mind And Body, Fiction, Self-Help
- \item Cluster N3: Mystery And Thrillers, Thrillers, Suspense, Biographies And Memoirs, Nonfiction, History, Politics, Social Sciences
- \item Cluster N4: El resto
+\item \textbf{Cluster Nº1:} Science Fiction and Fantasy, Classics, Fantasy, World Literature
+\item \textbf{Cluster Nº2:} Religion and Spirituality, Fiction, Health Mind and Body, Self-Help
+\item \textbf{Cluster Nº3:} Mystery and Thrillers, Thrillers, Biographies and Memoirs, Suspense, Nonfiction, History, Politics, Social Science
+\item \textbf{Cluster Nº4:} Other categories
 \end{itemize}
 % TODO: Falta pie de cuadro
 
@@ -192,7 +192,23 @@ De esta manera solo un 20\% de los libros comparte categorias de 2 clusters dist
 \end{table}
 
 \subsection{Análisis de Datos} 
-analisis de datos de amazon y de los libros que bajamos
+
+Dataset
+
+
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[width=6.0in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
+  \caption{Histograma de palabras}
+  \end{center}
+\end{figure}
+
+
+\begin{figure}[H]
+  \includegraphics[width=8.0in]{imgs/cantLibrosVScantReviews.png}
+  \caption{Cantidad de Libros vs cantidad de reviews}
+\end{figure}
+
 %Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). \subsection{Resultados de las métricas} Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros ``Buenos'' y otros para los ``Malos'' de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40\% y 50\% para todos los libros.\\
 
 \subsection{Análisis de Resultados}
@@ -247,11 +263,11 @@ analisis de datos de amazon y de los libros que bajamos
 
 \subsection{Análisis de los Resultados del Test de Hipótesis}
 
-Para plantear los Test de Hipótesis correspondientes utilizamos la función $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy. El mismo computa el estadístico Kolmogorov-Smirnov en dos muestras. Éste es un test para la hipótesis nula de que dos muestras independientes se consiguen de la misma distribución continua.\\
+Para plantear los Test de Hipótesis correspondientes, utilizamos la función $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy que computa el estadístico Kolmogorov-Smirnov dadas dos muestras. Éste sirve para plantear el test de hipótesis nula que evalúa que dos muestras independientes se consiguen de la misma distribución continua.\\
 
-Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (o estadístico KS) y el p-valor. Si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución.\\
-
-% TODO: Falta la cita sobre la necesidad de estas condiciones
+Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (o estadístico KS) y el p-valor correspondiente a \textbf{D}. El estadístico consiste en
+$$D_{n}=\sup_{x}|F_{n}(x)-F(x)|$$
+siendo $F(x)$ la función de distribución acumulada. Luego, si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución.\footnote{https://ocw.mit.edu/courses/mathematics/18-443-statistics-for-applications-fall-2006/lecture-notes/lecture14.pdf}\\
 
 La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > c(\alpha) \cdot \sqrt{\frac{n_1+n_2}{n_1\cdot n_2}}$$ donde $n_1$ y $n_2$ son los tamaños de las muestras a comparar. El valor de $c(\alpha)$ se define como:
 $$c(\alpha) = \sqrt{1/2\cdot log(\alpha/2)}$$
