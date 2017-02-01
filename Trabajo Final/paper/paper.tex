@@ -59,67 +59,76 @@ En primer lugar, se explicará el proceso realizado a lo largo del estudio y las
 
 \section{Métricas}
 
-En lo que sigue, se presentan las herramientas utilizadas para el ánalisis de legibilidad de libros.
-
-\subsection{LIX}
-
-\textbf{LIX}\footnote{http://www.readabilityformulas.com/the-LIX-readability-formula.php} o la Fórmula Sueca de Legibilidad Lasbarhetsindex fue especialmente diseñada para la legibilidad de los textos de lenguajes extranjeros. Su fórmula usa la cantidad de palabras, la cantidad de períodos y la cantidad de palabras largas (de más de 6 letras). Su fórmula es la siguiente:
-
-$$LIX\ =\ \frac{palabras}{periodos} + \ 100 \cdot \frac{palabras\ largas}{palabras}$$\\
-
-Los $periodos$ se dividen con dos puntos o primera mayúscula.\\
+Las métricas de legibilidad son formulas que sirven para evaluar la legibilidad de un texto de forma automatica, normalmente utilizadas como reemplazo de una encuesta con personas. Las métricas analizadas en el presente trabajo fueron diseñadas entre los años 1940 a 1970, muchas veces teniendo en mente que deberian ser calculadas por maquinas simples o por personas. A pesar de haber pasado mucho tiempo desde su creación, estas métricas clásicas siguen siendo utilizadas en muchos estudios y hasta aparecen como condiciones necesarias legales en, por ejemplo, la creacion de las polizas de seguros automotrices. Las métricas estudiadas, exceptuando Flesch–Kincaid Reading Ease, simbolizan en sus valores la edad promedio necesaria o nivel educativo necesario de las personas para entender el texto analizado con la misma.
 
 \subsection{ARI}
-El índice de legibilidad automatizado (\textbf{ARI}) posee dos variables: caracteres por palabra y palabras por frase. El resultado corresponde al grado académico en los Estados Unidos. Su fórmula se da en la siguiente relación:
+
+El índice de legibilidad automatizado (\textbf{ARI})\cite{ari-flesch} fue diseñado a pedido de la fuerza aerea de los estados unidos con el proposito de monitorear en tiempo real la legibilidad de los textos producidos por maquinas de escribir electricas. A diferencia de otros indices, junto con el Coleman-Liau, ARI se basa en un factor de carácteres por palabra, en vez del usual silabas por palabra. Aunque la opinion varia sobre la perdida de precision en el indice con uso de este factor, usualmente es mas rápido de calcular, ya que el numero de caracteres es mucho mas facil de contar de forma automatica que el numero de silabas\cite{liang}.
+
+El índice de legibilidad automatizado posee dos variables: caracteres por palabra y palabras por frase. El resultado corresponde al grado académico en los Estados Unidos. Su fórmula se define como:
 
 $$ARI = 4.71\cdot \frac{caracteres}{palabras}+0.5\cdot \frac{palabras}{frases} - 21.43$$
 
 donde \textit{caracteres} corresponde a la cantidad de letras y números, \textit{palabras} es la cantidad de espacios y \textit{frases} la cantidad de frases.
 
-\subsection{Flesch-Kincaid Reading Ease}
-Consiste en una de las métricas más antiguas de legibilidad, comúnmente utilizada en la academia e incorporada en la mayoría de los softwares de procesamiento de lenguaje. La métrica \textbf{Flesch-Kincaid Reading Ease} es el resultado de una fórmula matemática que incorpora el promedio de sílabas por palabra y el promedio de palabras por frase cada 100 palabras. Los resultados se miden en una escala del 1 al 100, donde 1 significa muy complicado de leer y 100 muy fácil.\\
-La fórmula del test \textbf{Flesch-Kincaid Reading Ease} es la siguiente:
-$$FRE = 206.835 - 1.015\cdot \frac{palabras}{frases} - 84.6\cdot \frac{silabas}{palabras}$$
-
 \subsection{Coleman-Liau index}
-A diferencia del resto de los tests de legibilidad, el \textbf{Coleman-Liau Index} se basa en la cantidad de caracteres por palabra en vez del número de sílabas para su cálculo. Devuelve el grado académico de los Estados Unidos necesario para entender el libro, valor entre 1 y 12.\\
-Se lo calcula de la siguiente forma: 
+
+El indice \textbf{Coleman-Liau}\cite{coleman-liau} fue diseñado para ser facilmente calculable de forma mecanica desde texto impreso en papel. Como solamente requiere analizar los carácteres por palabra, teoricamente podria ser usado en conjunto con escaners mecanicos simples que solo necesiten reconocer caracteres, palabras y limites de las oraciones, eliminando la necesidad de un reconocimiento completo de caracteres. La fórmula del mismo se define como:
+
 $$CLI = 5.88 \cdot \frac{letras}{palabras} - 29.6 \cdot \frac{frases}{palabras} - 15.8$$
 
+\subsection{Flesch–Kincaid}
+Las formulas de legibilidad \textbf{Flesch–Kincaid Reading Ease}\cite{ari-flesch} y \textbf{Flesch–Kincaid Grade Test} fueron diseñadas bajo el pedido de la marina de los Estados Unidos para evaluar la dificulad de los manuales tecnicos, antes de el Grade Test volverse un estandar en la milicia de los Estados Unidos. Ambas formulas se correlacionan casi de forma inversa, lo que tiene sentido ya que usan las mismas medidas (relacion entre silabas y palabras y la relacion entre palabras y oraciones), diferenciandose solo en sus factores.
+
+En este trabajo analizaremos solamente la variante Flesch-Kincaid Reading Ease, ya que consiste en una de las métricas más antiguas de legibilidad, y es comúnmente utilizada en la academia e incorporada en la mayoría de los softwares de procesamiento de lenguaje. Los resultados de esta métrica, a diferencia del resto, se miden en una escala del 1 al 100, donde 1 significa muy complicado de leer y 100 muy fácil.\\
+
+La fórmula del test Flesch-Kincaid Reading Ease es definida como:
+$$FKRE = 206.835 - 1.015\cdot \frac{palabras}{frases} - 84.6\cdot \frac{silabas}{palabras}$$
+
 \subsection{SMOG}
-El grado \textbf{SMOG} (Medida simple de Gobbledygook) es una medida de legibilidad que estima los años de educación necesarios para entender un texto. Para calcularlo, se debe contar una serie de frases (al menos 30) y contar las polisílabas (palabras de tres o más sílabas) que posee cada una de ellas.\\ 
-Se calcula usando: 
+La medida simple de Gobbledygook (\textbf{SMOG})\cite{smog} es una medida de legibilidad extensamente utilizada, particularmente en la verificacion de mensajes de salud\cite{hedman}. La formula fue desarrollada en 1969 como un substituto mas certero y mas facil de calcular del indice Gunning Fog, razón por la cual el analisis de esta ultima es omitido en el trabajo.
+
+Para calcularlo, se debe contar una serie de frases (al menos 30) y contar las polisílabas (palabras de tres o más sílabas) que posee cada una de ellas. Se define como: 
 
 $$SMOG = 1.0430\cdot \sqrt{polisilabas \cdot \frac{30}{frases}} + 3.1291$$
 
 \subsection{Dale–Chall}
-A diferencia del resto de las métricas que usan la cantidad de caracteres o de sílabas en una palabra, \textbf{Dale-Chall} calcula el nivel de grado aproximado de un texto midiendo las ``palabras difíciles''. Para esto, se encuentra definida una lista de aproximadamente 3.000 palabras conocidas por al menos el 80\% de los niños de quinto grado. Las palabras consideradas difíciles son las que no se encuentran en dicha lista. Cuanto más alto es el resultado, más alto es el nivel de grado del texto. 
-\\Se obtiene aplicando la siguiente fórmula:
+A diferencia del resto de las métricas que usan la cantidad de caracteres o de sílabas en una palabra, \textbf{Dale-Chall}\cite{dale-chall} calcula el nivel de grado aproximado de un texto midiendo las ``palabras difíciles''. Para esto, se encuentra definida una lista de aproximadamente 3.000 palabras conocidas por al menos el 80\% de los niños de quinto grado, esta lista originalmente era mas acotada pero fue extendida\cite{dale-chall-ex}. Las palabras consideradas difíciles son las que no se encuentran listadas. La métrica esta definida como:
 
-$$0.1579\left({\frac{{\mbox{palabras dificiles}}}{{\mbox{palabras}}}}\times 100\right)+0.0496\left({\frac{{\mbox{palabras}}}{{\mbox{frases}}}}\right)$$
+$$DCI = 0.1579\left({\frac{{palabras dificiles}}{{palabras}}}\times 100\right)+0.0496\left({\frac{{palabras}}{{frases}}}\right)$$
+
+\subsection{LIX}
+
+La fórmula de legibilidad Läsbarhetsindex (\textbf{LIX})\cite{lix-rix} fue desarrollada en Sueiza por Björnsoon. Lix es una fórmula de legibilidad poco conocida que es rápida de usar, confiable y fácil de interpretar. Fue especialmente diseñada para como un indice de legibilidad para textos de lenguajes extranjeros. En 1980 Jonathan Anderson la estudio y comprobó que funcionaba en Francés, Alemán, Griego e Inglés. También realizó una simplifcación de la misma llamandola RIX, la cúal no fue incluida en el estudio.
+
+Ya que la fórmula es independiente del lenguaje, la misma se define en base de la cantidad de palabras, cantidad de períodos y cantidad de palabras largas (en ingles, de más de 6 letras). Se la define como:
+
+$$LIX\ =\ \frac{palabras}{periodos} + \ 100 \cdot \frac{palabras\ largas}{palabras}$$\\
+
+Los $periodos$ se dividen con dos puntos o primera mayúscula.\\
 
 \subsection{Resultado con Harry Potter}
 
 Con el fin de comprobar la correctitud de dichas métricas, evaluamos el resultado de evaluar la saga \textit{Harry Potter}\footnote{http://cor.to/harrypotter}, que presenta (según su autora \footnote{http://www.jkrowling.com/}) una dificultad creciente en el vocabulario de sus títulos.
 \begin{center}
 \begin{tabular}{| l | l | l | l | l | l | l |}
-\hline
-\diagbox[width=10em]{Libro}{Métrica} & ARI & Coleman-Liau & Flesch Reading Ease & LIX & SMOG & Dale-Chall\\
-\hline
-HP1 & 4.48 & 6.37 & 92.58 & 27.00 & 7.18 & 8.77\\
-\hline
-HP2 & 5.41 & 7.19 & 87.88 & 29.74 & 7.74 & 9.17\\
-\hline
-HP3 & 5.19 & 7.26 & 87.37 & 29.61 & 7.64 & 9.14\\
-\hline
-HP4 & 6.01 & 7.52 & 85.17 & 30.80 & 8.15 & 9.16\\
-\hline
-HP5 & 6.67 & 7.82 & 83.34 & 32.84 & 8.49 & 9.22\\
-\hline
-HP6 & 6.48 & 7.76 & 82.55 & 32.30 & 8.60 & 9.13\\
-\hline
-HP7 & 5.87 & 7.47 & 85.47 & 30.82 & 8.13 & 8.97\\
-\hline
+  \hline
+  \diagbox[width=10em]{Libro}{Métrica} & ARI & Coleman-Liau & Flesch Reading Ease & LIX & SMOG & Dale-Chall\\
+  \hline
+  HP1 & 4.48 & 6.37 & 92.58 & 27.00 & 7.18 & 8.77\\
+  \hline
+  HP2 & 5.41 & 7.19 & 87.88 & 29.74 & 7.74 & 9.17\\
+  \hline
+  HP3 & 5.19 & 7.26 & 87.37 & 29.61 & 7.64 & 9.14\\
+  \hline
+  HP4 & 6.01 & 7.52 & 85.17 & 30.80 & 8.15 & 9.16\\
+  \hline
+  HP5 & 6.67 & 7.82 & 83.34 & 32.84 & 8.49 & 9.22\\
+  \hline
+  HP6 & 6.48 & 7.76 & 82.55 & 32.30 & 8.60 & 9.13\\
+  \hline
+  HP7 & 5.87 & 7.47 & 85.47 & 30.82 & 8.13 & 8.97\\
+  \hline
 \end{tabular}
 \end{center}
 Se puede observar que, en términos generales, todas las métricas presentan una disminución de la legibilidad a medida que se avanza en la saga, comprobando los dichos de su autora.
@@ -406,6 +415,38 @@ Karmakar S, Zhu Y (2010) ``Visualizing multiple text readability indexes''.\hski
 \bibitem{izgi} 
 Izgi, Umit, and Burcu Sezginsoy Seker. ``Comparing different readability formulas on the examples of science-technology and social science textbooks.''\hskip 1em plus
   0.5em minus 0.4em\relax \emph{Procedia-Social and Behavioral Sciences} 46 (2012): 178-182.
+  
+\bibitem{smog}
+Mc Laughlin, G. Harry. ``SMOG grading-a new readability formula.''\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Journal of reading 12.8} (1969): 639-646.
+
+\bibitem{ari-flesch}
+Kincaid, J. Peter, et al. ``Derivation of new readability formulas (automated readability index, fog count and flesch reading ease formula) for navy enlisted personnel.''\hskip 1em plus
+  0.5em minus 0.4em\relax No. RBR-8-75. \emph{Naval Technical Training Command Millington TN Research Branch}, 1975.
+
+\bibitem{lix-rix}
+Anderson, Jonathan. ``Lix and rix: Variations on a little-known readability index.''\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Journal of Reading} 26.6 (1983): 490-496.
+
+\bibitem{coleman-liau}
+Coleman, Meri, and Ta Lin Liau. ``A computer readability formula designed for machine scoring.''\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Journal of Applied Psychology} 60.2 (1975): 283.
+
+\bibitem{dale-chall}
+Dale, Edgar, and Jeanne S. Chall. ``A formula for predicting readability: Instructions.''\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Educational research bulletin} (1948): 37-54.
+
+\bibitem{dale-chall-ex}
+Chall, Jeanne Sternlicht, and Edgar Dale. ``Readability revisited: The new Dale-Chall readability formula.''\hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Brookline Books}, 1995.
+  
+\bibitem{liang} 
+Liang, Franklin Mark. Word Hy-phen-a-tion by Com-put-er. \hskip 1em plus
+  0.5em minus 0.4em\relax \emph{Department of Computer Science, Stanford University}, 1983.
+  
+\bibitem{hedman}
+Hedman, Amy S. ``Using the SMOG formula to revise a health-related document.'' \hskip 1em plus
+  0.5em minus 0.4em\relax \emph{American Journal of Health Education} 39.1 (2008): 61-64.
 
 \end{thebibliography}
 
