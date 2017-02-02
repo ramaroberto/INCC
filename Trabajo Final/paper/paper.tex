@@ -26,7 +26,7 @@ pdfkeywords={Neurociencia, Vocabulario, Libro, Métricas, Legibilidad}}
 \IEEEtitleabstractindextext{
 
 \begin{abstract}
-En la actualidad, el avance de la tecnología permite compartir experiencias de distinta índole entre sus usuarios. Por ejemplo, el intercambio de críticas y comentarios sobre diferentes productos, que pueden ocasionar un aumento o disminución de sus respectivas ventas. Es por esto que conocer los motivos de los usuarios a la hora de calificar resulta útil cuando se desea estudiar el mercado. En este trabajo, analizamos libros en base al nivel de legibilidad de los mismos demostrando relaciones entre éste y la valoración que reciben. Para ello, aplicamos diversas métricas clásicas de legibilidad a un subconjunto de libros extraidos de la base de datos de Amazon.
+En la actualidad, el avance de la tecnología permite compartir experiencias de distinta índole entre sus usuarios. Por ejemplo, el intercambio de críticas y comentarios sobre diferentes productos, que pueden ocasionar un aumento o disminución de sus respectivas ventas. Es por esto que conocer los motivos de los usuarios a la hora de calificar resulta útil cuando se desea estudiar el mercado. En este trabajo, analizamos libros en base al nivel de legibilidad de los mismos demostrando relaciones entre éste y la valoración que reciben. Para ello, aplicamos diversas métricas clásicas de legibilidad a un subconjunto de libros extraídos de la base de datos de Amazon.
 \end{abstract}
 
 % cita en ``puntaje numerico comparativo a una obra''
@@ -40,11 +40,11 @@ Neurociencia, Métricas, Legibilidad, Libros, Reseñas.
 \IEEEpeerreviewmaketitle
 
 \section{Introducción}
-\IEEEPARstart{D}{esde} siempre, las personas han expresado diferentes gustos y opiniones sobre diversos tópicos, siendo la literatura uno de los más discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas. Otras veces, los mismos pueden estar influenciados por la opinión del resto de los usuarios\cite{muchnik} o ser poco objetivos debido a experiencias personales (la mayoría de los usuarios sólo da una reseña cuando su relación con el producto es muy buena o muy mala\cite{hu}). A pesar de esto, las calificaciones que los usuarios asignan en los sitios web tienden a converger a un número mayormente positivo con el transcurso del tiempo\cite{zhang}; y aunque en general el comportamiento de éstas sigue siendo una incógnita, existen estudios que afirman se trata de una distribución binomial\cite{hu}. Sin embargo, no todo comportamiento puede ser justificado por una tendencia\cite{zhang}, por lo que su estudio sigue siendo valioso. 
+\IEEEPARstart{D}{esde} siempre, las personas han expresado diferentes gustos y opiniones sobre diversos tópicos, siendo la literatura uno de los más discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas. Otras veces, los mismos pueden estar influenciados por la opinión del resto de los usuarios\cite{muchnik} o ser poco objetivos debido a experiencias personales (la mayoría de los usuarios sólo da una reseña cuando su relación con el producto es muy buena o muy mala\cite{hu}). A pesar de esto, las calificaciones que los usuarios asignan en los sitios web tienden a converger a un valor mayormente positivo con el transcurso del tiempo\cite{zhang}; y aunque en general el comportamiento de éstas sigue siendo una incógnita, existen estudios que afirman se trata de una distribución binomial\cite{hu}. Sin embargo, no todo comportamiento puede ser justificado por una tendencia\cite{zhang}, por lo que su estudio sigue siendo valioso. 
 
-En nuestro análisis, buscamos responder a la pregunta de si la legibilidad de los libros impacta de alguna forma en las reseñas que los usuarios asignan. Para esto, suponemos que los libros más faciles de leer, o sea más legibles, tienden a tener mejor puntaje que aquellos que resultan más difíciles. Para demostrar nuestra hipótesis, recompilamos una amplia variedad de libros de distintos autores, géneros y formatos, junto con la información de las calificaciones asignadas por sus lectores. Ésta última fue extraída de la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html}, que fue utilizada en un análisis del marketing viral\cite{leskovec}. Intentamos que los libros analizados conformaran un conjunto de datos lo más homogéneo posible, para evitar sesgos ocasionados por una categoría o autor en particular.
+En nuestro análisis, buscamos responder a la pregunta de si la legibilidad de los libros impacta de alguna forma en las reseñas que los usuarios asignan. Para esto, suponemos que los libros más faciles de leer, o sea más legibles, tienden a tener mejor puntaje que aquellos que resultan más difíciles. Para demostrar nuestra hipótesis, recompilamos una amplia variedad de libros de distintos autores, géneros y formatos, junto con la información de las calificaciones asignadas por sus lectores. Ésta última fue extraída de la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html}, utilizada también en un análisis de marketing viral\cite{leskovec}. Intentamos que los libros analizados conformaran un conjunto de datos homogéneo para evitar sesgos ocasionados por una categoría o autor en particular.
 
-A pesar del gran esfuerzo en el área lingüística para introducir criterios computacionales que modelen y evalúen la complejidad de un texto en el sentido de legibilidad, un esquema representativo y concluyente todavía se encuentra en falta \cite{orlow, klare, kanungo, karmakar}. Por esto, y ya que los resultados entre distintas métricas clásicas pueden no ser consistentes\cite{izgi}, utilizamos un conjunto de las mismas para medir la legibilidad y contrastar los resultados. De esta manera, al observar la misma tendencia para distintas métricas, podremos evidenciar la validez de los resultados. Nos hubiese gustado utilizar métricas más avanzadas durante la experimentación como \textit{Coh-Metrix}\cite{graesser}, que parece tener una consistencia y utilidad mayores a las métricas básicas\cite{crossley}, pero no estaban disponibles para hacer de su uso fácilmente.
+A pesar del gran esfuerzo en el área lingüística para introducir criterios computacionales que modelen y evalúen legibilidad, un esquema representativo y concluyente todavía se encuentra en falta \cite{orlow, klare, kanungo, karmakar}. Por esto, y ya que los resultados entre distintas métricas clásicas pueden no ser consistentes\cite{izgi}, utilizamos un conjunto de las mismas para medir la legibilidad y contrastar los resultados. De esta manera, al observar la misma tendencia para distintas métricas, podremos evidenciar la validez de los resultados. Hubiese sido óptimo utilizar métricas más avanzadas para la experimentación como \textit{Coh-Metrix}\cite{graesser}, que parece tener una consistencia y utilidad mayores a las métricas básicas\cite{crossley}, pero no estaban disponibles para hacer de su uso fácilmente.
 
 Finalmente, el trabajo de \textit{Diuk, C. G., et. al., 2012} \cite{diuk}, resultó de gran inspiración sobre la potencialidad del análisis de grandes repositorios de datos con el fin de hacer predicciones. En el mismo, se utilizaron textos de distintas épocas en orden cronológico con el fin de probar si el constructo introspección creció o disminuyó a lo largo de los años.
 
@@ -59,11 +59,11 @@ En primer lugar, se explicará el proceso realizado a lo largo del estudio y las
 
 \section{Métricas}
 
-Las métricas de legibilidad son formulas que sirven para evaluar la legibilidad de un texto de forma automatica, normalmente utilizadas como reemplazo de una encuesta con personas. Las métricas analizadas en el presente trabajo fueron diseñadas entre los años 1940 a 1970, muchas veces teniendo en mente que deberian ser calculadas por maquinas simples o por personas. A pesar de haber pasado mucho tiempo desde su creación, estas métricas clásicas siguen siendo utilizadas en muchos estudios y hasta aparecen como condiciones necesarias legales en, por ejemplo, la creacion de las polizas de seguros automotrices. Las métricas estudiadas, exceptuando Flesch–Kincaid Reading Ease, simbolizan en sus valores la edad promedio necesaria o nivel educativo necesario de las personas para entender el texto analizado con la misma.
+Las métricas de legibilidad son fórmulas que sirven para evaluar la legibilidad de un texto de forma automática, normalmente utilizadas como reemplazo de una encuesta con humanos. Las métricas analizadas en el presente trabajo fueron diseñadas entre los años 1940 a 1970, por lo que muchas veces debían ser calculadas por máquinas simples o humanos. A pesar de haber pasado mucho tiempo desde su creación, las métricas clásicas siguen siendo utilizadas en muchos estudios y hasta aparecen como condiciones necesarias legales en, por ejemplo, la creación de las pólizas de seguros automotrices. Las métricas estudiadas, exceptuando Flesch–Kincaid Reading Ease, simbolizan en sus valores la edad promedio o nivel educativo necesarios para entender el texto analizado con ésta. %lo de automotrices es en USA o aca tambien?
 
 \subsection{ARI}
 
-El índice de legibilidad automatizado (\textbf{ARI})\cite{ari-flesch} fue diseñado a pedido de la fuerza aerea de los estados unidos con el proposito de monitorear en tiempo real la legibilidad de los textos producidos por maquinas de escribir electricas. A diferencia de otros indices, junto con el Coleman-Liau, ARI se basa en un factor de carácteres por palabra, en vez del usual silabas por palabra. Aunque la opinion varia sobre la perdida de precision en el indice con uso de este factor, usualmente es mas rápido de calcular, ya que el numero de caracteres es mucho mas facil de contar de forma automatica que el numero de silabas\cite{liang}.
+El índice de legibilidad automatizado (\textbf{ARI})\cite{ari-flesch} fue diseñado a pedido de las fuerzas aéreas de los Estados Unidos con el propósito de monitorear en tiempo real la legibilidad de los textos producidos por máquinas de escribir eléctricas. A diferencia de otros índices, junto con el Coleman-Liau, ARI se basa en un factor de caracteres por palabra en vez de sílabas por palabra. Aunque la opinión sobre la pérdida de precisión en el índice con uso de este factor varía, suele ser más rápido de calcular ya que es más fácil contar cantidad de caracteres que de sílabas\cite{liang}.
 
 El índice de legibilidad automatizado posee dos variables: caracteres por palabra y palabras por frase. El resultado corresponde al grado académico en los Estados Unidos. Su fórmula se define como:
 
@@ -73,20 +73,21 @@ donde \textit{caracteres} corresponde a la cantidad de letras y números, \texti
 
 \subsection{Coleman-Liau index}
 
-El indice \textbf{Coleman-Liau}\cite{coleman-liau} fue diseñado para ser facilmente calculable de forma mecanica desde texto impreso en papel. Como solamente requiere analizar los carácteres por palabra, teoricamente podria ser usado en conjunto con escaners mecanicos simples que solo necesiten reconocer caracteres, palabras y limites de las oraciones, eliminando la necesidad de un reconocimiento completo de caracteres. La fórmula del mismo se define como:
+El índice \textbf{Coleman-Liau}\cite{coleman-liau} fue diseñado para ser calculable de forma mecánica a partir de textos impresos. Dado que sólo requiere analizar los caracteres por palabra, podría ser usado en conjunto con escáneres mecánicos simples que sólo necesiten reconocer caracteres, palabras y límites de oraciones, eliminando la necesidad de un reconocimiento completo de caracteres. %no entiendo esta frase!
+La fórmula del mismo se define como:
 
 $$CLI = 5.88 \cdot \frac{letras}{palabras} - 29.6 \cdot \frac{frases}{palabras} - 15.8$$
 
 \subsection{Flesch–Kincaid}
-Las formulas de legibilidad \textbf{Flesch–Kincaid Reading Ease}\cite{ari-flesch} y \textbf{Flesch–Kincaid Grade Test} fueron diseñadas bajo el pedido de la marina de los Estados Unidos para evaluar la dificulad de los manuales tecnicos, antes de el Grade Test volverse un estandar en la milicia de los Estados Unidos. Ambas formulas se correlacionan casi de forma inversa, lo que tiene sentido ya que usan las mismas medidas (relacion entre silabas y palabras y la relacion entre palabras y oraciones), diferenciandose solo en sus factores.
+Las fórmulas de legibilidad \textbf{Flesch–Kincaid Reading Ease}\cite{ari-flesch} y \textbf{Flesch–Kincaid Grade Test} fueron diseñadas bajo el pedido de la marina de los Estados Unidos para evaluar la dificulad de los manuales técnicos, antes de que el Grade Test se vuelva un estándar en la milicia. Ambas fórmulas se correlacionan casi de forma inversa, lo que resulta coherente dado que usan las mismas medidas (relación entre sílabas y palabras, y relación entre palabras y frases), diferenciándose sólo en sus factores.
 
-En este trabajo analizaremos solamente la variante Flesch-Kincaid Reading Ease, ya que consiste en una de las métricas más antiguas de legibilidad, y es comúnmente utilizada en la academia e incorporada en la mayoría de los softwares de procesamiento de lenguaje. Los resultados de esta métrica, a diferencia del resto, se miden en una escala del 1 al 100, donde 1 significa muy complicado de leer y 100 muy fácil.\\
+En este trabajo, analizaremos únicamente la variante Flesch-Kincaid Reading Ease ya que consiste en una de las métricas de legibilidad más antiguas, es comúnmente utilizada en la academia e incorporada en la mayoría de los softwares de procesamiento de lenguaje. Los resultados de esta métrica, a diferencia del resto, se miden en una escala del 1 al 100, donde 1 significa muy complicado de leer y 100 muy fácil.\\
 
 La fórmula del test Flesch-Kincaid Reading Ease es definida como:
 $$FKRE = 206.835 - 1.015\cdot \frac{palabras}{frases} - 84.6\cdot \frac{silabas}{palabras}$$
 
 \subsection{SMOG}
-La medida simple de Gobbledygook (\textbf{SMOG})\cite{smog} es una medida de legibilidad extensamente utilizada, particularmente en la verificacion de mensajes de salud\cite{hedman}. La formula fue desarrollada en 1969 como un substituto mas certero y mas facil de calcular del indice Gunning Fog, razón por la cual el analisis de esta ultima es omitido en el trabajo.
+La medida simple de Gobbledygook (\textbf{SMOG})\cite{smog} es una medida de legibilidad extensamente utilizada, principalmente en la verificación de mensajes de salud\cite{hedman}. La fórmula fue desarrollada en 1969 como un sustituto del índice Gunning Fog más acertado y fácil de calcular, razón por la cual éste último es omitido del trabajo.
 
 Para calcularlo, se debe contar una serie de frases (al menos 30) y contar las polisílabas (palabras de tres o más sílabas) que posee cada una de ellas. Se define como: 
 
@@ -99,9 +100,9 @@ $$DCI = 0.1579\left({\frac{{palabras dificiles}}{{palabras}}}\times 100\right)+0
 
 \subsection{LIX}
 
-La fórmula de legibilidad Läsbarhetsindex (\textbf{LIX})\cite{lix-rix} fue desarrollada en Sueiza por Björnsoon. Lix es una fórmula de legibilidad poco conocida que es rápida de usar, confiable y fácil de interpretar. Fue especialmente diseñada para como un indice de legibilidad para textos de lenguajes extranjeros. En 1980 Jonathan Anderson la estudio y comprobó que funcionaba en Francés, Alemán, Griego e Inglés. También realizó una simplifcación de la misma llamandola RIX, la cúal no fue incluida en el estudio.
+La fórmula de legibilidad Läsbarhetsindex (\textbf{LIX})\cite{lix-rix} fue desarrollada en Suecia por Björnsoon. Lix es una fórmula de legibilidad poco conocida que es rápida de usar, confiable y fácil de interpretar. Fue especialmente diseñada como un índice de legibilidad para textos de lenguajes extranjeros. En 1980, Jonathan Anderson la estudió y comprobó que funcionaba en francés, alemán, griego e inglés. También realizó una simplificación de la misma (RIX), que no fue incluída en el estudio.
 
-Ya que la fórmula es independiente del lenguaje, la misma se define en base de la cantidad de palabras, cantidad de períodos y cantidad de palabras largas (en ingles, de más de 6 letras). Se la define como:
+Dado que la fórmula es independiente del lenguaje, se la define en base a la cantidad de palabras, de períodos y de palabras largas (en ingles, de más de 6 letras). Se la define como:
 
 $$LIX\ =\ \frac{palabras}{periodos} + \ 100 \cdot \frac{palabras\ largas}{palabras}$$\\
 
@@ -135,19 +136,17 @@ Se puede observar que, en términos generales, todas las métricas presentan una
 
 \section{Análisis del dataset}
 
-En lo que sigue, se explican las consideraciones que tuvimos en cuenta a la hora de seleccionar los libros a analizar.
+Con el fin de analizar las métricas mencionadas, decidimos descargar una serie de libros pertenecientes a la base de datos de Amazon mencionada anteriormente y experimentar con cada una de ellas. Para eso, debimos estudiar el conjunto de categorías presentadas por Amazon y las posibles reseñas (utilizando la escala del 0 al 5, saltando de a 0.5). Luego, resolvimos dividir las categorías en cuatro clusters (numerados del 1 al 4), y descargar 15 libros de cada reseña y cada cluster. En lo que sigue, se explican detalladamente las consideraciones que tuvimos en cuenta a la hora de seleccionar los libros para la experimentación.
 
 \subsection{Categorías}
+
 En primer lugar, descargamos la base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html} en donde se detallan productos (dentro de los cuales 393.561 son libros), ranking de ventas, categoría de los mismos y reseñas en el sitio de Amazon.com. Al analizarla, nos encontramos con que, además de que la mayoría de los libros se encontraba en diversas categorías a la vez, éstas últimas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'', ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Por otro lado, nos encontramos con que gran parte de los productos se encontraban repetidos, ya sea por poseer distintas ediciones, distintos formatos (tapa blanda/tapa dura, con audio, con dibujos, etc) o por estar clasificados de forma diferente. 
 
-%Podriamos mostrar un histograma en donde se vea la distribucion de los puntajes en relacion a la cantidad de libros y otro con la cantidad de scores (para que se vea que hay pocos libros con muchos scores y muchos con pocos). Podemos explicar que la obtencion de los libros en si se dificulto un poco para los puntajes bajos y en donde la cantidad de scores era menor a 100.
-Luego, procedimos a descargar los libros, tarea que resultó altamente dificultosa para las obras poco populares o de bajo puntaje dada la falta de interés a digitalizarlos. La selección de los mismos se realizó como se explica a continuación.
+\subsubsection{Unificación de categorías}
 
-\subsection{Eliminación parcial del sesgo}
+Dado que libros de distintas categorías suelen presentar distinto vocabulario, los resultados pueden verse sesgados si utilizamos muchos libros de una temática parecida para el análisis. Para garantizar homogeneidad, conformamos 4 conjuntos o clusters distintos de libros, donde cada uno está compuesto por categorías distintas, de forma tal a asegurarnos un análisis con libros de distintas categorías, vocabulario y enfocados a un público distinto.
 
-Dado que libros de distintas categorias pueden presentar distinto vocabulario, los resultados pueden verse sesgados si utilizamos para el analisis muchos libros de una tematica parecida. Para asegurarnos una homogeneidad conformamos 4 conjuntos o clusters distintos de libros, en donde cada cluster esta compuesto por categorias distintas, de forma tal de asegurarnos un analisis con libros de distintas categorias, distinto vocabulario y enfocados para distinto publico.
-
-El dataset crudo presenta el problema de que las categorias no conforman conjuntos disjuntos y ademas hay cierta jerarquia presente en las mismas. Para eliminar las categorias de los niveles inferiores de la jerarquia filtramos aquellas que aparecian 50 veces o menos, resultando en una lista de 129 categorias principales. De esta lista eliminamos categorias\footnote{http://cor.to/categories} demasiado generales o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras; llegando a una lista final de 113 categorias.
+El dataset crudo presenta el problema de que las categorías no conforman conjuntos disjuntos y ademas hay cierta jerarquia presente en las mismas. Para eliminar las categorias de los niveles inferiores de la jerarquia filtramos aquellas que aparecian 50 veces o menos, resultando en una lista de 129 categorias principales. De esta lista eliminamos categorias\footnote{http://cor.to/categories} demasiado generales o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras; llegando a una lista final de 113 categorias.
 
 % TODO: Agregamos grafo de jerarquia?
 
@@ -199,7 +198,7 @@ De esta manera solo un 20\% de los libros comparte categorias de 2 clusters dist
 \end{table}
 
 \subsection{Reseñas}
-
+Dado que no encontramos libros con reseñas del 0 al 1.5, y la cantidad de libros calificados con 1.5 era escasa, insertamos los libros de 1.5 a 2.5 en un mismo puntaje, y para el resto se usó la descripción anterior.
 En lo que sigue, se puede ver la distribución de los puntajes 
 \begin{figure}[H]
   \includegraphics[width=8.0in]{imgs/grafDeBarras.png}
@@ -220,9 +219,10 @@ En lo que sigue, se puede ver la distribución de los puntajes
 \end{figure}
 
 %Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). \subsection{Resultados de las métricas} Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros ``Buenos'' y otros para los ``Malos'' de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40\% y 50\% para todos los libros.\\
-\section{Experimentos y Resultados}
 
- En primer lugar, estudiamos el conjunto de categorías presentadas por Amazon y las posibles reseñas (utilizando la escala del 0 al 5, saltando de a 0.5). Luego, decidimos dividir las categorías en cuatro clusters (numerados  del 1 al 4), y descargar 15 libros de cada reseña y cada cluster. Dado que no encontramos libros con reseñas del 0 al 1.5, y la cantidad de libros calificados con 1.5 era escasa, insertamos los libros de 1.5 a 2.5 en un mismo puntaje, y para el resto se usó la descripción anterior.\\
+Luego, procedimos a descargar los libros, tarea que resultó altamente dificultosa para las obras poco populares o de bajo puntaje dada la falta de interés a digitalizarlos. La selección de los mismos se realizó como se explica a continuación.
+
+\section{Experimentos y Resultados}
 
 \subsection{Análisis de Resultados}
 
