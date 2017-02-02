@@ -73,10 +73,11 @@ donde \textit{caracteres} corresponde a la cantidad de letras y números, \texti
 
 \subsection{Coleman-Liau index}
 
-El índice \textbf{Coleman-Liau}\cite{coleman-liau} fue diseñado para ser calculable de forma mecánica a partir de textos impresos. Dado que sólo requiere analizar los caracteres por palabra, podría ser usado en conjunto con escáneres mecánicos simples que sólo necesiten reconocer caracteres, palabras y límites de oraciones, eliminando la necesidad de un reconocimiento completo de caracteres. %no entiendo esta frase!
+El índice \textbf{Coleman-Liau}\cite{coleman-liau} fue diseñado para ser calculable de forma mecánica a partir de textos impresos. Dado que se intercambia la cantidad de caracteres por la de sílabas, la métrica podría usarse en conjunto con escáneres mecánicos simplificados. Éstos últimos solamente diferencian cuando se trata de un caracter, de un límite de palabra o de un límite de oración. De esta forma, se logra eliminar la necesidad de identificación de cada caracter \textit{per se}.
 La fórmula del mismo se define como:
 
 $$CLI = 5.88 \cdot \frac{letras}{palabras} - 29.6 \cdot \frac{frases}{palabras} - 15.8$$
+
 
 \subsection{Flesch–Kincaid}
 Las fórmulas de legibilidad \textbf{Flesch–Kincaid Reading Ease}\cite{ari-flesch} y \textbf{Flesch–Kincaid Grade Test} fueron diseñadas bajo el pedido de la marina de los Estados Unidos para evaluar la dificulad de los manuales técnicos, antes de que el Grade Test se vuelva un estándar en la milicia. Ambas fórmulas se correlacionan casi de forma inversa, lo que resulta coherente dado que usan las mismas medidas (relación entre sílabas y palabras, y relación entre palabras y frases), diferenciándose sólo en sus factores.
