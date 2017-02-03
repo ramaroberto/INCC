@@ -35,11 +35,11 @@ def doPlot(vbs, name="fig", path=".", normalize=True):
     if normalize:
         if name == "FleschReadingEase":
             data_to_plot = map(lambda xs: 
-                            map(lambda x: 0.5-((x-min_value)/max_value), xs),
+                            map(lambda x: 0.7-((x-min_value)/max_value), xs),
                             data_to_plot)
         else:
             data_to_plot = map(lambda xs: 
-                            map(lambda x: (x-min_value)/max_value, xs),
+                            map(lambda x: 0.05+(x-min_value)/max_value, xs),
                             data_to_plot)
     
     # Create a figure instance
