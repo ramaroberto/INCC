@@ -40,7 +40,7 @@ Neurociencia, Métricas, Legibilidad, Libros, Reseñas.
 \IEEEpeerreviewmaketitle
 
 \section{Introducción}
-\IEEEPARstart{D}{esde} siempre, las personas han expresado diferentes gustos y opiniones sobre diversos tópicos, siendo la literatura uno de los más discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas. Otras veces, los mismos pueden estar influenciados por la opinión del resto de los usuarios\cite{muchnik} o ser poco objetivos debido a experiencias personales (la mayoría de los usuarios sólo da una reseña cuando su relación con el producto es muy buena o muy mala\cite{hu}). A pesar de esto, las calificaciones que los usuarios asignan en los sitios web tienden a converger a un valor mayormente positivo con el transcurso del tiempo\cite{zhang}; y aunque en general el comportamiento de éstas sigue siendo una incógnita, existen estudios que afirman se trata de una distribución binomial\cite{hu}. Sin embargo, no todo comportamiento puede ser justificado por una tendencia\cite{zhang}, por lo que su estudio sigue siendo valioso. 
+\IEEEPARstart{D}{esde} siempre, las personas han expresado diferentes gustos y opiniones sobre diversos tópicos, siendo la literatura uno de los más discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas. Otras veces, los mismos pueden estar influenciados por la opinión del resto de los usuarios\cite{muchnik} o ser poco objetivos debido a experiencias personales (la mayoría de los usuarios sólo da una reseña cuando su relación con el producto es muy buena o muy mala\cite{hu}). A pesar de esto, las calificaciones que los usuarios asignan en los sitios web tienden a converger a un valor mayormente positivo con el transcurso del tiempo\cite{zhang}; y aunque en general el comportamiento de éstas sigue siendo una incógnita, existen estudios que afirman se trata de una distribución binomial\cite{hu}. Sin embargo, no todo comportamiento puede ser justificado por una tendencia\cite{zhang}, por lo que su estudio sigue siendo valioso.
 
 En nuestro análisis, buscamos responder a la pregunta de si la legibilidad de los libros impacta de alguna forma en las reseñas que los usuarios asignan. Para esto, suponemos que los libros más faciles de leer, o sea más legibles, tienden a tener mejor puntaje que aquellos que resultan más difíciles. Para demostrar nuestra hipótesis, recompilamos una amplia variedad de libros de distintos autores, géneros y formatos, junto con la información de las calificaciones asignadas por sus lectores. Ésta última fue extraída de la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html}, utilizada también en un análisis de marketing viral\cite{leskovec}. Intentamos que los libros analizados conformaran un conjunto de datos homogéneo para evitar sesgos ocasionados por una categoría o autor en particular.
 
@@ -109,7 +109,7 @@ $$LIX\ =\ \frac{palabras}{periodos} + \ 100 \cdot \frac{palabras\ largas}{palabr
 
 Los $periodos$ se dividen con dos puntos o primera mayúscula.\\
 
-\subsection{Resultado con Harry Potter}
+\subsection{Verificación de métricas}
 
 Con el fin de comprobar la correctitud de dichas métricas, evaluamos el resultado de evaluar la saga \textit{Harry Potter}\footnote{http://cor.to/harrypotter}, que presenta (según su autora \footnote{http://www.jkrowling.com/}) una dificultad creciente en el vocabulario de sus títulos.
 \begin{center}
@@ -137,19 +137,46 @@ Se puede observar que, en términos generales, todas las métricas presentan una
 
 \section{Análisis del dataset}
 
-Con el fin de analizar las métricas mencionadas, decidimos descargar una serie de libros pertenecientes a la base de datos de Amazon mencionada anteriormente y experimentar con cada una de ellas. Para eso, debimos estudiar el conjunto de categorías presentadas por Amazon y las posibles reseñas (utilizando la escala del 0 al 5, saltando de a 0.5). Luego, resolvimos dividir las categorías en cuatro clusters (numerados del 1 al 4), y descargar 15 libros de cada reseña y cada cluster. En lo que sigue, se explican detalladamente las consideraciones que tuvimos en cuenta a la hora de seleccionar los libros para la experimentación.
+La base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html}, producida en el 2007, contiene información de 548552 productos, dentro de los cuales 393561 son libros. Sobre cada producto se especifica su ranking de ventas, categorías del mismo y las reseñas. Cada reseña esta identificada por su autor y posee el puntaje que le asigno el mismo, la fecha en que se realizo la reseña, los votos recibidos por otros usuarios y su grado de ``ayuda''(helpfulness). Esta informacion originalmente fue utilizada para estudiar como se desarolla la popularidad de los productos en Amazon mediante la influencia del marketing viral\cite{leskovec}. En nuestro trabajo, dado que requerimos solo una porción de esta informacion, utilizamos una version simplificada de esta base de datos, observando solo la cantidad de reseñas y el puntaje promedio de los libros.
 
-\subsection{Categorías}
+\subsubsection{Enriquecimiento del dataset}
 
-En primer lugar, descargamos la base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html} en donde se detallan productos (dentro de los cuales 393.561 son libros), ranking de ventas, categoría de los mismos y reseñas en el sitio de Amazon.com. Al analizarla, nos encontramos con que, además de que la mayoría de los libros se encontraba en diversas categorías a la vez, éstas últimas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'', ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Por otro lado, nos encontramos con que gran parte de los productos se encontraban repetidos, ya sea por poseer distintas ediciones, distintos formatos (tapa blanda/tapa dura, con audio, con dibujos, etc) o por estar clasificados de forma diferente. 
+\begin{figure}[H]
+  \includegraphics[width=7.0in]{imgs/cantDeLibrosVsPuntje-crudo.png}
+  \caption{Cantidad de reviews por puntaje}
+\end{figure} 
 
-\subsubsection{Unificación de categorías}
+Un análisis de la distribución de cantidad de reseñas muestra que la gran mayoria de los libros presentes en la base de datos tienen muy pocas reseñas. Para ser ejemplificar, un 80\% de los libros tienen menos de 10 reseñas. Decidimos solo utilizar aquellos libros que tienen 40 o mas reseñas, principalmente para asegurarnos que el puntuaje promedio sea representativo. Esto nos deja con un total de 16402 libros para poder analizar.
 
-Dado que libros de distintas categorías suelen presentar distinto vocabulario, los resultados pueden verse sesgados si utilizamos muchos libros de una temática parecida para el análisis. Para garantizar homogeneidad, conformamos 4 conjuntos o clusters distintos de libros, donde cada uno está compuesto por categorías distintas, de forma tal a asegurarnos un análisis con libros de distintas categorías, vocabulario y enfocados a un público distinto.
+\begin{figure}[H]
+  \includegraphics[width=7.0in]{imgs/cantidadDeLibrosVsPuntaje.png}
+  \caption{Cantidad de reviews por puntaje}
+\end{figure} 
 
-El dataset crudo presenta el problema de que las categorías no conforman conjuntos disjuntos y ademas hay cierta jerarquia presente en las mismas. Para eliminar las categorias de los niveles inferiores de la jerarquia filtramos aquellas que aparecian 50 veces o menos, resultando en una lista de 129 categorias principales. De esta lista eliminamos categorias\footnote{http://cor.to/categories} demasiado generales o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras; llegando a una lista final de 113 categorias.
+Un segundo analisis de estos libros muestra que una amplia porción de estos se encuentran puntuados entre 4.0 y 4.5, tendencia que según algunos estudios es esperable\cite{zhang}. Por otro lado si miramos como se distribuyen los puntajes dentro de grupos de libros con distinta cantidad de reseñas, podremos observar que aproximadamente la proporcion se mantiene, lo que evidencia que utilizar libros con 40 o mas reseñas es suficiente.
 
-% TODO: Agregamos grafo de jerarquia?
+\begin{figure}[H]
+  \includegraphics[width=7.0in]{imgs/cantLibrosVScantReviews.png}
+  \caption{Cantidad de Libros vs cantidad de reviews}
+\end{figure}
+
+\subsection{Analisis de categorias}
+
+Con el objetivo de analizar la relacion entre categorias, definimos que esta relacion se produce cuando un libro comparte dos categorias. Estudiando la misma, como asi la cantidades de veces que suceden, pudimos observar que las mismas no conforman conjuntos disjuntos y que hay cierta jerarquia presente entre ellas\footnote{http://cor.to/categories}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=7.0in]{../results/graph.pdf}
+  \caption{Cantidad de Libros vs cantidad de reviews}
+\end{figure}
+
+Por otro lado, la mayoría de los libros se encontraba en diversas categorías a la vez y éstas últimas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'' y ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Para tener una lista de categorias mas significativa, eliminamos categorias demasiado generales, demasiado especificas o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras. Confeccionamos una lista de estas categorias y, para eliminar aquellas demasiado especificas, dejamos fuera a las que aparecian 50 veces o menos. Habiendo reducido la lista a 129 categorias, eliminamos manualmente aquellas que nos parecian demasiado generales, obteniendo asi una lista final de 113 categorias.
+
+\subsubsection{Homogeneidad de la muestra}
+
+Como los libros de distintas categorías suelen presentar distinto vocabulario, los resultados pueden verse sesgados si utilizamos muchos libros de una temática parecida. Para garantizar homogeneidad durante el experimento, conformamos 4 conjuntos o clusters dividiendo el dataset original. Realizamos esta division componiendo los mismos con categorías distintas, de forma tal a asegurarnos un análisis con libros de distintos tipos, vocabulario y enfocados a un público distinto. 
+
+El dataset crudo presenta el problema de que las categorías no conforman conjuntos disjuntos y ademas hay cierta jerarquia presente en las mismas. Para eliminar las categorias de los niveles inferiores de la jerarquia filtramos aquellas que aparecian 50 veces o menos, resultando en una lista de 129 categorias principales. De esta lista eliminamos categorias demasiado generales o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras; llegando a una lista final de 113 categorias.
 
 Habiendo confeccionado esta lista realizamos una codificacion de la base de datos en donde cada libro puede ser descripto como una tira de ceros y unos, en donde cada cero o uno indica la pertenencia a una categoria. Utilizando Weka ejecutamos un algoritmo de clusterizacion llamado expectation maximization con 10 folds y 8 clusters. Si bien nuestro objetivo original era obtener 4 clusters, si especificabamos esta cantidad uno de los clusters agrupaba demasiados libros, ya que el algoritmo agrupa todos aquellos que no puede terminar de clasificar (por el limite asignado) en uno solo.
 
@@ -163,11 +190,10 @@ Como en todos los clusters existen libros que contienen categorias de otros clus
 \item \textbf{Cluster Nº3:} Mystery and Thrillers, Thrillers, Biographies and Memoirs, Suspense, Nonfiction, History, Politics, Social Science
 \item \textbf{Cluster Nº4:} Other categories
 \end{itemize}
-% TODO: Falta pie de cuadro
 
 ~
 
-De esta manera solo un 20\% de los libros comparte categorias de 2 clusters distintos. Un analisis rapido de las cantidades contenidas en cada cluster arroja nos dice que si bien la division esta lejos de ser perfecta en lo que respecta a cantidades nominales, nos da margen suficiente para analizar libros de distintos puntajes y clusters.
+De esta manera solo un 20\% de los libros comparte categorias de 2 clusters distintos. Un analisis rapido de las cantidades contenidas en cada cluster nos dice que, si bien la division esta lejos de ser perfecta en lo que respecta a cantidades nominales, nos da margen suficiente para analizar libros de distintos puntajes y clusters.
 
 ~
 
@@ -197,14 +223,15 @@ De esta manera solo un 20\% de los libros comparte categorias de 2 clusters dist
     \hline
   \end{tabular}
 \end{table}
+% TODO: Falta pie de cuadro
 
-\subsection{Reseñas}
+\section{Experimentos y Resultados}
+
+\subsection{Organizacion del experimento}
 Dado que no encontramos libros con reseñas del 0 al 1.5, y la cantidad de libros calificados con 1.5 era escasa, insertamos los libros de 1.5 a 2.5 en un mismo puntaje, y para el resto se usó la descripción anterior.
 En lo que sigue, se puede ver la distribución de los puntajes 
-\begin{figure}[H]
-  \includegraphics[width=8.0in]{imgs/grafDeBarras.png}
-  \caption{Cantidad de reviews por puntaje}
-\end{figure} 
+
+%Con el fin de analizar las métricas mencionadas, decidimos descargar una serie de libros pertenecientes a la base de datos de Amazon mencionada anteriormente y experimentar con cada una de ellas. Para eso, debimos estudiar el conjunto de categorías presentadas por Amazon y las posibles reseñas (utilizando la escala del 0 al 5, saltando de a 0.5). Luego, resolvimos dividir las categorías en cuatro clusters (numerados del 1 al 4), y descargar 15 libros de cada reseña y cada cluster. En lo que sigue, se explican detalladamente las consideraciones que tuvimos en cuenta a la hora de seleccionar los libros para la experimentación.
 
 \begin{figure}[H]
 \begin{center}
@@ -212,18 +239,6 @@ En lo que sigue, se puede ver la distribución de los puntajes
   \caption{Histograma de palabras}
   \end{center}
 \end{figure}
-
-
-\begin{figure}[H]
-  \includegraphics[width=8.0in]{imgs/cantLibrosVScantReviews.png}
-  \caption{Cantidad de Libros vs cantidad de reviews}
-\end{figure}
-
-%Ademas hay que explicar cuantos libros agarramos de cada categoria principal y porque decidimos dejar los que tenian menos de 100 reviews fuera (basicamente, es por la convergencia del promedio de una muestra). \subsection{Resultados de las métricas} Podemos mostrar graficos de histogramas combinados, uno para los resultados de los libros ``Buenos'' y otros para los ``Malos'' de las 3 metricas: cantidad de palabras simple english, cantidad de vocabulario simple english y cantidad de repeticiones. Podemos decir que en un principio decidimos eliminar la cantidad de palabras como una metrica ya que da siempre entre 40\% y 50\% para todos los libros.\\
-
-Luego, procedimos a descargar los libros, tarea que resultó altamente dificultosa para las obras poco populares o de bajo puntaje dada la falta de interés a digitalizarlos. La selección de los mismos se realizó como se explica a continuación.
-
-\section{Experimentos y Resultados}
 
 \subsection{Análisis de Resultados}
 
@@ -281,7 +296,7 @@ Para plantear los Test de Hipótesis correspondientes, utilizamos la función $k
 
 Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (o estadístico KS) y el p-valor correspondiente a \textbf{D}. El estadístico consiste en
 $$D_{n}=\sup_{x}|F_{n}(x)-F(x)|$$
-siendo $F(x)$ la función de distribución acumulada. Luego, si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución\bibitem{degroot}.\\
+siendo $F(x)$ la función de distribución acumulada. Luego, si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución\cite{degroot}.\\
 
 La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > c(\alpha) \cdot \sqrt{\frac{n_1+n_2}{n_1\cdot n_2}}$$ donde $n_1$ y $n_2$ son los tamaños de las muestras a comparar. El valor de $c(\alpha)$ se define como:
 $$c(\alpha) = \sqrt{1/2\cdot log(\alpha/2)}$$
