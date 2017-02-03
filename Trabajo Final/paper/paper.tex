@@ -227,11 +227,11 @@ De esta manera solo un 20\% de los libros comparte categorias de 2 clusters dist
 
 \section{Experimentos y Resultados}
 
-\subsection{Organizacion del experimento}
-Dado que no encontramos libros con reseñas del 0 al 1.5, y la cantidad de libros calificados con 1.5 era escasa, insertamos los libros de 1.5 a 2.5 en un mismo puntaje, y para el resto se usó la descripción anterior.
-En lo que sigue, se puede ver la distribución de los puntajes 
+Para verificar nuestra hipotesis inicial, realizamos un experimento aplicando cada una de las mencionadas metricas a una seleccion de libros pertenecientes a los clusters. Luego, sobre estos resultados realizamos un analisis preliminar, realizando graficos sobre los resultados, para luego verificar mediante un test de hipotesis nuestra asumpcion inicial.
 
-%Con el fin de analizar las métricas mencionadas, decidimos descargar una serie de libros pertenecientes a la base de datos de Amazon mencionada anteriormente y experimentar con cada una de ellas. Para eso, debimos estudiar el conjunto de categorías presentadas por Amazon y las posibles reseñas (utilizando la escala del 0 al 5, saltando de a 0.5). Luego, resolvimos dividir las categorías en cuatro clusters (numerados del 1 al 4), y descargar 15 libros de cada reseña y cada cluster. En lo que sigue, se explican detalladamente las consideraciones que tuvimos en cuenta a la hora de seleccionar los libros para la experimentación.
+\subsection{Organizacion del experimento}
+
+Por lo que pudimos observar, los puntajes promedios de las reseñas en la base de datos de amazon a lo sumo toman 10 valores distintos: desde 0 a 5 en intervalos de 0.5. Utilizando los clusters como medio de referencia, seleccionamos alrededor de 15 libros por cada cluster y puntaje promedio distinto, totalizando aproximadamente 600 libros. Sin embargo los libros pertenecientes a los puntajes promedios mas bajos, como lo es el rango entre 0 y 2.5, fueron dificiles de hallar. Por lo que decidimos compactar este rango y utilizar 15 libros para el mismo, totalizando finalmente una cantidad de 364 libros.
 
 \begin{figure}[H]
 \begin{center}
@@ -239,8 +239,13 @@ En lo que sigue, se puede ver la distribución de los puntajes
   \caption{Histograma de palabras}
   \end{center}
 \end{figure}
+%TODO: Que explicamos de este grafico? Cual es su fin?
 
-\subsection{Análisis de Resultados}
+Cada uno de los libros fue convertido de su formato original a texto plano, removiendo cualquier tipo de caracteres especiales. Luego se realizo una tokenizacion utilizando \textit{tokenizer}\footnote{http://moin.delph-in.net/WeSearch/DocumentParsing} de cada uno de los textos, para posteriormente aplicar \textit{readability}\footnote{https://pypi.python.org/pypi/readability} y obtener los resultados finales.
+
+\subsection{Análisis de Preliminar de Resultados}
+
+Una vez obtenidos los resultados, proseguimos a realizar un analisis preliminar utilizando boxplots. Como cada una de las métricas devuelve valores en escalas distintas, proseguimos a normalizar los resultados de las mismas, de forma de poder realizar una comparacion facilmente. En el caso de Flesch-Kincaid ademas de normalizar invertimos sus valores, de manera tal de poder evidenciar la misma relacion que en el resto de las metricas.
 
 \begin{minipage}{\linewidth}
   \centering
@@ -290,37 +295,52 @@ En lo que sigue, se puede ver la distribución de los puntajes
   \end{minipage}
 \end{minipage}
 
-\subsection{Análisis de los Resultados del Test de Hipótesis}
+En todos los casos pudimos observar una leve tendencia descendente de los valores de las metricas a medida que el puntaje promedio aumentaba. Sin embargo, dada la poca diferencia absoluta entre los valores y la incertidumbre que presentan los mismos, es dificil determinar a simple vista si las diferencias son significativas.
 
-Para plantear los Test de Hipótesis correspondientes, utilizamos la función $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy que computa el estadístico Kolmogorov-Smirnov dadas dos muestras. Éste sirve para plantear el test de hipótesis nula que evalúa que dos muestras independientes se consiguen de la misma distribución continua.\\
+\subsection{Realizacion y Resultados del Test de Hipótesis}
 
-Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (o estadístico KS) y el p-valor correspondiente a \textbf{D}. El estadístico consiste en
+Para determinar si la diferencia entre dos resultados es significativa, el procedimiento estandar es realizar un test de hipotesis. En nuestro caso decidimos utilizar el estadístico Kolmogorov-Smirnov de dos vías. El mismo plantea como hipótesis nula que dos muestras independientes se consiguen de la misma distribución continua. Rechazando esta hipotesis, estamos confirmando que las dos muestras fueron tomadas de distribuciones distintas, y dado que estamos utilizando los resultados de una misma métrica, la diferencia debe provenir de los textos analizados.
+
+Para plantear los test de hipótesis correspondientes, utilizamos la función $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy que computa el estadístico Kolmogorov-Smirnov dadas dos muestras. Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (o estadístico KS) y el p-valor correspondiente a \textbf{D}. El estadístico consiste en:
 $$D_{n}=\sup_{x}|F_{n}(x)-F(x)|$$
-siendo $F(x)$ la función de distribución acumulada. Luego, si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución\cite{degroot}.\\
+siendo $F(x)$ la función de distribución acumulada. Luego, si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución\cite{degroot}.\\ %TODO: ``si el estadístico KS es pequeño o el p-valor grande'' se contradice con lo de abajo, hace falta o no mirar el p-valor?
 
-La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > c(\alpha) \cdot \sqrt{\frac{n_1+n_2}{n_1\cdot n_2}}$$ donde $n_1$ y $n_2$ son los tamaños de las muestras a comparar. El valor de $c(\alpha)$ se define como:
+La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > C(\alpha) = c(\alpha) \cdot \sqrt{\frac{n_1+n_2}{n_1\cdot n_2}}$$ donde $n_1$ y $n_2$ son los tamaños de las muestras a comparar. En donde el valor de $c(\alpha)$ se define como:
 $$c(\alpha) = \sqrt{1/2\cdot log(\alpha/2)}$$
 
-Los resultados obtenidos con un nivel de significancia de 0.001 para las métricas analizadas fueron los siguientes:\\
+Los resultados obtenidos con un nivel de significancia de $\alpha = 0.001$, lo que nos deja con $C(0.001) = 0.2506$, para las métricas analizadas fueron los siguientes:\\
+\begin{center}
+  \centering
+  \begin{tabular}{ | l | l | l | l | }
+  \hline
+  Métrica & P-valor & D & ¿Rechaza la hipótesis nula?\\
+  \hline
+  ARI & 1.9e-2 & 1.929e-2 & \textbf{NO} (1.9e-2 $< \alpha$ y $C(\alpha) <$ 1.929e-2)\\
+  \hline
+  LIX & 1.684e-3 & 2.378e-1 & \textbf{NO} (1.684e-3 $< \alpha$ y $C(\alpha) <$ 2.378e-1)\\
+  \hline
+  Coleman-Liau & 5.97e-4 & 2.546e-1 & \textbf{Sí} (5.97e-4 $< \alpha$ y $C(\alpha) <$ 2.546e-1)\\
+  \hline
+  FleschReadingEase & 9.126e-05 & 2.82e-1 & \textbf{Sí} (9.126e-05 $< \alpha$ y $C(\alpha) <$ 2.82e-1)\\
+  \hline
+  Dale-Chall & 2.52e-05 & 3e-1 & \textbf{Sí} (2.52e-05 $< \alpha$ y $C(\alpha) <$ 3e-1)\\
+  \hline
+  SMOGIndex & 8.01e-06 & 3.15e-1 & \textbf{Sí} (8.01e-06 $< \alpha$ y $C(\alpha) <$ 3.15e-1)\\
+  \hline
+  \end{tabular}
+\end{center}
 
-\begin{tabular}{ | l | l | l | l | }
-\hline
-Métrica & P-valor & D & Decisión sobre la Hipótesis nula\\
-\hline
-ARI & 1.9e-2 & 1.929e-2 & \textbf{NO rechazada} (1.9e-2 $<$ 0.001 y 2.5e-2 $<$ 1.929e-2)\\
-\hline
-LIX & 1.684e-3 & 2.378e-1 & \textbf{NO rechazada} (1.684e-3 $<$ 1e-3 y 2.5e-1 $<$ 2.378e-1)\\
-\hline
-Coleman-Liau & 5.97e-4 & 2.546e-1 & \textbf{Rechazada} (5.97e-4 $<$ 1e-3 y 2.5e-1 $<$ 2.546e-1)\\
-\hline
-FleschReadingEase & 9.126e-05 & 2.82e-1 & \textbf{Rechazada} (9.126e-05 $<$ 1e-3 y 2.5e-1 $<$ 2.82e-1)\\
-\hline
-Dale-Chall & 2.52e-05 & 3e-1 & \textbf{Rechazada} (2.52e-05 $<$ 1e-3 y 2.5e-1 $<$ 3e-1)\\
-\hline
-SMOGIndex & 8.01e-06 & 3.15e-1 & \textbf{Rechazada} (8.01e-06 $<$ 0.001 y 2.5e-1 $<$ 3.15e-1)\\
-\hline
-\end{tabular}
+~
 
+Como se puede observar, en 4 de 6 metricas la hipotesis nula fue rechazada para un nivel de significancia muy representativo. Es importante remarcar que las metricas que fallan en rechazar el test de hipotesis son, probablemente, aquellas que no son tan efectivas para calcular un indice suficientemente representativo. Ademas, si se usa un nivel de significancia un poco mas laxo como lo es $\alpha = 0.05$, que nos deja con $C(0.05) = 0.1746$, todas las metricas rechazan la hipotesis nula. Otra variable a observar es que quizas 364 libros no sea suficiente para las metricas menos concluyentes, ya que al aumentar la cantidad de muestras el p-valor disminuye y la condicion de aceptacion de $D$ es mas admisible.
+
+%TODO: Hacer cita a la formula de la condicion de D.
+
+%TODO: Relacionar un poco con alguno de los boxplots no normalizados.
+
+%TODO: Mostrar algun histograma de las metricas.
+
+%TODO: Estaria bueno ejemplificar con la mejor metrica cual fue el libro que marco como mas facil y cual como el mas dificil. Podriamos encontrar algun ejemplo divertido en los ratings malos por ejemplo.
 
 \section{Conclusiones y trabajo futuro} Por lo que vi vamos a tener que decir que obtuvimos resultados significativos pero los numeros estan demasiado cercanos como para utilizar la metrica como criterio. Explicar que otras metricas se nos ocurren para lo cual podria funcionar. Por ejemplo, a mi se me ocurre que una metrica mutli-variable con elementos de procesamiento de lenguaje natural podria dar mejores resultados, es decir metricas que describan mejor la forma en que el libro esta escrito.\\
 
