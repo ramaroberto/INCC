@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 import matplotlib.pyplot as plt
 import csv
 
@@ -17,9 +17,9 @@ for metric in metrics:
             value = float(data[metric])
             myData.append(value)
     plt.clf()
-    plt.xlabel("Medida")
-    plt.ylabel("Cantidad")
-    plt.title("Metrica " + labels[metric-starting])
+    plt.xlabel("Valores de la metrica")
+    plt.ylabel("Cantidad de libros")
+    # plt.title("Metrica " + labels[metric-starting])
     fig = plt.figure(1, figsize=(9, 6))
     # Create an axes instance
     ax = fig.add_subplot(111)
