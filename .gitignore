@@ -1,3 +1,10 @@
 *.bak
 Trabajo\ Final/unigrams/Books/All-TXT/*.txt
 .DS_Store
+Trabajo\ Final/paper/paper-*.png
+Trabajo\ Final/paper/*.aux
+Trabajo\ Final/paper/*.dvi
+Trabajo\ Final/paper/*.log
+Trabajo\ Final/paper/*.pdf
+Trabajo\ Final/paper/*.tex.backup
+Trabajo\ Final/paper/*.kilepr
