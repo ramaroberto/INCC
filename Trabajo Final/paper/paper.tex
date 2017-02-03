@@ -99,6 +99,8 @@ A diferencia del resto de las métricas que usan la cantidad de caracteres o de 
 
 $$DCI = 0.1579\left({\frac{{palabras dificiles}}{{palabras}}}\times 100\right)+0.0496\left({\frac{{palabras}}{{frases}}}\right)$$
 
+%TODO: Agregar factor de normalizacion con funcion partida (If the percentage of difficult words is above 5%, then add 3.6365 to the raw score to get the adjusted score, otherwise the adjusted score is equal to the raw score.)
+
 \subsection{LIX}
 
 La fórmula de legibilidad Läsbarhetsindex (\textbf{LIX})\cite{lix-rix} fue desarrollada en Suecia por Björnsoon. Lix es una fórmula de legibilidad poco conocida que es rápida de usar, confiable y fácil de interpretar. Fue especialmente diseñada como un índice de legibilidad para textos de lenguajes extranjeros. En 1980, Jonathan Anderson la estudió y comprobó que funcionaba en francés, alemán, griego e inglés. También realizó una simplificación de la misma (RIX), que no fue incluída en el estudio.
@@ -174,11 +176,7 @@ Por otro lado, la mayoría de los libros se encontraba en diversas categorías a
 
 \subsubsection{Homogeneidad de la muestra}
 
-Como los libros de distintas categorías suelen presentar distinto vocabulario, los resultados pueden verse sesgados si utilizamos muchos libros de una temática parecida. Para garantizar homogeneidad durante el experimento, conformamos 4 conjuntos o clusters dividiendo el dataset original. Realizamos esta division componiendo los mismos con categorías distintas, de forma tal a asegurarnos un análisis con libros de distintos tipos, vocabulario y enfocados a un público distinto. 
-
-El dataset crudo presenta el problema de que las categorías no conforman conjuntos disjuntos y ademas hay cierta jerarquia presente en las mismas. Para eliminar las categorias de los niveles inferiores de la jerarquia filtramos aquellas que aparecian 50 veces o menos, resultando en una lista de 129 categorias principales. De esta lista eliminamos categorias demasiado generales o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras; llegando a una lista final de 113 categorias.
-
-Habiendo confeccionado esta lista realizamos una codificacion de la base de datos en donde cada libro puede ser descripto como una tira de ceros y unos, en donde cada cero o uno indica la pertenencia a una categoria. Utilizando Weka ejecutamos un algoritmo de clusterizacion llamado expectation maximization con 10 folds y 8 clusters. Si bien nuestro objetivo original era obtener 4 clusters, si especificabamos esta cantidad uno de los clusters agrupaba demasiados libros, ya que el algoritmo agrupa todos aquellos que no puede terminar de clasificar (por el limite asignado) en uno solo.
+Utilizando la lista de categorias realizamos una codificacion de la base de datos en donde cada libro puede ser descripto como una tira de ceros y unos, en donde cada cero o uno indica la pertenencia a una categoria. Utilizando Weka ejecutamos un algoritmo de clusterizacion llamado expectation maximization con 10 folds y 8 clusters. Si bien nuestro objetivo original era obtener 4 clusters, si especificabamos esta cantidad uno de los clusters agrupaba demasiados libros, ya que el algoritmo agrupa todos aquellos que no puede terminar de clasificar (por el limite asignado) en uno solo.
 
 Como en todos los clusters existen libros que contienen categorias de otros clusters, formar clusters totalmente disjuntos en las categorias es imposible. Sin embargo podemos intentar formarlos minimizando la cantidad de libros que comparten categorias con otros clusters. Probamos distintas maneras de agrupar los clusters y finalmente la composicion quedo definida de la siguente manera:
 
@@ -243,9 +241,9 @@ Por lo que pudimos observar, los puntajes promedios de las reseñas en la base d
 
 Cada uno de los libros fue convertido de su formato original a texto plano, removiendo cualquier tipo de caracteres especiales. Luego se realizo una tokenizacion utilizando \textit{tokenizer}\footnote{http://moin.delph-in.net/WeSearch/DocumentParsing} de cada uno de los textos, para posteriormente aplicar \textit{readability}\footnote{https://pypi.python.org/pypi/readability} y obtener los resultados finales.
 
-\subsection{Análisis de Preliminar de Resultados}
+\subsection{Análisis Preliminar de Resultados}
 
-Una vez obtenidos los resultados, proseguimos a realizar un analisis preliminar utilizando boxplots. Como cada una de las métricas devuelve valores en escalas distintas, proseguimos a normalizar los resultados de las mismas, de forma de poder realizar una comparacion facilmente. En el caso de Flesch-Kincaid ademas de normalizar invertimos sus valores, de manera tal de poder evidenciar la misma relacion que en el resto de las metricas.
+Una vez obtenidos los resultados, proseguimos a realizar un analisis preliminar utilizando boxplots. Como cada una de las métricas devuelve valores en escalas distintas, normalizamos los resultados de las mismas, de forma de poder comparar facilmente. En el caso de Flesch-Kincaid ademas de normalizar invertimos sus valores, de manera tal de poder evidenciar la misma relacion que en el resto de las metricas.
 
 \begin{minipage}{\linewidth}
   \centering
@@ -299,11 +297,13 @@ En todos los casos pudimos observar una leve tendencia descendente de los valore
 
 \subsection{Realizacion y Resultados del Test de Hipótesis}
 
+%TODO: Especificar grupos utilizados para el analisis
+
 Para determinar si la diferencia entre dos resultados es significativa, el procedimiento estandar es realizar un test de hipotesis. En nuestro caso decidimos utilizar el estadístico Kolmogorov-Smirnov de dos vías. El mismo plantea como hipótesis nula que dos muestras independientes se consiguen de la misma distribución continua. Rechazando esta hipotesis, estamos confirmando que las dos muestras fueron tomadas de distribuciones distintas, y dado que estamos utilizando los resultados de una misma métrica, la diferencia debe provenir de los textos analizados.
 
 Para plantear los test de hipótesis correspondientes, utilizamos la función $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy que computa el estadístico Kolmogorov-Smirnov dadas dos muestras. Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (o estadístico KS) y el p-valor correspondiente a \textbf{D}. El estadístico consiste en:
 $$D_{n}=\sup_{x}|F_{n}(x)-F(x)|$$
-siendo $F(x)$ la función de distribución acumulada. Luego, si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución\cite{degroot}.\\ %TODO: ``si el estadístico KS es pequeño o el p-valor grande'' se contradice con lo de abajo, hace falta o no mirar el p-valor?
+siendo $F(x)$ la función de distribución acumulada. Luego, si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución\cite{degroot}.\\
 
 La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > C(\alpha) = c(\alpha) \cdot \sqrt{\frac{n_1+n_2}{n_1\cdot n_2}}$$ donde $n_1$ y $n_2$ son los tamaños de las muestras a comparar. En donde el valor de $c(\alpha)$ se define como:
 $$c(\alpha) = \sqrt{1/2\cdot log(\alpha/2)}$$
@@ -332,17 +332,36 @@ Los resultados obtenidos con un nivel de significancia de $\alpha = 0.001$, lo q
 
 ~
 
-Como se puede observar, en 4 de 6 metricas la hipotesis nula fue rechazada para un nivel de significancia muy representativo. Es importante remarcar que las metricas que fallan en rechazar el test de hipotesis son, probablemente, aquellas que no son tan efectivas para calcular un indice suficientemente representativo. Ademas, si se usa un nivel de significancia un poco mas laxo como lo es $\alpha = 0.05$, que nos deja con $C(0.05) = 0.1746$, todas las metricas rechazan la hipotesis nula. Otra variable a observar es que quizas 364 libros no sea suficiente para las metricas menos concluyentes, ya que al aumentar la cantidad de muestras el p-valor disminuye y la condicion de aceptacion de $D$ es mas admisible.
+Como se puede observar, en 4 de 6 metricas la hipotesis nula fue rechazada para un nivel de significancia muy representativo. Es importante remarcar que las metricas que fallan en rechazar el test de hipotesis son, probablemente, aquellas que no son tan efectivas para calcular un indice suficientemente representativo. Ademas, si se usa un nivel de significancia un poco mas laxo como lo es $\alpha = 0.05$, que nos deja con $C(0.05) = 0.1746$, todas las metricas rechazan la hipotesis nula. Otra variable a observar es que quizas 364 libros no sea suficiente para las metricas menos concluyentes, ya que al aumentar la cantidad de muestras el p-valor disminuye y la condicion de aceptacion de $D$ es mas facilmente satisfacible.
 
 %TODO: Hacer cita a la formula de la condicion de D.
 
-%TODO: Relacionar un poco con alguno de los boxplots no normalizados.
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[width=3.0in]{../unigrams/scripts/boxplots/not-normalized-SMOGIndex.png}
+  \caption{Histograma de palabras}
+  \end{center}
+\end{figure}
 
-%TODO: Mostrar algun histograma de las metricas.
+Si analizamos en detalle el boxplot generado en base a los valores devueltos por la metrica SMOG, podremos ver que los valores estan centrados alrededor del 8, lo que significa que una persona con 8 años de educacion deberia ser capaz de entender la mayoria de los libros. Utilizando un histograma para analizar la distribucion de los valores podremos ver que la gran parte de los libros toman valores entre 7 y 9, tendencia que se puede observar tambien en el resto de las metricas, evidenciando asi que gran parte de los libros utilizados para el analisis no son dificiles de leer. Por ello, es esperable que las diferencias en las medianas entre los dos grupos analizados no sean muy grandes.
 
-%TODO: Estaria bueno ejemplificar con la mejor metrica cual fue el libro que marco como mas facil y cual como el mas dificil. Podriamos encontrar algun ejemplo divertido en los ratings malos por ejemplo.
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[width=4.0in]{../unigrams/scripts/histogram/08-SMOGIndexhistogram.png}
+  \caption{Histograma de palabras}
+  \end{center}
+\end{figure}
 
-\section{Conclusiones y trabajo futuro} Por lo que vi vamos a tener que decir que obtuvimos resultados significativos pero los numeros estan demasiado cercanos como para utilizar la metrica como criterio. Explicar que otras metricas se nos ocurren para lo cual podria funcionar. Por ejemplo, a mi se me ocurre que una metrica mutli-variable con elementos de procesamiento de lenguaje natural podria dar mejores resultados, es decir metricas que describan mejor la forma en que el libro esta escrito.\\
+Para dar algunos ejemplos concretos de los valores asignados de la metrica a libros, seleccionamos los libros con menor y mayor requerimiento de años y uno que este cercano a la media. El libro ``Day No Pigs Would Die'' por ``Robert Newton Peck'' requiere, segun la metrica, 5 años de educacion para ser leido y tiene un puntaje promedio de 3.5. Segun los comentarios que pueden ser leidos en la pagina de Amazon \footnote{https://www.amazon.com/dp/1883332052} aparenta ser un libro con una historia pobre y escrito de manera burda. Por otro lado, el libro ``A New Kind of Science'' por ``Stephen Wolfram'' requiere 15 años de educacion y tiene un puntaje promedio de 3. El libro, segun los comentarios\footnote{https://www.amazon.com/dp/1579550088}, trata sobre algunos temas de ciencias de la computacion, por lo que tiene sentido su lenguaje mas complicado. Sin embargo este libro le desagrada a muchos usuarios ya que trata como nuevos temas que son bien conocidos en el ambito y se extiende mucho sobre los mismos, probablemente por ignorancia del autor\footnote{https://www.amazon.com/review/R2NIU9I3JQZP5J}. Finalmente el libro ``Watership Down'' por ``Richard Adams requiere 7 años de educacion y tiene un puntaje promedio de 4.5. Este libro aparenta ser literatura clasica y posee muy buenas reseñas por parte de los usuarios\footnote{https://www.amazon.com/dp/1565115864}.
+
+
+\section{Conclusiones y trabajo futuro} 
+
+En el presente trabajo, evidenciamos que en lineas generales, existe una relacion entre el puntaje promedio de las reseñas y la legibilidad de un libro. Todas las metricas que utilizamos, en mayor o menor medida y con una acotada cantidad de libros para su analisis, presentaron evidencia de esta relacion. Es posible que con una mayor cantidad de libros y metricas mas avanzadas se pueda estudiar mas en profundidad el comportamiento de esta relacion y poder llegar a resultados mas concretos.
+
+En un trabajo futuro seria interesante analizar el conjunto de libros con una metrica multi-variable con elementos de procesamiento de lenguaje natural, como lo es \textit{Coh-Metrix}\cite{graesser}. Este tipo de metricas describen mejor la forma en el que libro esta escrito y por lo tanto podria evidenciar mas facilmente la relacion. Tambien seria interesante repetir el analisis con mas y actualizada (ya que el dataset lleva 7 años) informacion, de forma tal de poder realizar analisis particulares para cada una de las categorias y observar si existe alguna variacion de los resultados en cada una de ellas.
+
+Es importante remarcar, que durante la busqueda de alguno de los libros pudimos observar que en el transcurso de estos 7 años su puntaje aumento en Amazon. Como nombramos anteriormente, algunos estudios indican que este es un comportamiento esperado a lo largo de tiempo\cite{zhang}, por lo que si bien llamo nuestra atencion, no nos parecio preocupante.
 
 %\begin{figure}[!t]
 %\centering
