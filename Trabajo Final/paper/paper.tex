@@ -95,7 +95,7 @@ Para calcularlo, se debe contar una serie de frases (al menos 30) y contar las p
 $$SMOG = 1.0430\cdot \sqrt{polisilabas \cdot \frac{30}{frases}} + 3.1291$$
 
 \subsection{Dale–Chall}
-A diferencia del resto de las métricas que usan la cantidad de caracteres o de sílabas en una palabra, \textbf{Dale-Chall}\cite{dale-chall} calcula el nivel de grado aproximado de un texto midiendo las ``palabras difíciles''. Para esto, se encuentra definida una lista de aproximadamente 3.000 palabras conocidas por al menos el 80\% de los niños de quinto grado, esta lista originalmente era mas acotada pero fue extendida\cite{dale-chall-ex}. Las palabras consideradas difíciles son las que no se encuentran listadas. La métrica esta definida como:
+A diferencia del resto de las métricas que usan la cantidad de caracteres o de sílabas en una palabra, \textbf{Dale-Chall}\cite{dale-chall} calcula el nivel de grado aproximado de un texto midiendo las ``palabras difíciles''. Para esto, se encuentra definida una lista de aproximadamente 3.000 palabras conocidas por al menos el 80\% de los niños de quinto grado, esta lista originalmente era más acotada pero fue extendida\cite{dale-chall-ex}. Las palabras consideradas difíciles son las que no se encuentran listadas. La métrica esta definida como:
 
 $$DCI = 0.1579\left({\frac{{palabras dificiles}}{{palabras}}}\times 100\right)+0.0496\left({\frac{{palabras}}{{frases}}}\right)$$
 
@@ -139,46 +139,46 @@ Se puede observar que, en términos generales, todas las métricas presentan una
 
 \section{Análisis del dataset}
 
-La base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html}, producida en el 2007, contiene información de 548552 productos, dentro de los cuales 393561 son libros. Sobre cada producto se especifica su ranking de ventas, categorías del mismo y las reseñas. Cada reseña esta identificada por su autor y posee el puntaje que le asigno el mismo, la fecha en que se realizo la reseña, los votos recibidos por otros usuarios y su grado de ``ayuda''(helpfulness). Esta informacion originalmente fue utilizada para estudiar como se desarolla la popularidad de los productos en Amazon mediante la influencia del marketing viral\cite{leskovec}. En nuestro trabajo, dado que requerimos solo una porción de esta informacion, utilizamos una version simplificada de esta base de datos, observando solo la cantidad de reseñas y el puntaje promedio de los libros.
+La base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html}, producida en el 2007, contiene información sobre 548552 productos, dentro de los cuales 393561 son libros. En la misma, se especifica el ranking de ventas, categorías y reseñas de cada producto. Por otro lado, cada reseña se encuentra identificada por su autor, un puntaje, la fecha en que fue realizada, los votos que recibió por parte de otros usuarios y su utilidad. Originalmente, dicha información fue utilizada para estudiar cómo se desarolla la popularidad de los productos en Amazon mediante la influencia del marketing viral\cite{leskovec}. En nuestro trabajo, utilizamos una versión simplificada de esta base de datos dado que requerimos sólo una porción de esta información: la cantidad de reseñas y el puntaje promedio de los libros.
 
 \subsubsection{Enriquecimiento del dataset}
 
 \begin{figure}[H]
   \includegraphics[width=7.0in]{imgs/cantResenasVsCantLibros.png}
-  \caption{Cantidad de reviews por puntaje}
+  \caption{Cantidad de reseñas vs cantidad de libros}
 \end{figure} 
 
-Un análisis de la distribución de cantidad de reseñas muestra que la gran mayoria de los libros presentes en la base de datos tienen muy pocas reseñas. Para ser ejemplificar, un 80\% de los libros tienen menos de 10 reseñas. Decidimos solo utilizar aquellos libros que tienen 40 o mas reseñas, principalmente para asegurarnos que el puntuaje promedio sea representativo. Esto nos deja con un total de 16402 libros para poder analizar.
+El análisis sobre la distribución de la cantidad de reseñas muestra que la gran mayoría de los libros presentes en la base de datos poseen una cantidad escasa. Por ejemplo, el 80\% de los libros tiene menos de 10 reseñas. Decidimos utilizar aquellos libros con 40 o más reseñas para asegurarnos que el puntuaje promedio sea representativo. Esto nos deja con un total de 16402 libros para analizar.
 
 \begin{figure}[H]
   \includegraphics[width=7.0in]{imgs/cantidadDeLibrosVsPuntaje.png}
-  \caption{Cantidad de reviews por puntaje}
+  \caption{Cantidad de libros por puntaje}
 \end{figure} 
 
-Un segundo analisis de estos libros muestra que una amplia porción de estos se encuentran puntuados entre 4.0 y 4.5, tendencia que según algunos estudios es esperable\cite{zhang}. Por otro lado si miramos como se distribuyen los puntajes dentro de grupos de libros con distinta cantidad de reseñas, podremos observar que aproximadamente la proporcion se mantiene, lo que evidencia que utilizar libros con 40 o mas reseñas es suficiente.
+El segundo análisis de los libros muestra que una amplia porción de éstos se encuentra puntuada entre 4.0 y 4.5, tendencia esperable según algunos estudios\cite{zhang}. Por otro lado, se puede ver que la proporción de los puntajes dentro de los distintos grupos de libros se mantiene en términos generales, lo que evidencia que utilizar libros con 40 o más reseñas es suficiente para sacar conclusiones relevantes.
 
 \begin{figure}[H]
   \includegraphics[width=7.0in]{imgs/cantLibrosVScantReviews.png}
-  \caption{Cantidad de Libros vs cantidad de reviews}
+  \caption{Cantidad de reseñas vs cantidad de libros}
 \end{figure}
+\newpage
+\subsection{Análisis de categorías}
 
-\subsection{Analisis de categorias}
-
-Con el objetivo de analizar la relacion entre categorias, definimos que esta relacion se produce cuando un libro comparte dos categorias. Estudiando la misma, como asi la cantidades de veces que suceden, pudimos observar que las mismas no conforman conjuntos disjuntos y que hay cierta jerarquia presente entre ellas\footnote{http://cor.to/categories}.
+En lo que sigue, definimos que existe una relación entre categorías cuando un libro comparte dos de ellas. Al estudiar dichas relaciones, pudimos observar que la cantidad de relaciones es muy gande y que existe una jerarquización de categorías\footnote{http://cor.to/categories}.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=7.0in]{../results/graph.pdf}
-  \caption{Cantidad de Libros vs cantidad de reviews}
+  \caption{Grafo de relaciones entre categorías}
 \end{figure}
 
-Por otro lado, la mayoría de los libros se encontraba en diversas categorías a la vez y éstas últimas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'' y ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Para tener una lista de categorias mas significativa, eliminamos categorias demasiado generales, demasiado especificas o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras. Confeccionamos una lista de estas categorias y, para eliminar aquellas demasiado especificas, dejamos fuera a las que aparecian 50 veces o menos. Habiendo reducido la lista a 129 categorias, eliminamos manualmente aquellas que nos parecian demasiado generales, obteniendo asi una lista final de 113 categorias.
+Por otro lado, nos percatamos de que no sólo la mayoría de los libros se encuentra en diversas categorías a la vez sino que estas últimas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'' y ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Para obtener una lista más significativa, eliminamos las que resultaban demasiado generales, demasiado específicas o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras. Para esto, confeccionamos una lista de dichas categorías y, para eliminar aquellas demasiado específicas, sacamos las que aparecían 50 veces o menos. Una vez realizada la reducción a 129 categorías, eliminamos manualmente aquellas que nos parecían demasiado generales, obteniendo así una lista final de 113 categorías.
 
 \subsubsection{Homogeneidad de la muestra}
 
-Utilizando la lista de categorias realizamos una codificacion de la base de datos en donde cada libro puede ser descripto como una tira de ceros y unos, en donde cada cero o uno indica la pertenencia a una categoria. Utilizando Weka ejecutamos un algoritmo de clusterizacion llamado expectation maximization con 10 folds y 8 clusters. Si bien nuestro objetivo original era obtener 4 clusters, si especificabamos esta cantidad uno de los clusters agrupaba demasiados libros, ya que el algoritmo agrupa todos aquellos que no puede terminar de clasificar (por el limite asignado) en uno solo.
+A partir de la lista de categorías, realizamos una codificación de la base de datos en donde cada libro puede ser descripto como una tira de ceros y unos. Cada cero o uno indica la pertenencia o no a una categoría. Utilizando Weka\footnote{http://www.cs.waikato.ac.nz/ml/weka/}, ejecutamos el algoritmo de clusterización \textit{Expectation Maximization} con 10 folds y 8 clusters. Si bien nuestro objetivo original era obtener 4 clusters, al especificar dicha cantidad uno de los clusters agrupaba demasiados libros dado que el algoritmo agrupa todos aquellos que no puede terminar de clasificar (por el límite asignado) en uno solo.
 
-Como en todos los clusters existen libros que contienen categorias de otros clusters, formar clusters totalmente disjuntos en las categorias es imposible. Sin embargo podemos intentar formarlos minimizando la cantidad de libros que comparten categorias con otros clusters. Probamos distintas maneras de agrupar los clusters y finalmente la composicion quedo definida de la siguente manera:
+Como todos los clusters comparten categorías, la formación de éstos totalmente disjunta es imposible. Sin embargo, los formamos minimizando la cantidad de libros que comparten categorías con otros clusters. Probamos distintas maneras de agruparlos y, finalmente, la composición quedó definida de la siguente manera:
 
 ~
 
@@ -191,11 +191,11 @@ Como en todos los clusters existen libros que contienen categorias de otros clus
 
 ~
 
-De esta manera solo un 20\% de los libros comparte categorias de 2 clusters distintos. Un analisis rapido de las cantidades contenidas en cada cluster nos dice que, si bien la division esta lejos de ser perfecta en lo que respecta a cantidades nominales, nos da margen suficiente para analizar libros de distintos puntajes y clusters.
+De esta manera, sólo el 20\% de los libros comparte categorías de 2 clusters distintos. Un análisis apresurado de las cantidades contenidas en cada cluster nos dice que, si bien la división está lejos de ser perfecta en lo que respecta a cantidades nominales, nos da margen suficiente para analizar libros de distintos puntajes y clusters.
 
 ~
 
-\begin{table}
+\begin{table}[H]
  \centering
   \begin{tabular}{| l | l | l | l | l |}
   \hline
@@ -221,32 +221,32 @@ De esta manera solo un 20\% de los libros comparte categorias de 2 clusters dist
     \hline
   \end{tabular}
 \end{table}
-% TODO: Falta pie de cuadro
+%\caption{Tabla de cantidad de reseñas por cluster}
 
 \section{Experimentos y Resultados}
 
-Para verificar nuestra hipotesis inicial, realizamos un experimento aplicando cada una de las mencionadas metricas a una seleccion de libros pertenecientes a los clusters. Luego, sobre estos resultados realizamos un analisis preliminar, realizando graficos sobre los resultados, para luego verificar mediante un test de hipotesis nuestra asumpcion inicial.
+Para verificar nuestra hipótesis inicial, realizamos un experimento aplicando cada una de las métricas a una selección de libros de los clusters. Sobre los resultados, analizamos preliminarmente los gráficos obtenidos, para luego verificar mediante un test de hipótesis nuestra asunción inicial.
 
-\subsection{Organizacion del experimento}
+\subsection{Organización del experimento}
 
-Por lo que pudimos observar, los puntajes promedios de las reseñas en la base de datos de amazon a lo sumo toman 10 valores distintos: desde 0 a 5 en intervalos de 0.5. Utilizando los clusters como medio de referencia, seleccionamos alrededor de 15 libros por cada cluster y puntaje promedio distinto, totalizando aproximadamente 600 libros. Sin embargo los libros pertenecientes a los puntajes promedios mas bajos, como lo es el rango entre 0 y 2.5, fueron dificiles de hallar. Por lo que decidimos compactar este rango y utilizar 15 libros para el mismo, totalizando finalmente una cantidad de 364 libros.
+Por lo que pudimos observar, los puntajes promedios de las reseñas en la base de datos de Amazon toman a lo sumo 10 valores distintos: desde 0 a 5 en intervalos de 0.5. Utilizando los clusters como medio de referencia, seleccionamos alrededor de 15 libros por cada cluster y puntaje promedio distinto, totalizando aproximadamente 600 libros. Sin embargo, los libros pertenecientes a los puntajes promedios más bajos (0 a 2.5) fueron difíciles de hallar, por lo que decidimos compactar dicho rango y utilizar 15 libros para el mismo, con un total entonces de 364 libros.
 
 \begin{figure}[H]
 \begin{center}
   \includegraphics[width=6.0in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
-  \caption{Histograma de palabras}
+  \caption{Histograma representando la cantidad de libros por cantidad de palabras}
   \end{center}
 \end{figure}
-%TODO: Que explicamos de este grafico? Cual es su fin?
+%TODO: Rehacer grafico invirtiendo ejes. Que explicamos de este grafico? Cual es su fin?
 
-Cada uno de los libros fue convertido de su formato original a texto plano, removiendo cualquier tipo de caracteres especiales. Luego se realizo una tokenizacion utilizando \textit{tokenizer}\footnote{http://moin.delph-in.net/WeSearch/DocumentParsing} de cada uno de los textos, para posteriormente aplicar \textit{readability}\footnote{https://pypi.python.org/pypi/readability} y obtener los resultados finales.
+Cada uno de los libros fue convertido de su formato original a texto plano, removiendo cualquier tipo de caracter especial. Luego, se realizó una tokenización (utilizando \textit{tokenizer}\footnote{http://moin.delph-in.net/WeSearch/DocumentParsing}) de cada uno de los textos, para posteriormente aplicar \textit{readability}\footnote{https://pypi.python.org/pypi/readability} y obtener los resultados finales.
 
-\subsection{Análisis Preliminar de Resultados}
+\subsection{Análisis preliminar de resultados}
 
-Una vez obtenidos los resultados, proseguimos a realizar un analisis preliminar utilizando boxplots. Como cada una de las métricas devuelve valores en escalas distintas, normalizamos los resultados de las mismas, de forma de poder comparar facilmente. En el caso de Flesch-Kincaid ademas de normalizar invertimos sus valores, de manera tal de poder evidenciar la misma relacion que en el resto de las metricas.
+Una vez obtenidos los resultados, realizamos un análisis preliminar a través de boxplots. Como cada una de las métricas devuelve valores en distintas escalas, normalizamos los resultados para poder compararlos fácilmente. En el caso de Flesch-Kincaid, además de normalizar invertimos sus valores para poder evidenciar la misma relación que en el resto de las métricas.
 
+\begin{center}
 \begin{minipage}{\linewidth}
-  \centering
   \begin{minipage}{0.25\linewidth}
       \begin{figure}[H]
           \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/ARI.png}
@@ -292,23 +292,24 @@ Una vez obtenidos los resultados, proseguimos a realizar un analisis preliminar 
       \end{figure}
   \end{minipage}
 \end{minipage}
+\end{center}
 
-En todos los casos pudimos observar una leve tendencia descendente de los valores de las metricas a medida que el puntaje promedio aumentaba. Sin embargo, dada la poca diferencia absoluta entre los valores y la incertidumbre que presentan los mismos, es dificil determinar a simple vista si las diferencias son significativas.
+En todos los casos, podemos observar una leve tendencia descendente en los valores de las métricas a medida que el puntaje promedio aumenta. Sin embargo, dada la poca diferencia absoluta entre los valores y la incertidumbre que presentan los mismos, es difícil determinar a simple vista si las diferencias son significativas.
 
-\subsection{Realizacion y Resultados del Test de Hipótesis}
+\subsection{Realización y Resultados del Test de Hipótesis}
 
-%TODO: Especificar grupos utilizados para el analisis
+%TODO: Consistencia en mayúsculas en los títulos
 
-Para determinar si la diferencia entre dos resultados es significativa, el procedimiento estandar es realizar un test de hipotesis. En nuestro caso decidimos utilizar el estadístico Kolmogorov-Smirnov de dos vías. El mismo plantea como hipótesis nula que dos muestras independientes se consiguen de la misma distribución continua. Rechazando esta hipotesis, estamos confirmando que las dos muestras fueron tomadas de distribuciones distintas, y dado que estamos utilizando los resultados de una misma métrica, la diferencia debe provenir de los textos analizados.
+Para determinar si la diferencia entre dos resultados es significativa, el procedimiento estándar consiste en realizar un test de hipótesis. En nuestro caso, decidimos utilizar el estadístico Kolmogorov-Smirnov de dos vías. El mismo plantea como hipótesis nula que dos muestras independientes se consiguen de la misma distribución continua. Rechazando esta hipótesis, confirmamos que las dos muestras fueron tomadas de distribuciones distintas y, dado que estamos utilizando los resultados de una misma métrica, la diferencia debe provenir de los textos analizados.
 
-Para plantear los test de hipótesis correspondientes, utilizamos la función $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy que computa el estadístico Kolmogorov-Smirnov dadas dos muestras. Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (o estadístico KS) y el p-valor correspondiente a \textbf{D}. El estadístico consiste en:
+Para plantear los tests de hipótesis correspondientes, utilizamos la función $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy que computa el estadístico Kolmogorov-Smirnov dadas dos muestras. Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (o estadístico KS) y el p-valor correspondiente a \textbf{D}. El estadístico consiste en:
 $$D_{n}=\sup_{x}|F_{n}(x)-F(x)|$$
 siendo $F(x)$ la función de distribución acumulada. Luego, si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución\cite{degroot}.\\
 
 La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > C(\alpha) = c(\alpha) \cdot \sqrt{\frac{n_1+n_2}{n_1\cdot n_2}}$$ donde $n_1$ y $n_2$ son los tamaños de las muestras a comparar. En donde el valor de $c(\alpha)$ se define como:
 $$c(\alpha) = \sqrt{1/2\cdot log(\alpha/2)}$$
 
-Los resultados obtenidos con un nivel de significancia de $\alpha = 0.001$, lo que nos deja con $C(0.001) = 0.2506$, para las métricas analizadas fueron los siguientes:\\
+Para ejecutar el script, seleccionamos como muestras los conjuntos de libros de los 4 clusters con ls reseñas 4.5-5.0 y 2.5-3.0. De esta forma, nos aseguramos una cantidad de libros adecuada para obtener resultados significativos. Los resultados obtenidos con un nivel de significancia de $\alpha = 0.001$ (o sea $C(0.001) = 0.2506$) para las métricas analizadas fueron los siguientes:\\
 \begin{center}
   \centering
   \begin{tabular}{ | l | l | l | l | }
@@ -332,96 +333,36 @@ Los resultados obtenidos con un nivel de significancia de $\alpha = 0.001$, lo q
 
 ~
 
-Como se puede observar, en 4 de 6 metricas la hipotesis nula fue rechazada para un nivel de significancia muy representativo. Es importante remarcar que las metricas que fallan en rechazar el test de hipotesis son, probablemente, aquellas que no son tan efectivas para calcular un indice suficientemente representativo. Ademas, si se usa un nivel de significancia un poco mas laxo como lo es $\alpha = 0.05$, que nos deja con $C(0.05) = 0.1746$, todas las metricas rechazan la hipotesis nula. Otra variable a observar es que quizas 364 libros no sea suficiente para las metricas menos concluyentes, ya que al aumentar la cantidad de muestras el p-valor disminuye y la condicion de aceptacion de $D$ es mas facilmente satisfacible.
+Como se puede observar, en 4 de 6 métricas la hipótesis nula fue rechazada para un nivel de significancia bajo. Es importante remarcar que las métricas que fallan en rechazar el test de hipótesis son, probablemente, las menos efectivas para calcular un índice suficientemente adecuado. Además, si se usa un nivel de significancia un poco más alto, como lo es $\alpha = 0.05$ (o sea $C(0.05) = 0.1746$), todas las métricas rechazan la hipótesis nula. Otra variable a tener en cuenta es que posiblemente 364 libros no sea suficiente para las métricas con mayor p-valor ya que al aumentar la cantidad de muestras el p-valor disminuye y la condición de aceptación de $D$ es más fácilmente satisfacible.
 
 %TODO: Hacer cita a la formula de la condicion de D.
 
 \begin{figure}[H]
 \begin{center}
   \includegraphics[width=3.0in]{../unigrams/scripts/boxplots/not-normalized-SMOGIndex.png}
-  \caption{Histograma de palabras}
+  \caption{Boxplot de SMOGIndex}
   \end{center}
 \end{figure}
 
-Si analizamos en detalle el boxplot generado en base a los valores devueltos por la metrica SMOG, podremos ver que los valores estan centrados alrededor del 8, lo que significa que una persona con 8 años de educacion deberia ser capaz de entender la mayoria de los libros. Utilizando un histograma para analizar la distribucion de los valores podremos ver que la gran parte de los libros toman valores entre 7 y 9, tendencia que se puede observar tambien en el resto de las metricas, evidenciando asi que gran parte de los libros utilizados para el analisis no son dificiles de leer. Por ello, es esperable que las diferencias en las medianas entre los dos grupos analizados no sean muy grandes.
+Si analizamos en detalle el boxplot generado en base a los valores devueltos por la métrica SMOG, podemos ver que los valores están centrados alrededor del 8, lo que significa que una persona con 8 años de educación debería ser capaz de entender la mayoría de los libros. Al utilizar un histograma para analizar la distribución de los valores, podemos ver que gran parte de los libros se encuentra entre 7 y 9, tendencia que se puede observar también en el resto de las métricas, evidenciando así que gran parte de los libros utilizados para el análisis no son difíciles de leer. Por eso, es esperable que las diferencias en las medianas entre los dos grupos analizados no sean muy grandes.
 
 \begin{figure}[H]
 \begin{center}
   \includegraphics[width=4.0in]{../unigrams/scripts/histogram/08-SMOGIndexhistogram.png}
-  \caption{Histograma de palabras}
+  \caption{Histograma de la relación entre valores de SMOGIndex y cantidad de libros}
   \end{center}
 \end{figure}
 
-Para dar algunos ejemplos concretos de los valores asignados de la metrica a libros, seleccionamos los libros con menor y mayor requerimiento de años y uno que este cercano a la media. El libro ``Day No Pigs Would Die'' por ``Robert Newton Peck'' requiere, segun la metrica, 5 años de educacion para ser leido y tiene un puntaje promedio de 3.5. Segun los comentarios que pueden ser leidos en la pagina de Amazon \footnote{https://www.amazon.com/dp/1883332052} aparenta ser un libro con una historia pobre y escrito de manera burda. Por otro lado, el libro ``A New Kind of Science'' por ``Stephen Wolfram'' requiere 15 años de educacion y tiene un puntaje promedio de 3. El libro, segun los comentarios\footnote{https://www.amazon.com/dp/1579550088}, trata sobre algunos temas de ciencias de la computacion, por lo que tiene sentido su lenguaje mas complicado. Sin embargo este libro le desagrada a muchos usuarios ya que trata como nuevos temas que son bien conocidos en el ambito y se extiende mucho sobre los mismos, probablemente por ignorancia del autor\footnote{https://www.amazon.com/review/R2NIU9I3JQZP5J}. Finalmente el libro ``Watership Down'' por ``Richard Adams requiere 7 años de educacion y tiene un puntaje promedio de 4.5. Este libro aparenta ser literatura clasica y posee muy buenas reseñas por parte de los usuarios\footnote{https://www.amazon.com/dp/1565115864}.
+Para dar algunos ejemplos concretos sobre los valores resultantes de aplicar la métrica a libros, seleccionamos los de menor y mayor requerimiento de años y uno cercano a la media. El libro ``Day No Pigs Would Die'' de ``Robert Newton Peck'' requiere, según la métrica, 5 años de educación para ser entendido y tiene un puntaje promedio de 3.5. Según los comentarios que pueden ser leídos en la página de Amazon \footnote{https://www.amazon.com/dp/1883332052} pareciera ser un libro con una historia pobre y escrito de manera burda. Por otro lado, el libro ``A New Kind of Science'' de ``Stephen Wolfram'' requiere 15 años de educación y tiene un puntaje promedio de 3. Éste, según los comentarios\footnote{https://www.amazon.com/dp/1579550088}, trata sobre algunos temas de ciencias de la computación, por lo que tiene sentido que su lenguaje sea más complicado. Sin embargo, es un libro que desagrada a muchos usuarios ya que trata como nuevos a temas que son bien conocidos en el ámbito y se extiende mucho sobre los mismos, probablemente por ignorancia del autor\footnote{https://www.amazon.com/review/R2NIU9I3JQZP5J}. Finalmente, el libro ``Watership Down'' de ``Richard Adams'' requiere 7 años de educación y tiene un puntaje promedio de 4.5. Este libro aparenta ser literatura clásica y posee muy buenas reseñas por parte de los usuarios\footnote{https://www.amazon.com/dp/1565115864}.
 
 
 \section{Conclusiones y trabajo futuro} 
 
-En el presente trabajo, evidenciamos que en lineas generales, existe una relacion entre el puntaje promedio de las reseñas y la legibilidad de un libro. Todas las metricas que utilizamos, en mayor o menor medida y con una acotada cantidad de libros para su analisis, presentaron evidencia de esta relacion. Es posible que con una mayor cantidad de libros y metricas mas avanzadas se pueda estudiar mas en profundidad el comportamiento de esta relacion y poder llegar a resultados mas concretos.
+En el presente trabajo, evidenciamos que en líneas generales existe una relación entre el puntaje promedio de las reseñas y la legibilidad de un libro. Todas las métricas que utilizamos, en mayor o menor medida y con una acotada cantidad de libros para su análisis, presentaron evidencia de esta relación. Es posible que con una mayor cantidad de libros y métricas más avanzadas se pueda estudiar más en profundidad el comportamiento de esta última y se pueda llegar a resultados más concretos.
 
-En un trabajo futuro seria interesante analizar el conjunto de libros con una metrica multi-variable con elementos de procesamiento de lenguaje natural, como lo es \textit{Coh-Metrix}\cite{graesser}. Este tipo de metricas describen mejor la forma en el que libro esta escrito y por lo tanto podria evidenciar mas facilmente la relacion. Tambien seria interesante repetir el analisis con mas y actualizada (ya que el dataset lleva 7 años) informacion, de forma tal de poder realizar analisis particulares para cada una de las categorias y observar si existe alguna variacion de los resultados en cada una de ellas.
+En un trabajo futuro, sería interesante analizar el conjunto de libros con una métrica multi-variable y elementos de procesamiento de lenguaje natural, como lo es \textit{Coh-Metrix}\cite{graesser}. Este tipo de métricas describen mejor la forma en que el libro está escrito y, por lo tanto, podría evidenciar más fácilmente la relación estudiada. Además, sería interesante repetir el análisis con más y actualizada información (ya que el dataset lleva 7 años), de forma tal a poder realizar análisis particulares para cada una de las categorías y observar si existe alguna variación de los resultados en cada una de ellas.
 
-Es importante remarcar, que durante la busqueda de alguno de los libros pudimos observar que en el transcurso de estos 7 años su puntaje aumento en Amazon. Como nombramos anteriormente, algunos estudios indican que este es un comportamiento esperado a lo largo de tiempo\cite{zhang}, por lo que si bien llamo nuestra atencion, no nos parecio preocupante.
-
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation Results.}
-%\label{fig_sim}  
-%\end{figure}
-
-% An example of a double column floating figure using two subfigures.
-% (The subfig.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfloat command,
-% and the \label for the overall figure must come after \caption.
-% \hfil is used as a separator to get equal spacing.
-% Watch out that the combined width of all the subfigures on a 
-% line do not exceed the text width or a line break will occur.
-%
-%\begin{figure*}[!t]
-%\centering
-%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
-%\label{fig_second_case}}
-%\caption{Simulation results.}
-%\label{fig_sim}
-%\end{figure*}
-
-
-% An example of a floating table. Note that, for IEEE style tables, the 
-% \caption command should come BEFORE the table. Table text will default to
-% \footnotesize as IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-%\begin{table}[!t]
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-%\caption{An Example of a Table}
-%\label{table_example}
-%\centering
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
-%\begin{tabular}{|c||c|}
-%\hline
-%One & Two\\
-%\hline
-%Three & Four\\
-%\hline
-%\end{tabular}
-%\end{table}
-
-
-%\ifCLASSOPTIONcaptionsoff
-%  \newpage
-%\fi
-
+Es importante remarcar que durante la búsqueda de alguno de los libros pudimos observar que en el transcurso de estos 7 años su puntaje aumentó en Amazon. Como nombramos anteriormente, algunos estudios indican que éste es un comportamiento esperado a lo largo del tiempo\cite{zhang}, por lo que si bien llamó nuestra atencion, no nos pareció preocupante.
 
 \begin{thebibliography}{1}
 
