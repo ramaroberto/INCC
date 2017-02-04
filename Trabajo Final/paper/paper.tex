@@ -97,9 +97,21 @@ $$SMOG = 1.0430\cdot \sqrt{polisilabas \cdot \frac{30}{frases}} + 3.1291$$
 \subsection{Dale–Chall}
 A diferencia del resto de las métricas que usan la cantidad de caracteres o de sílabas en una palabra, \textbf{Dale-Chall}\cite{dale-chall} calcula el nivel de grado aproximado de un texto midiendo las ``palabras difíciles''. Para esto, se encuentra definida una lista de aproximadamente 3.000 palabras conocidas por al menos el 80\% de los niños de quinto grado, esta lista originalmente era más acotada pero fue extendida\cite{dale-chall-ex}. Las palabras consideradas difíciles son las que no se encuentran listadas. La métrica esta definida como:
 
-$$DCI = 0.1579\left({\frac{{palabras dificiles}}{{palabras}}}\times 100\right)+0.0496\left({\frac{{palabras}}{{frases}}}\right)$$
+$$DCI = 15.79 \cdot PRC+0.0496\cdot \left({\frac{{palabras}}{{frases}}}\right) + ADJ$$
 
-%TODO: Agregar factor de normalizacion con funcion partida (If the percentage of difficult words is above 5%, then add 3.6365 to the raw score to get the adjusted score, otherwise the adjusted score is equal to the raw score.)
+Donde:
+
+$$ PRC = \frac{{palabras\ dificiles}}{{palabras}} $$
+
+$$
+ADJ =
+\left\{
+  \begin{array}{ll}
+    3.6365 & \mbox{if } PRC > 0.05 \\
+    0 & \mbox{if } PRC \leq 0.05
+  \end{array}
+\right.
+$$
 
 \subsection{LIX}
 
@@ -161,16 +173,9 @@ El segundo análisis de los libros muestra que una amplia porción de éstos se 
   \includegraphics[width=7.0in]{imgs/cantLibrosVScantReviews.png}
   \caption{Cantidad de reseñas vs cantidad de libros}
 \end{figure}
-\newpage
 \subsection{Análisis de categorías}
 
 En lo que sigue, definimos que existe una relación entre categorías cuando un libro comparte dos de ellas. Al estudiar dichas relaciones, pudimos observar que la cantidad de relaciones es muy gande y que existe una jerarquización de categorías\footnote{http://cor.to/categories}.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=7.0in]{../results/graph.pdf}
-  \caption{Grafo de relaciones entre categorías}
-\end{figure}
 
 Por otro lado, nos percatamos de que no sólo la mayoría de los libros se encuentra en diversas categorías a la vez sino que estas últimas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'' y ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Para obtener una lista más significativa, eliminamos las que resultaban demasiado generales, demasiado específicas o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras. Para esto, confeccionamos una lista de dichas categorías y, para eliminar aquellas demasiado específicas, sacamos las que aparecían 50 veces o menos. Una vez realizada la reducción a 129 categorías, eliminamos manualmente aquellas que nos parecían demasiado generales, obteniendo así una lista final de 113 categorías.
 
@@ -180,7 +185,11 @@ A partir de la lista de categorías, realizamos una codificación de la base de 
 
 Como todos los clusters comparten categorías, la formación de éstos totalmente disjunta es imposible. Sin embargo, los formamos minimizando la cantidad de libros que comparten categorías con otros clusters. Probamos distintas maneras de agruparlos y, finalmente, la composición quedó definida de la siguente manera:
 
-~
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=7.0in]{../results/graph.pdf}
+  \caption{Grafo de relaciones entre categorías}
+\end{figure}
 
 \begin{itemize}
 \item \textbf{Cluster Nº1:} Science Fiction and Fantasy, Classics, Fantasy, World Literature
@@ -233,7 +242,7 @@ Por lo que pudimos observar, los puntajes promedios de las reseñas en la base d
 
 \begin{figure}[H]
 \begin{center}
-  \includegraphics[width=6.0in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
+  \includegraphics[width=5.0in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
   \caption{Histograma representando la cantidad de libros por cantidad de palabras}
   \end{center}
 \end{figure}
