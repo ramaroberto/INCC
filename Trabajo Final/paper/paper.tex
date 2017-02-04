@@ -4,6 +4,7 @@
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{diagbox}
+\usepackage{hyperref}
 \usepackage{float}
 \usepackage[utf8]{inputenc}
 \newcommand\MYhyperrefoptions{bookmarks=true,bookmarksnumbered=true,
@@ -48,16 +49,9 @@ A pesar del gran esfuerzo en el área lingüística para introducir criterios co
 
 Finalmente, el trabajo de \textit{Diuk, C. G., et. al., 2012} \cite{diuk}, resultó de gran inspiración sobre la potencialidad del análisis de grandes repositorios de datos con el fin de hacer predicciones. En el mismo, se utilizaron textos de distintas épocas en orden cronológico con el fin de probar si el constructo introspección creció o disminuyó a lo largo de los años.
 
-En la seccion ... %TODO: Completar al final
-En primer lugar, se explicará el proceso realizado a lo largo del estudio y las herramientas empleadas detalladamente, incluyendo el criterio de clasificación de los libros y sus puntajes, como también las métricas empleadas. Luego, se expondrán los resultados empíricos obtenidos por categoría y la correlación entre éstos. Más tarde, presentaremos un análisis estadístico de los resultados medidos que nos permitirán, finalmente, extraer conclusiones.
+En primer lugar, en la sección Métricas\ref{metricas}, se explican las métricas utilizadas para medir la legibilidad de los textos: ARI, Coleman-Liau Index, Flesch–Kincaid, SMOG, Dale–Chall y Lix. Luego, en la sección Análisis del dataset\ref{analisisdeldataset}, se detallan los tratamientos y filtrados aplicados a la base de datos utilizada para la experimentación. Por otro lado, se presenta un amplio análisis de las reseñas y las categorías que se tuvieron en cuenta a la hora de realizar el filtrado y clusterización correspondientes para la posterior experimentación. Por otra parte, en la sección Experimentos y resultados\ref{expyres}, se exponen los gráficos resultantes de evaluar los libros con las métricas, así como también el planteo y los resultados del test de hipótesis utilizado para probar la veracidad de los mismos. Por último, en la sección Conclusiones y trabajo futuro\ref{conclusion}, se presenta un amplio espectro de posibilidades para trabajar sobre el tema presentado a futuro, así como también las conclusiones extraídas del trabajo realizado.
 
-% los usuarios solo escriben reviews cuando su relacion con el producto es muy buena o muy mala \cite{hu}
-% identifica el raiting como la diferencia entre la calidad real del producto y lo que esperaba el usuario \cite{talwar}
-% votos positivos crean un efecto positivo mientras que los votos negativos crean un efecto de correccion\cite{muchnik}
-% el puntaje de reseña en los sitios normalmente es muy alto \cite{chevalier, fowler}
-% los puntajes de reseña tienden a converger a números altos\cite{zhang}
-
-\section{Métricas}
+\section{Métricas}\label{metricas}
 
 Las métricas de legibilidad son fórmulas que sirven para evaluar la legibilidad de un texto de forma automática, normalmente utilizadas como reemplazo de una encuesta con humanos. Las métricas analizadas en el presente trabajo fueron diseñadas entre los años 1940 a 1970, por lo que muchas veces debían ser calculadas por máquinas simples o humanos. A pesar de haber pasado mucho tiempo desde su creación, las métricas clásicas siguen siendo utilizadas en muchos estudios y hasta aparecen como condiciones necesarias legales en, por ejemplo, la creación de las pólizas de seguros automotrices. Las métricas estudiadas, exceptuando Flesch–Kincaid Reading Ease, simbolizan en sus valores la edad promedio o nivel educativo necesarios para entender el texto analizado con ésta. %lo de automotrices es en USA o aca tambien?
 
@@ -149,7 +143,7 @@ Con el fin de comprobar la correctitud de dichas métricas, evaluamos el resulta
 \end{center}
 Se puede observar que, en términos generales, todas las métricas presentan una disminución de la legibilidad a medida que se avanza en la saga, comprobando los dichos de su autora.
 
-\section{Análisis del dataset}
+\section{Análisis del dataset}\label{analisisdeldataset}
 
 La base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html}, producida en el 2007, contiene información sobre 548552 productos, dentro de los cuales 393561 son libros. En la misma, se especifica el ranking de ventas, categorías y reseñas de cada producto. Por otro lado, cada reseña se encuentra identificada por su autor, un puntaje, la fecha en que fue realizada, los votos que recibió por parte de otros usuarios y su utilidad. Originalmente, dicha información fue utilizada para estudiar cómo se desarolla la popularidad de los productos en Amazon mediante la influencia del marketing viral\cite{leskovec}. En nuestro trabajo, utilizamos una versión simplificada de esta base de datos dado que requerimos sólo una porción de esta información: la cantidad de reseñas y el puntaje promedio de los libros.
 
@@ -232,7 +226,7 @@ De esta manera, sólo el 20\% de los libros comparte categorías de 2 clusters d
 \end{table}
 %\caption{Tabla de cantidad de reseñas por cluster}
 
-\section{Experimentos y Resultados}
+\section{Experimentos y Resultados}\label{expyres}
 
 Para verificar nuestra hipótesis inicial, realizamos un experimento aplicando cada una de las métricas a una selección de libros de los clusters. Sobre los resultados, analizamos preliminarmente los gráficos obtenidos, para luego verificar mediante un test de hipótesis nuestra asunción inicial.
 
@@ -246,7 +240,7 @@ Por lo que pudimos observar, los puntajes promedios de las reseñas en la base d
   \caption{Histograma representando la cantidad de libros por cantidad de palabras}
   \end{center}
 \end{figure}
-%TODO: Rehacer grafico invirtiendo ejes. Que explicamos de este grafico? Cual es su fin?
+%TODO: Que explicamos de este grafico? Cual es su fin?
 
 Cada uno de los libros fue convertido de su formato original a texto plano, removiendo cualquier tipo de caracter especial. Luego, se realizó una tokenización (utilizando \textit{tokenizer}\footnote{http://moin.delph-in.net/WeSearch/DocumentParsing}) de cada uno de los textos, para posteriormente aplicar \textit{readability}\footnote{https://pypi.python.org/pypi/readability} y obtener los resultados finales.
 
@@ -305,14 +299,12 @@ Una vez obtenidos los resultados, realizamos un análisis preliminar a través d
 
 En todos los casos, podemos observar una leve tendencia descendente en los valores de las métricas a medida que el puntaje promedio aumenta. Sin embargo, dada la poca diferencia absoluta entre los valores y la incertidumbre que presentan los mismos, es difícil determinar a simple vista si las diferencias son significativas.
 
-\subsection{Realización y Resultados del Test de Hipótesis}
-
-%TODO: Consistencia en mayúsculas en los títulos
+\subsection{Realización y resultados del test de hipótesis}
 
 Para determinar si la diferencia entre dos resultados es significativa, el procedimiento estándar consiste en realizar un test de hipótesis. En nuestro caso, decidimos utilizar el estadístico Kolmogorov-Smirnov de dos vías. El mismo plantea como hipótesis nula que dos muestras independientes se consiguen de la misma distribución continua. Rechazando esta hipótesis, confirmamos que las dos muestras fueron tomadas de distribuciones distintas y, dado que estamos utilizando los resultados de una misma métrica, la diferencia debe provenir de los textos analizados.
 
 Para plantear los tests de hipótesis correspondientes, utilizamos la función $ks\_2samp$\footnote{https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.stats.ks\_2samp.html} de la librería scipy que computa el estadístico Kolmogorov-Smirnov dadas dos muestras. Luego, dados dos arreglos \textbf{a} y \textbf{b} se obtienen \textbf{D} (o estadístico KS) y el p-valor correspondiente a \textbf{D}. El estadístico consiste en:
-$$D_{n}=\sup_{x}|F_{n}(x)-F(x)|$$
+$$D_{n}=\sup_{x}|F_{n}(x)-F(x)|$$ \label{eq:1}
 siendo $F(x)$ la función de distribución acumulada. Luego, si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución\cite{degroot}.\\
 
 La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > C(\alpha) = c(\alpha) \cdot \sqrt{\frac{n_1+n_2}{n_1\cdot n_2}}$$ donde $n_1$ y $n_2$ son los tamaños de las muestras a comparar. En donde el valor de $c(\alpha)$ se define como:
@@ -342,9 +334,7 @@ Para ejecutar el script, seleccionamos como muestras los conjuntos de libros de 
 
 ~
 
-Como se puede observar, en 4 de 6 métricas la hipótesis nula fue rechazada para un nivel de significancia bajo. Es importante remarcar que las métricas que fallan en rechazar el test de hipótesis son, probablemente, las menos efectivas para calcular un índice suficientemente adecuado. Además, si se usa un nivel de significancia un poco más alto, como lo es $\alpha = 0.05$ (o sea $C(0.05) = 0.1746$), todas las métricas rechazan la hipótesis nula. Otra variable a tener en cuenta es que posiblemente 364 libros no sea suficiente para las métricas con mayor p-valor ya que al aumentar la cantidad de muestras el p-valor disminuye y la condición de aceptación de $D$ es más fácilmente satisfacible.
-
-%TODO: Hacer cita a la formula de la condicion de D.
+Como se puede observar, en 4 de 6 métricas la hipótesis nula fue rechazada para un nivel de significancia bajo. Es importante remarcar que las métricas que fallan en rechazar el test de hipótesis son, probablemente, las menos efectivas para calcular un índice suficientemente adecuado. Además, si se usa un nivel de significancia un poco más alto, como lo es $\alpha = 0.05$ (o sea $C(0.05) = 0.1746$), todas las métricas rechazan la hipótesis nula. Otra variable a tener en cuenta es que posiblemente 364 libros no sea suficiente para las métricas con mayor p-valor ya que al aumentar la cantidad de muestras el p-valor disminuye y la condición de aceptación de $D$ (\ref{eq:1}) es más fácilmente satisfacible.
 
 \begin{figure}[H]
 \begin{center}
@@ -365,7 +355,7 @@ Si analizamos en detalle el boxplot generado en base a los valores devueltos por
 Para dar algunos ejemplos concretos sobre los valores resultantes de aplicar la métrica a libros, seleccionamos los de menor y mayor requerimiento de años y uno cercano a la media. El libro ``Day No Pigs Would Die'' de ``Robert Newton Peck'' requiere, según la métrica, 5 años de educación para ser entendido y tiene un puntaje promedio de 3.5. Según los comentarios que pueden ser leídos en la página de Amazon \footnote{https://www.amazon.com/dp/1883332052} pareciera ser un libro con una historia pobre y escrito de manera burda. Por otro lado, el libro ``A New Kind of Science'' de ``Stephen Wolfram'' requiere 15 años de educación y tiene un puntaje promedio de 3. Éste, según los comentarios\footnote{https://www.amazon.com/dp/1579550088}, trata sobre algunos temas de ciencias de la computación, por lo que tiene sentido que su lenguaje sea más complicado. Sin embargo, es un libro que desagrada a muchos usuarios ya que trata como nuevos a temas que son bien conocidos en el ámbito y se extiende mucho sobre los mismos, probablemente por ignorancia del autor\footnote{https://www.amazon.com/review/R2NIU9I3JQZP5J}. Finalmente, el libro ``Watership Down'' de ``Richard Adams'' requiere 7 años de educación y tiene un puntaje promedio de 4.5. Este libro aparenta ser literatura clásica y posee muy buenas reseñas por parte de los usuarios\footnote{https://www.amazon.com/dp/1565115864}.
 
 
-\section{Conclusiones y trabajo futuro} 
+\section{Conclusiones y trabajo futuro}\label{conclusion} 
 
 En el presente trabajo, evidenciamos que en líneas generales existe una relación entre el puntaje promedio de las reseñas y la legibilidad de un libro. Todas las métricas que utilizamos, en mayor o menor medida y con una acotada cantidad de libros para su análisis, presentaron evidencia de esta relación. Es posible que con una mayor cantidad de libros y métricas más avanzadas se pueda estudiar más en profundidad el comportamiento de esta última y se pueda llegar a resultados más concretos.
 
