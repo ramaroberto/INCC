@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{diagbox}
 \usepackage{hyperref}
+\usepackage[justification=centering]{caption}
 \usepackage{float}
 \usepackage[utf8]{inputenc}
 \newcommand\MYhyperrefoptions{bookmarks=true,bookmarksnumbered=true,
@@ -236,11 +237,12 @@ Por lo que pudimos observar, los puntajes promedios de las reseñas en la base d
 
 \begin{figure}[H]
 \begin{center}
-  \includegraphics[width=5.0in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
-  \caption{Histograma representando la cantidad de libros por cantidad de palabras}
+  \includegraphics[width=4.0in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
+  \caption{Histograma representando la cantidad de palabras por la cantidad de libros}
   \end{center}
 \end{figure}
 %TODO: Que explicamos de este grafico? Cual es su fin?
+%TODO: Poner referencias de graficos en el texto
 
 Cada uno de los libros fue convertido de su formato original a texto plano, removiendo cualquier tipo de caracter especial. Luego, se realizó una tokenización (utilizando \textit{tokenizer}\footnote{http://moin.delph-in.net/WeSearch/DocumentParsing}) de cada uno de los textos, para posteriormente aplicar \textit{readability}\footnote{https://pypi.python.org/pypi/readability} y obtener los resultados finales.
 
@@ -357,7 +359,7 @@ Para dar algunos ejemplos concretos sobre los valores resultantes de aplicar la 
 
 \section{Conclusiones y trabajo futuro}\label{conclusion} 
 
-En el presente trabajo, evidenciamos que en líneas generales existe una relación entre el puntaje promedio de las reseñas y la legibilidad de un libro. Todas las métricas que utilizamos, en mayor o menor medida y con una acotada cantidad de libros para su análisis, presentaron evidencia de esta relación. Es posible que con una mayor cantidad de libros y métricas más avanzadas se pueda estudiar más en profundidad el comportamiento de esta última y se pueda llegar a resultados más concretos.
+En el presente trabajo, evidenciamos que en líneas generales existe una relación entre el puntaje promedio de las reseñas que le dan los lectores a un libro y su legibilidad. Todas las métricas que utilizamos, en mayor o menor medida y con una acotada cantidad de libros para su análisis, presentaron evidencia de esta relación. Es posible que con una mayor cantidad de libros y métricas más avanzadas se pueda estudiar más en profundidad el comportamiento de esta última y se pueda llegar a resultados más concretos.
 
 En un trabajo futuro, sería interesante analizar el conjunto de libros con una métrica multi-variable y elementos de procesamiento de lenguaje natural, como lo es \textit{Coh-Metrix}\cite{graesser}. Este tipo de métricas describen mejor la forma en que el libro está escrito y, por lo tanto, podría evidenciar más fácilmente la relación estudiada. Además, sería interesante repetir el análisis con más y actualizada información (ya que el dataset lleva 7 años), de forma tal a poder realizar análisis particulares para cada una de las categorías y observar si existe alguna variación de los resultados en cada una de ellas.
 
