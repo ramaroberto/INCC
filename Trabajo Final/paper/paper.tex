@@ -4,6 +4,7 @@
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{diagbox}
+\usepackage{subcaption}
 \usepackage{hyperref}
 \usepackage[justification=centering]{caption}
 \usepackage{float}
@@ -50,7 +51,7 @@ A pesar del gran esfuerzo en el área lingüística para introducir criterios co
 
 Por otro lado, el trabajo de \textit{Diuk, C. G., et. al., 2012} \cite{diuk} sobre la potencialidad del análisis de grandes repositorios de datos con el fin de hacer predicciones resultó de gran inspiración. En el mismo, se utilizaron textos de distintas épocas en orden cronológico con el fin de probar si el constructo introspección creció o disminuyó a lo largo de los años. %esto vuela?
 
-En primer lugar, en la sección \textbf{Métricas}(\ref{sec:metricas}), se explican las métricas utilizadas para medir la legibilidad de los textos: ARI, Coleman-Liau Index, Flesch–Kincaid, SMOG, Dale–Chall y Lix. Luego, en la sección \textbf{Análisis del dataset}(\ref{sec:analisisdeldataset}), se detallan los tratamientos y filtrados aplicados a la base de datos utilizada para la experimentación. Por otro lado, se presenta un amplio análisis de las reseñas y las categorías que se tuvieron en cuenta a la hora de realizar el filtrado y clusterización de libros correspondientes para la posterior experimentación. Por otra parte, en la sección \textbf{Experimentos y resultados}(\ref{sec:expyres}), se exponen los gráficos resultantes de evaluar los libros con las métricas, así como también el planteo y los resultados del test de hipótesis utilizado para probar la veracidad de los mismos. Por último, en la sección \textbf{Conclusiones y trabajo futuro}(\ref{sec:conclusion}), se presenta un amplio espectro de posibilidades para trabajar sobre el tema presentado a futuro, así como también las conclusiones extraídas del trabajo realizado.
+En la sección \textbf{Métricas}(\ref{sec:metricas}), se explican las métricas utilizadas para medir la legibilidad de los textos: ARI, Coleman-Liau Index, Flesch–Kincaid, SMOG, Dale–Chall y Lix. En la sección \textbf{Análisis del dataset}(\ref{sec:analisisdeldataset}), se detallan los tratamientos y filtrados aplicados a la base de datos utilizada para la experimentación. Por otro lado, se presenta un amplio análisis de las reseñas y las categorías que se tuvieron en cuenta a la hora de realizar el filtrado y clusterización de libros correspondientes para la posterior experimentación. En la sección \textbf{Experimentos y resultados}(\ref{sec:expyres}), se exponen los gráficos resultantes de evaluar los libros con las métricas, así como también el planteo y los resultados del test de hipótesis utilizado para probar la veracidad de los mismos. En la sección \textbf{Conclusiones y trabajo futuro}(\ref{sec:conclusion}), se presenta un espectro de posibilidades para trabajar sobre el tema presentado a futuro, así como también las conclusiones extraídas del trabajo realizado.
 
 \section{Métricas}\label{sec:metricas}
 
@@ -120,7 +121,7 @@ Los $periodos$ se dividen con dos puntos o primera mayúscula.\\
 
 \subsection{Verificación de métricas}
 
-Con el fin de comprobar la correctitud de dichas métricas, evaluamos en el cuadro \ref{table:tablaHP} la saga \textit{Harry Potter}\footnote{http://cor.to/harrypotter}, que presenta (según su autora \footnote{http://www.jkrowling.com/}) una dificultad creciente en el vocabulario de sus títulos.
+Con el fin de comprobar la correctitud de dichas métricas, evaluamos en el Cuadro \ref{table:tablaHP} la saga \textit{Harry Potter}\footnote{http://cor.to/harrypotter}, que presenta (según su autora \footnote{http://www.jkrowling.com/}) una dificultad creciente en el vocabulario de sus títulos.
 
 \begin{table}[H]
 \begin{center}
@@ -167,17 +168,20 @@ El análisis sobre la distribución de la cantidad de reseñas (Figura \ref{fig:
 \begin{figure}[H]
   \includegraphics[width=7.0in]{imgs/cantidadDeLibrosVsPuntaje.png}
   \caption{Cantidad de libros por puntaje}
+  \label{fig:cantLibrosVsPuntaje}
 \end{figure} 
 
-El segundo análisis de los libros muestra que una amplia porción de éstos se encuentra puntuada entre 4.0 y 4.5, tendencia esperable según algunos estudios\cite{zhang}. Por otro lado, se puede ver que la proporción de los puntajes dentro de los distintos grupos de libros se mantiene en términos generales, lo que evidencia que utilizar libros con 40 o más reseñas es suficiente para sacar conclusiones relevantes.
+El segundo análisis (Figura \ref{fig:cantLibrosVsPuntaje}) de los libros muestra que una amplia porción de éstos se encuentra puntuada entre 4.0 y 4.5, tendencia esperable según algunos estudios\cite{zhang}. Por otro lado, en la Figura \ref{fig:cantReseVsCantLibros} se puede ver que la proporción de los puntajes dentro de los distintos grupos de libros se mantiene en términos generales, lo que evidencia que utilizar libros con 40 o más reseñas es suficiente para sacar conclusiones relevantes.
 
 \begin{figure}[H]
   \includegraphics[width=7.0in]{imgs/cantLibrosVScantReviews.png}
   \caption{Cantidad de reseñas vs cantidad de libros}
+  \label{fig:cantReseVsCantLibros}
 \end{figure}
+
 \subsection{Análisis de categorías}
 
-En lo que sigue, definimos que existe una relación entre categorías cuando un libro comparte dos de ellas. Al estudiar dichas relaciones, pudimos observar que la cantidad de relaciones es muy grande y que existe una jerarquización de categorías\footnote{http://cor.to/categories}.
+En lo que sigue, definimos que existe una relación entre categorías cuando un libro comparte dos de ellas. Al estudiar dichas relaciones, pudimos observar que la cantidad de relaciones es muy grande y que existe una jerarquización de categorías\footnote{http://cor.to/categories} (Figura \ref{fig:jerarquizacionDeCategorias}).
 
 Por otro lado, nos percatamos de que no sólo la mayoría de los libros se encuentra en diversas categorías a la vez sino que estas últimas aparecen acompañadas de todos los subconjuntos de la jerarquía a la que pertenecen. Por ejemplo, la categoría ``Drama'' aparece junto con ``Books'', ``Subjects'' y ``Literature \& Fiction'', por lo que ciertos libros terminan perteneciendo a 16 o más categorías. Para obtener una lista más significativa, eliminamos las que resultaban demasiado generales, demasiado específicas o poco descriptivas como ``Bargain Books'', ``Authors A-Z'', ``Age 3-5'', entre otras. Para esto, confeccionamos una lista de dichas categorías y, para eliminar aquellas demasiado específicas, sacamos las que aparecían 50 veces o menos. Una vez realizada la reducción a 129 categorías, eliminamos manualmente aquellas que nos parecían demasiado generales, obteniendo así una lista final de 113 categorías.
 
@@ -191,6 +195,7 @@ Como todos los clusters comparten categorías, la formación de éstos totalment
   \centering
   \includegraphics[width=7.0in]{../results/graph.pdf}
   \caption{Grafo de relaciones entre categorías}
+  \label{fig:jerarquizacionDeCategorias}  
 \end{figure}
 
 \begin{itemize}
@@ -202,7 +207,7 @@ Como todos los clusters comparten categorías, la formación de éstos totalment
 
 ~
 
-De esta manera, sólo el 20\% de los libros comparte categorías de 2 clusters distintos. Un análisis apresurado de las cantidades contenidas en cada cluster nos dice que, si bien la división está lejos de ser perfecta en lo que respecta a cantidades nominales, nos da margen suficiente para analizar libros de distintos puntajes y clusters.
+De esta manera, sólo el 20\% de los libros comparte categorías de 2 clusters distintos. Un análisis apresurado de las cantidades contenidas en cada cluster (Cuadro \ref{table:puntajecluster}) nos dice que, si bien la división está lejos de ser perfecta en lo que respecta a cantidades nominales, nos da margen suficiente para analizar libros de distintos puntajes y clusters.
 
 ~
 
@@ -231,8 +236,9 @@ De esta manera, sólo el 20\% de los libros comparte categorías de 2 clusters d
     Total & 4030  & 3447 & 4749 & 4556 \\
     \hline
   \end{tabular}
+  \caption{Cantidad de libros de cada cluster dividida en sus respectivas reseñas}
+	\label{table:puntajecluster}
 \end{table}
-%\caption{Tabla de cantidad de reseñas por cluster}
 
 \section{Experimentos y Resultados}\label{sec:expyres}
 
@@ -242,69 +248,38 @@ Para verificar nuestra hipótesis inicial, realizamos un experimento aplicando c
 
 Por lo que pudimos observar, los puntajes promedios de las reseñas en la base de datos de Amazon toman a lo sumo 10 valores distintos: desde 0 a 5 en intervalos de 0.5. Utilizando los clusters como medio de referencia, seleccionamos alrededor de 15 libros por cada cluster y puntaje promedio distinto, totalizando aproximadamente 600 libros. Sin embargo, los libros pertenecientes a los puntajes promedios más bajos (0 a 2.5) fueron difíciles de hallar, por lo que decidimos compactar dicho rango y utilizar 15 libros para el mismo, con un total entonces de 364 libros.
 
-\begin{figure}[H]
-\begin{center}
-  \includegraphics[width=4.0in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
-  \caption{Histograma representando la cantidad de palabras por la cantidad de libros}
-  \end{center}
-\end{figure}
-%TODO: Que explicamos de este grafico? Cual es su fin?
-%TODO: Poner referencias de graficos en el texto
-
 Cada uno de los libros fue convertido de su formato original a texto plano, removiendo cualquier tipo de caracter especial. Luego, se realizó una tokenización (utilizando \textit{tokenizer}\footnote{http://moin.delph-in.net/WeSearch/DocumentParsing}) de cada uno de los textos, para posteriormente aplicar \textit{readability}\footnote{https://pypi.python.org/pypi/readability} y obtener los resultados finales.
 
 \subsection{Análisis preliminar de resultados}
 
-Una vez obtenidos los resultados, realizamos un análisis preliminar a través de boxplots. Como cada una de las métricas devuelve valores en distintas escalas, normalizamos los resultados para poder compararlos fácilmente. En el caso de Flesch-Kincaid, además de normalizar invertimos sus valores para poder evidenciar la misma relación que en el resto de las métricas.
+Una vez obtenidos los resultados (Figura \ref{fig:boxplots}), realizamos un análisis preliminar a través de boxplots. Como cada una de las métricas devuelve valores en distintas escalas, normalizamos los resultados para poder compararlos fácilmente. En el caso de Flesch-Kincaid, además de normalizar invertimos sus valores para poder evidenciar la misma relación que en el resto de las métricas.
 
-\begin{center}
-\begin{minipage}{\linewidth}
-  \begin{minipage}{0.25\linewidth}
-      \begin{figure}[H]
-          \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/ARI.png}
-          \caption{ARI}
-      \end{figure}
-  \end{minipage}
-  \hspace{0.05\linewidth}
-  \begin{minipage}{0.25\linewidth}
-      \begin{figure}[H]
-          \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/Coleman-Liau.png}
-          \caption{Coleman-Liau}
-      \end{figure}
-  \end{minipage}
-  \hspace{0.05\linewidth}
-  \begin{minipage}{0.25\linewidth}
-      \begin{figure}[H]
-          \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/SMOGIndex.png}
-          \caption{SMOGIndex}
-      \end{figure}
-  \end{minipage}
-\end{minipage}
 
-\begin{minipage}{\linewidth}
-  \centering
-  \begin{minipage}{0.25\linewidth}
-      \begin{figure}[H]
-          \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/FleschReadingEase.png}
-          \caption{Flesch}
-      \end{figure}
-  \end{minipage}
-  \hspace{0.05\linewidth}
-  \begin{minipage}{0.25\linewidth}
-      \begin{figure}[H]
-          \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/LIX.png}
-          \caption{LIX}
-      \end{figure}
-  \end{minipage}
-  \hspace{0.05\linewidth}
-  \begin{minipage}{0.25\linewidth}
-      \begin{figure}[H]
-          \includegraphics[width=2.3in]{../unigrams/scripts/boxplots/Dale-Chall.png}
-          \caption{Dale-Chall}
-      \end{figure}
-  \end{minipage}
-\end{minipage}
-\end{center}
+\begin{figure}[H]
+\begin{subfigure}{0.25\textwidth}
+\includegraphics[scale=0.41]{../unigrams/scripts/boxplots/ARI.png}
+\end{subfigure} \hspace{0.05\textwidth}
+\begin{subfigure}{0.25\textwidth}
+\includegraphics[scale=0.41]{../unigrams/scripts/boxplots/Coleman-Liau.png}
+\end{subfigure} \hspace{0.05\textwidth}
+\begin{subfigure}{0.25\textwidth}
+\includegraphics[scale=0.41]{../unigrams/scripts/boxplots/SMOGIndex.png}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+\begin{subfigure}{0.25\textwidth}
+\includegraphics[scale=0.41]{../unigrams/scripts/boxplots/FleschReadingEase.png}
+\end{subfigure} \hspace{0.05\textwidth}
+\begin{subfigure}{0.25\textwidth}
+\includegraphics[scale=0.41]{../unigrams/scripts/boxplots/LIX.png}
+\end{subfigure} \hspace{0.05\textwidth}
+\begin{subfigure}{0.25\textwidth}
+\includegraphics[scale=0.41]{../unigrams/scripts/boxplots/Dale-Chall.png}
+\end{subfigure}
+\caption{Boxplots sobre los resultados de cada métrica}
+\label{fig:boxplots}
+\end{figure}
 
 En todos los casos, podemos observar una leve tendencia descendente en los valores de las métricas a medida que el puntaje promedio aumenta. Sin embargo, dada la poca diferencia absoluta entre los valores y la incertidumbre que presentan los mismos, es difícil determinar a simple vista si las diferencias son significativas.
 
@@ -320,8 +295,9 @@ La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > C(\alpha) = c(\alpha
 $$c(\alpha) = \sqrt{1/2\cdot log(\alpha/2)}$$
 
 Para ejecutar el script, seleccionamos como muestras los conjuntos de libros de los 4 clusters con ls reseñas 4.5-5.0 y 2.5-3.0. De esta forma, nos aseguramos una cantidad de libros adecuada para obtener resultados significativos. Los resultados obtenidos con un nivel de significancia de $\alpha = 0.001$ (o sea $C(0.001) = 0.2506$) para las métricas analizadas fueron los siguientes:\\
+
+\begin{table}
 \begin{center}
-  \centering
   \begin{tabular}{ | l | l | l | l | }
   \hline
   Métrica & P-valor & D & ¿Rechaza la hipótesis nula?\\
@@ -339,25 +315,31 @@ Para ejecutar el script, seleccionamos como muestras los conjuntos de libros de 
   SMOGIndex & 8.01e-06 & 3.15e-1 & \textbf{Sí} (8.01e-06 $< \alpha$ y $C(\alpha) <$ 3.15e-1)\\
   \hline
   \end{tabular}
-\end{center}
+  \caption{Resultado de evaluar los libros con las métricas elegidas}
+  \label{table:resultadoMetricas}
+  \end{center}
+  \end{table}
+
 
 ~
 
-Como se puede observar, en 4 de 6 métricas la hipótesis nula fue rechazada para un nivel de significancia bajo. Es importante remarcar que las métricas que fallan en rechazar el test de hipótesis son, probablemente, las menos efectivas para calcular un índice suficientemente adecuado. Además, si se usa un nivel de significancia un poco más alto, como lo es $\alpha = 0.05$ (o sea $C(0.05) = 0.1746$), todas las métricas rechazan la hipótesis nula. Otra variable a tener en cuenta es que posiblemente 364 libros no sea suficiente para las métricas con mayor p-valor ya que al aumentar la cantidad de muestras el p-valor disminuye y la condición de aceptación de $D$ (\ref{eq:1}) es más fácilmente satisfacible.
+Como se puede observar en el Cuadro \ref{table:resultadoMetricas}, en 4 de 6 métricas la hipótesis nula fue rechazada para un nivel de significancia bajo. Es importante remarcar que las métricas que fallan en rechazar el test de hipótesis son, probablemente, las menos efectivas para calcular un índice suficientemente adecuado. Además, si se usa un nivel de significancia un poco más alto, como lo es $\alpha = 0.05$ (o sea $C(0.05) = 0.1746$), todas las métricas rechazan la hipótesis nula. Otra variable a tener en cuenta es que posiblemente 364 libros no sea suficiente para las métricas con mayor p-valor ya que al aumentar la cantidad de muestras el p-valor disminuye y la condición de aceptación de $D$ (\ref{eq:1}) es más fácilmente satisfacible.
 
 \begin{figure}[H]
 \begin{center}
   \includegraphics[width=3.0in]{../unigrams/scripts/boxplots/not-normalized-SMOGIndex.png}
   \caption{Boxplot de SMOGIndex}
+  \label{fig:boxplotSMOG}
   \end{center}
 \end{figure}
 
-Si analizamos en detalle el boxplot generado en base a los valores devueltos por la métrica SMOG, podemos ver que los valores están centrados alrededor del 8, lo que significa que una persona con 8 años de educación debería ser capaz de entender la mayoría de los libros. Al utilizar un histograma para analizar la distribución de los valores, podemos ver que gran parte de los libros se encuentra entre 7 y 9, tendencia que se puede observar también en el resto de las métricas, evidenciando así que gran parte de los libros utilizados para el análisis no son difíciles de leer. Por eso, es esperable que las diferencias en las medianas entre los dos grupos analizados no sean muy grandes.
+Si analizamos en detalle el boxplot generado en base a los valores devueltos por la métrica SMOG (Figura \ref{fig:boxplotSMOG}), podemos ver que éstos están centrados alrededor del 8, lo que significa que una persona con 8 años de educación debería ser capaz de entender la mayoría de los libros. En el histograma de la Figura \ref{fig:histoSMOG} realizado para analizar la distribución de los valores, podemos ver que la mayoría de los libros se encuentra entre 7 y 9, tendencia que se puede observar también en el resto de las métricas, evidenciando así que una gran parte de los libros utilizados para el análisis no son difíciles de leer. Por eso, es esperable que las diferencias en las medianas entre los dos grupos analizados no sean muy grandes.
 
 \begin{figure}[H]
 \begin{center}
   \includegraphics[width=4.0in]{../unigrams/scripts/histogram/08-SMOGIndexhistogram.png}
   \caption{Histograma de la relación entre valores de SMOGIndex y cantidad de libros}
+  \label{fig:histoSMOG}
   \end{center}
 \end{figure}
 
@@ -371,6 +353,18 @@ En el presente trabajo, evidenciamos que en líneas generales existe una relaci�
 En un trabajo futuro, sería interesante analizar el conjunto de libros con una métrica multi-variable y elementos de procesamiento de lenguaje natural, como lo es \textit{Coh-Metrix}\cite{graesser}. Este tipo de métricas describen mejor la forma en que el libro está escrito y, por lo tanto, podría evidenciar más fácilmente la relación estudiada. Además, sería interesante repetir el análisis con más y actualizada información (ya que el dataset lleva 7 años), de forma tal a poder realizar análisis particulares para cada una de las categorías y observar si existe alguna variación de los resultados en cada una de ellas.
 
 Es importante remarcar que durante la búsqueda de alguno de los libros pudimos observar que en el transcurso de estos 7 años su puntaje aumentó en Amazon. Como nombramos anteriormente, algunos estudios indican que éste es un comportamiento esperado a lo largo del tiempo\cite{zhang}, por lo que si bien llamó nuestra atencion, no nos pareció preocupante.
+
+%% grafico para posible estudio a futuro?
+
+% \begin{figure}[H]
+% \begin{center}
+%   \includegraphics[width=4.0in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
+%   \caption{Histograma representando la cantidad de palabras por la cantidad de libros}
+%   \label{fig:cantPalabrasVsCantLibros}
+%   \end{center}
+% \end{figure}
+%TODO: Que explicamos de este grafico? Cual es su fin?
+%TODO: Poner referencias de graficos en el texto
 
 \begin{thebibliography}{1}
 
