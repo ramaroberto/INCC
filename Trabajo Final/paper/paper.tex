@@ -171,7 +171,7 @@ El análisis sobre la distribución de la cantidad de reseñas (Figura \ref{fig:
   \label{fig:cantLibrosVsPuntaje}
 \end{figure} 
 
-El segundo análisis de los libros (Figura \ref{fig:cantLibrosVsPuntaje}) muestra que una amplia porción de éstos se encuentra puntuada entre 4.0 y 4.5, tendencia esperable según algunos estudios\cite{zhang}. Por otro lado, en la Figura \ref{fig:cantReseVsCantLibros} se puede ver que la proporción de los puntajes dentro de los distintos grupos de libros se mantiene en términos generales, lo que evidencia que utilizar libros con 40 o más reseñas es suficiente para sacar conclusiones relevantes.
+El segundo análisis de los libros (Figura \ref{fig:cantLibrosVsPuntaje}) muestra que una amplia porción de éstos se encuentra puntuada entre 4.0 y 4.5, lo que es esperable según algunos estudios\cite{zhang}. Por otro lado, en la Figura \ref{fig:cantReseVsCantLibros} se puede ver que la proporción de los puntajes dentro de los distintos grupos de libros se mantiene en términos generales, lo que evidencia que utilizar libros con 40 o más reseñas es suficiente para sacar conclusiones relevantes.
 
 \begin{figure}[H]
   \includegraphics[width=7.0in]{imgs/cantLibrosVScantReviews.png}
@@ -187,15 +187,16 @@ Por otro lado, nos percatamos de que no sólo la mayoría de los libros se encue
 
 \subsubsection{Homogeneidad de la muestra}
 
-A partir de la lista de categorías, realizamos una codificación de la base de datos en donde cada libro puede ser descripto como una tira de ceros y unos. Cada cero o uno indica la pertenencia o no a una categoría. Utilizando Weka\footnote{http://www.cs.waikato.ac.nz/ml/weka/}, ejecutamos el algoritmo de clusterización \textit{Expectation Maximization} con 10 folds y 8 clusters. Si bien nuestro objetivo original era obtener 4 clusters, al especificar dicha cantidad uno de los clusters agrupaba demasiados libros dado que el algoritmo agrupa todos aquellos que no puede terminar de clasificar (por el límite asignado) en uno solo.
-
-Como todos los clusters comparten categorías, la formación de éstos totalmente disjunta es imposible. Sin embargo, los formamos minimizando la cantidad de libros que comparten categorías con otros clusters. Probamos distintas maneras de agruparlos y, finalmente, la composición quedó definida de la siguente manera:
 \begin{figure}[H]
   \centering
   \includegraphics[width=7.0in]{../results/graph.pdf}
   \caption{Grafo de relaciones entre categorías}
   \label{fig:jerarquizacionDeCategorias}  
 \end{figure}
+
+A partir de la lista de categorías, realizamos una codificación de la base de datos en donde cada libro puede ser descripto como una tira de ceros y unos. Cada cero o uno indica la pertenencia o no a una categoría. Utilizando Weka\footnote{http://www.cs.waikato.ac.nz/ml/weka/}, ejecutamos el algoritmo de clusterización \textit{Expectation Maximization} con 10 folds y 8 clusters. 
+
+Si bien nuestro objetivo original era obtener 4 clusters, al especificar dicha cantidad uno de los clusters agrupaba demasiados libros dado que el algoritmo agrupaba todos aquellos que no podía terminar de clasificar (por el límite asignado) en uno solo. Como todos los clusters comparten categorías, la agrupación totalmente disjunta de éstos es imposible. Sin embargo, los formamos minimizando la cantidad de libros que comparten categorías con otros clusters. Probamos distintas maneras de agruparlos y, finalmente, la composición quedó definida de la siguente manera:\\
 
 \begin{itemize}
 \item \textbf{Cluster Nº1:} Science Fiction and Fantasy, Classics, Fantasy, World Literature
@@ -206,7 +207,7 @@ Como todos los clusters comparten categorías, la formación de éstos totalment
 
 ~
 
-De esta manera, sólo el 20\% de los libros comparte categorías de 2 clusters distintos. Un análisis apresurado de las cantidades contenidas en cada cluster (Cuadro \ref{table:puntajecluster}) nos dice que, si bien la división está lejos de ser perfecta en lo que respecta a cantidades nominales, nos da margen suficiente para analizar libros de distintos puntajes y clusters.
+De esta manera, sólo el 20\% de los libros comparte categorías de 2 clusters distintos. Un primer análisis de las cantidades contenidas en cada cluster (Cuadro \ref{table:puntajecluster}) nos dice que, si bien la división está lejos de ser perfecta en lo que respecta a cantidades nominales, nos da margen suficiente para analizar libros de distintos puntajes y clusters.
 
 ~
 
@@ -239,13 +240,14 @@ De esta manera, sólo el 20\% de los libros comparte categorías de 2 clusters d
 	\label{table:puntajecluster}
 \end{table}
 
+
 \section{Experimentos y Resultados}\label{sec:expyres}
 
-Para verificar nuestra hipótesis inicial, realizamos un experimento aplicando cada una de las métricas a una selección de libros de los clusters. Sobre los resultados, analizamos preliminarmente los gráficos obtenidos, para luego verificar mediante un test de hipótesis nuestra asunción inicial.
+Para verificar nuestra hipótesis inicial, realizamos un experimento aplicando cada una de las métricas a una selección de libros. Sobre los resultados, analizamos preliminarmente los gráficos obtenidos para luego verificar mediante un test de hipótesis nuestra asunción inicial.
 
 \subsection{Organización del experimento}
 
-Por lo que pudimos observar, los puntajes promedios de las reseñas en la base de datos de Amazon toman a lo sumo 10 valores distintos: desde 0 a 5 en intervalos de 0.5. Utilizando los clusters como medio de referencia, seleccionamos alrededor de 15 libros por cada cluster y puntaje promedio distinto, totalizando aproximadamente 600 libros. Sin embargo, los libros pertenecientes a los puntajes promedios más bajos (0 a 2.5) fueron difíciles de hallar, por lo que decidimos compactar dicho rango y utilizar 15 libros para el mismo, con un total entonces de 364 libros.
+Por lo que pudimos observar, los puntajes promedios de las reseñas en la base de datos de Amazon toman a lo sumo 10 valores distintos: desde 0 a 5 en intervalos de 0.5. Utilizando los clusters como medio de referencia, seleccionamos alrededor de 15 libros por cada puntaje promedio distinto dentro de cada cluster, totalizando aproximadamente 600 libros. Sin embargo, los libros pertenecientes a los puntajes promedios más bajos (0 a 2.5) fueron difíciles de hallar, por lo que decidimos compactar dicho rango y utilizar 15 libros para el mismo, con un total entonces de 364 libros.
 
 Cada uno de los libros fue convertido de su formato original a texto plano, removiendo cualquier tipo de caracter especial. Luego, se realizó una tokenización (utilizando \textit{tokenizer}\footnote{http://moin.delph-in.net/WeSearch/DocumentParsing}) de cada uno de los textos, para posteriormente aplicar \textit{readability}\footnote{https://pypi.python.org/pypi/readability} y obtener los resultados finales.
 
@@ -293,9 +295,9 @@ siendo $F(x)$ la función de distribución acumulada. Luego, si el estadístico 
 La Hipótesis nula es rechazada con nivel $\alpha$ si $$D > C(\alpha) = c(\alpha) \cdot \sqrt{\frac{n_1+n_2}{n_1\cdot n_2}}$$ donde $n_1$ y $n_2$ son los tamaños de las muestras a comparar. En donde el valor de $c(\alpha)$ se define como:
 $$c(\alpha) = \sqrt{1/2\cdot log(\alpha/2)}$$
 
-Para ejecutar el script, seleccionamos como muestras los conjuntos de libros de los 4 clusters con ls reseñas 4.5-5.0 y 2.5-3.0. De esta forma, nos aseguramos una cantidad de libros adecuada para obtener resultados significativos. Los resultados obtenidos con un nivel de significancia de $\alpha = 0.001$ (o sea $C(0.001) = 0.2506$) para las métricas analizadas fueron los siguientes:\\
+Para ejecutar el script, seleccionamos como muestras los conjuntos de libros de los 4 clusters con las reseñas 4.5-5.0 y 2.5-3.0. De esta forma, nos aseguramos una cantidad de libros adecuada para obtener resultados significativos. Los resultados obtenidos con un nivel de significancia de $\alpha = 0.001$ (o sea $C(0.001) = 0.2506$) para las métricas analizadas fueron los siguientes:\\
 
-\begin{table}
+\begin{table}[H]
 \begin{center}
   \begin{tabular}{ | l | l | l | l | }
   \hline
@@ -322,11 +324,11 @@ Para ejecutar el script, seleccionamos como muestras los conjuntos de libros de 
 
 ~
 
-Como se puede observar en el Cuadro \ref{table:resultadoMetricas}, en 4 de 6 métricas la hipótesis nula fue rechazada para un nivel de significancia bajo. Es importante remarcar que las métricas que fallan en rechazar el test de hipótesis son, probablemente, las menos efectivas para calcular un índice suficientemente adecuado. Además, si se usa un nivel de significancia un poco más alto, como lo es $\alpha = 0.05$ (o sea $C(0.05) = 0.1746$), todas las métricas rechazan la hipótesis nula. Otra variable a tener en cuenta es que posiblemente 364 libros no sea suficiente para las métricas con mayor p-valor ya que al aumentar la cantidad de muestras el p-valor disminuye y la condición de aceptación de $D$ (\ref{eq:1}) es más fácilmente satisfacible.
+Como se puede observar en el Cuadro \ref{table:resultadoMetricas}, en 4 de 6 métricas la hipótesis nula fue rechazada para un nivel de significancia bajo. Es importante remarcar que las métricas que fallan en rechazar el test de hipótesis son, probablemente, las menos efectivas para calcular un índice suficientemente adecuado. Además, si se usa un nivel de significancia un poco más alto, como lo es $\alpha = 0.05$ (o sea $C(0.05) = 0.1746$), todas las métricas rechazan la hipótesis nula. Otra variable a tener en cuenta es que posiblemente 364 libros no sean suficientes para las métricas con mayor p-valor ya que al aumentar la cantidad de muestras el p-valor disminuye y la condición de aceptación de $D$ (\ref{eq:1}) es más fácilmente satisfacible.
 
 \begin{figure}[H]
 \begin{center}
-  \includegraphics[width=3.0in]{../unigrams/scripts/boxplots/not-normalized-SMOGIndex.png}
+  \includegraphics[width=3.5in]{../unigrams/scripts/boxplots/not-normalized-SMOGIndex.png}
   \caption{Boxplot de SMOGIndex}
   \label{fig:boxplotSMOG}
   \end{center}
@@ -342,27 +344,27 @@ Si analizamos en detalle el boxplot generado en base a los valores devueltos por
   \end{center}
 \end{figure}
 
-Para dar algunos ejemplos concretos sobre los valores resultantes de aplicar la métrica a libros, seleccionamos los de menor y mayor requerimiento de años y uno cercano a la media. El libro ``Day No Pigs Would Die'' de ``Robert Newton Peck'' requiere, según la métrica, 5 años de educación para ser entendido y tiene un puntaje promedio de 3.5. Según los comentarios que pueden ser leídos en la página de Amazon \footnote{https://www.amazon.com/dp/1883332052} pareciera ser un libro con una historia pobre y escrito de manera burda. Por otro lado, el libro ``A New Kind of Science'' de ``Stephen Wolfram'' requiere 15 años de educación y tiene un puntaje promedio de 3. Éste, según los comentarios\footnote{https://www.amazon.com/dp/1579550088}, trata sobre algunos temas de ciencias de la computación, por lo que tiene sentido que su lenguaje sea más complicado. Sin embargo, es un libro que desagrada a muchos usuarios ya que trata como nuevos a temas que son bien conocidos en el ámbito y se extiende mucho sobre los mismos, probablemente por ignorancia del autor\footnote{https://www.amazon.com/review/R2NIU9I3JQZP5J}. Finalmente, el libro ``Watership Down'' de ``Richard Adams'' requiere 7 años de educación y tiene un puntaje promedio de 4.5. Este libro aparenta ser literatura clásica y posee muy buenas reseñas por parte de los usuarios\footnote{https://www.amazon.com/dp/1565115864}.
+Para dar algunos ejemplos concretos sobre los valores resultantes de aplicar la métrica a libros, seleccionamos los de menor y mayor requerimiento de años y uno cercano a la media. El libro ``Day No Pigs Would Die'' de ``Robert Newton Peck'' requiere, según la métrica, 5 años de educación para ser entendido y tiene un puntaje promedio de 3.5. Según los comentarios que pueden ser leídos en la página de Amazon\footnote{https://www.amazon.com/dp/1883332052} pareciera ser un libro con una historia pobre y escrito de manera burda. Por otro lado, el libro ``A New Kind of Science'' de ``Stephen Wolfram'' requiere 15 años de educación y tiene un puntaje promedio de 3. Éste, según los comentarios\footnote{https://www.amazon.com/dp/1579550088}, trata sobre algunos temas de ciencias de la computación, por lo que tiene sentido que su lenguaje sea más complicado. Sin embargo, es un libro que desagrada a muchos usuarios ya que trata como nuevos a temas que son bien conocidos en el ámbito y se extiende mucho sobre los mismos, probablemente por ignorancia del autor\footnote{https://www.amazon.com/review/R2NIU9I3JQZP5J}. Finalmente, el libro ``Watership Down'' de ``Richard Adams'' requiere 7 años de educación y tiene un puntaje promedio de 4.5. Este libro aparenta ser literatura clásica y posee muy buenas reseñas por parte de los usuarios\footnote{https://www.amazon.com/dp/1565115864}.
 
 
 \section{Conclusiones y trabajo futuro}\label{sec:conclusion} 
 
-En el presente trabajo, evidenciamos que en líneas generales existe una relación entre el puntaje promedio de las reseñas que le dan los lectores a un libro y su legibilidad. Todas las métricas que utilizamos, en mayor o menor medida y con una acotada cantidad de libros para su análisis, presentaron evidencia de esta relación. Es posible que con una mayor cantidad de libros y métricas más avanzadas se pueda estudiar más en profundidad el comportamiento de esta última y se pueda llegar a resultados más concretos.
+En el presente trabajo, evidenciamos que en líneas generales existe una relación entre el puntaje promedio de las reseñas que le dan los lectores a un libro y su legibilidad. Todas las métricas que utilizamos, en mayor o menor medida y con una acotada cantidad de libros para su análisis, presentaron evidencia de dicha relación. Es posible que con una mayor cantidad de libros y métricas más avanzadas se pueda estudiar más en profundidad el comportamiento de esta última y se pueda llegar a resultados más concretos.
 
-En un trabajo futuro, sería interesante analizar el conjunto de libros con una métrica multi-variable y elementos de procesamiento de lenguaje natural, como lo es \textit{Coh-Metrix}\cite{graesser}. Este tipo de métricas describen mejor la forma en que el libro está escrito y, por lo tanto, podría evidenciar más fácilmente la relación estudiada. Además, sería interesante repetir el análisis con más y actualizada información (ya que el dataset lleva 7 años), de forma tal a poder realizar análisis particulares para cada una de las categorías y observar si existe alguna variación de los resultados en cada una de ellas.
+En un trabajo futuro, sería interesante analizar el conjunto de libros con una métrica multi-variable y elementos de procesamiento de lenguaje natural, como lo es \textit{Coh-Metrix}\cite{graesser}. Este tipo de métricas describe mejor la forma en que el libro está escrito y, por lo tanto, podría evidenciar más fácilmente la relación estudiada. Además, sería interesante repetir el análisis con más y actualizada información (ya que el dataset lleva 7 años), de forma tal a poder analizar puntualmente cada categoría y observar si existe alguna variación de los resultados de cada una de ellas.
 
-Es importante remarcar que durante la búsqueda de alguno de los libros pudimos observar que en el transcurso de estos 7 años su puntaje aumentó en Amazon. Como nombramos anteriormente, algunos estudios indican que éste es un comportamiento esperado a lo largo del tiempo\cite{zhang}, por lo que si bien llamó nuestra atencion, no nos pareció preocupante.
+Es importante remarcar que durante la búsqueda de algunos de los libros pudimos observar que en el transcurso de estos 7 años su puntaje aumentó en Amazon. Como nombramos anteriormente, algunos estudios indican que éste es un comportamiento esperado a lo largo del tiempo\cite{zhang}, por lo que si bien llamó nuestra atencion, no nos pareció preocupante.
 
-%% grafico para posible estudio a futuro?
+Varias de las métricas mencionadas, como ARI y Flesch–Kincaid Reading Ease, hacen uso de la cantidad de palabras en los textos para determinar su legibilidad. En un trabajo futuro, se podría analizar la correlación de dicho valor en los resultados de las métricas, viendo si sus la representación de resultados se comportan de la misma forma. En la Figura \ref{fig:cantPalabrasVsCantLibros}, se puede ver cómo se relaciona la cantidad de palabras con la cantidad de libros.
 
-% \begin{figure}[H]
-% \begin{center}
-%   \includegraphics[width=4.0in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
-%   \caption{Histograma representando la cantidad de palabras por la cantidad de libros}
-%   \label{fig:cantPalabrasVsCantLibros}
-%   \end{center}
-% \end{figure}
-%TODO: Que explicamos de este grafico? Cual es su fin?
+\begin{figure}[H]
+\begin{center}
+  \includegraphics[width=4.0in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
+  \caption{Histograma representando la cantidad de palabras por la cantidad de libros}
+  \label{fig:cantPalabrasVsCantLibros}
+  \end{center}
+\end{figure}
+
 %TODO: Poner referencias de graficos en el texto
 
 \begin{thebibliography}{1}
