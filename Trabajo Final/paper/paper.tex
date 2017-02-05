@@ -43,7 +43,7 @@ Neurociencia, Métricas, Legibilidad, Libros, Reseñas.
 \IEEEpeerreviewmaketitle
 
 \section{Introducción}
-\IEEEPARstart{D}{esde} siempre, las personas han expresado diferentes gustos y opiniones sobre diversos tópicos, siendo la literatura uno de los más discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas. Otras veces, los mismos pueden estar influenciados por la opinión del resto de los usuarios\cite{muchnik} o ser poco objetivos debido a experiencias personales (la mayoría de los usuarios sólo da una reseña cuando su relación con el producto es muy buena o muy mala\cite{hu}). A pesar de esto, las calificaciones que los usuarios asignan en los sitios web tienden a converger a un valor mayormente positivo con el transcurso del tiempo\cite{zhang}; y aunque en general el comportamiento de éstas sigue siendo una incógnita, existen estudios que afirman que se trata de una distribución binomial\cite{hu}. Sin embargo, no todo comportamiento puede ser justificado por una tendencia\cite{zhang}, por lo que su estudio sigue siendo valioso.
+\IEEEPARstart{D}{esde} siempre, las personas han expresado diferentes gustos y opiniones sobre diversos tópicos, siendo la literatura uno de los más discutidos. Los fundamentos de las opiniones pueden ser muy variados e incluso difusos para los dueños de las mismas. También, puede ocurrir que estén influenciados por la opinión del resto de los usuarios\cite{muchnik} o ser poco objetivos debido a experiencias personales (la mayoría de los usuarios sólo da una reseña cuando su relación con el producto es muy buena o muy mala\cite{hu}). A pesar de esto, las calificaciones que los usuarios asignan en los sitios web tienden a converger a un valor mayormente positivo con el transcurso del tiempo\cite{zhang}; y aunque en general el comportamiento de éstas sigue siendo una incógnita, existen estudios que afirman que se trata de una distribución binomial\cite{hu}. Sin embargo, no todo comportamiento puede ser justificado por una tendencia\cite{zhang}, por lo que su estudio sigue siendo valioso.
 
 En nuestro análisis, buscamos responder a la pregunta de si la legibilidad de los libros impacta de alguna forma en las reseñas que los usuarios asignan. Para esto, suponemos que los libros más fáciles de leer (o sea más legibles) tienden a tener mejor puntaje que aquellos que resultan más difíciles. Para demostrar nuestra hipótesis, recompilamos una amplia variedad de libros de distintos autores, géneros y formatos, junto con la información de las calificaciones asignadas por sus lectores. Esta última fue extraída de la base de datos de Amazon\footnote{http://snap.stanford.edu/data/amazon-meta.html}, utilizada también en un análisis de marketing viral\cite{leskovec}. Intentamos que los libros analizados conformaran un conjunto de datos homogéneo para evitar sesgos ocasionados por una categoría o autor en particular.
 
@@ -51,15 +51,15 @@ A pesar del gran esfuerzo en el área lingüística para introducir criterios co
 
 Por otro lado, el trabajo de \textit{Diuk, C. G., et. al., 2012} \cite{diuk} sobre la potencialidad del análisis de grandes repositorios de datos con el fin de hacer predicciones resultó de gran inspiración. En el mismo, se utilizaron textos de distintas épocas en orden cronológico con el fin de probar si el constructo introspección creció o disminuyó a lo largo de los años. %esto vuela?
 
-En la sección \textbf{Métricas}(\ref{sec:metricas}), se explican las métricas utilizadas para medir la legibilidad de los textos: ARI, Coleman-Liau Index, Flesch–Kincaid, SMOG, Dale–Chall y Lix. En la sección \textbf{Análisis del dataset}(\ref{sec:analisisdeldataset}), se detallan los tratamientos y filtrados aplicados a la base de datos utilizada para la experimentación. Por otro lado, se presenta un amplio análisis de las reseñas y las categorías que se tuvieron en cuenta a la hora de realizar el filtrado y clusterización de libros correspondientes para la posterior experimentación. En la sección \textbf{Experimentos y resultados}(\ref{sec:expyres}), se exponen los gráficos resultantes de evaluar los libros con las métricas, así como también el planteo y los resultados del test de hipótesis utilizado para probar la veracidad de los mismos. En la sección \textbf{Conclusiones y trabajo futuro}(\ref{sec:conclusion}), se presenta un espectro de posibilidades para trabajar sobre el tema presentado a futuro, así como también las conclusiones extraídas del trabajo realizado.
+En la sección \textbf{Métricas}(\ref{sec:metricas}), se explican las métricas utilizadas para medir la legibilidad de los textos: ARI, Coleman-Liau Index, Flesch–Kincaid, SMOG, Dale–Chall y Lix. En la sección \textbf{Análisis del dataset}(\ref{sec:analisisdeldataset}), se detallan los tratamientos y filtros aplicados a la base de datos utilizada para la experimentación. Por otro lado, se presenta un amplio análisis de las reseñas y las categorías que se tuvieron en cuenta a la hora de realizar el filtrado y clusterización de los libros correspondientes para la posterior experimentación. En la sección \textbf{Experimentos y resultados}(\ref{sec:expyres}), se exponen los gráficos resultantes de evaluar los libros con las métricas, así como también el planteo y los resultados del test de hipótesis utilizado para probar la veracidad de los mismos. En la sección \textbf{Conclusiones y trabajo futuro}(\ref{sec:conclusion}), se presenta un espectro de posibilidades para trabajar sobre el tema a futuro, así como también las conclusiones extraídas del trabajo realizado.
 
 \section{Métricas}\label{sec:metricas}
 
-Las métricas de legibilidad son fórmulas que sirven para evaluar la legibilidad de un texto de forma automática, normalmente utilizadas como reemplazo de una encuesta con humanos. Las métricas analizadas en el presente trabajo fueron diseñadas entre los años 1940 y 1970, por lo que muchas veces debían ser calculadas por máquinas simples o humanos. A pesar de haber pasado mucho tiempo desde su creación, las métricas clásicas siguen siendo utilizadas en muchos estudios y hasta aparecen como condiciones necesarias legales en, por ejemplo, la creación de las pólizas de seguros automotrices. Las métricas estudiadas, exceptuando Flesch–Kincaid Reading Ease, simbolizan en sus valores la edad promedio o nivel educativo necesarios para entender el texto analizado. %lo de automotrices es en USA o aca tambien?
+Las métricas de legibilidad son fórmulas que sirven para evaluar la legibilidad de un texto de forma automática, normalmente utilizadas como reemplazo de una encuesta con humanos. Las métricas analizadas en el presente trabajo fueron diseñadas entre los años 1940 y 1970, por lo que muchas veces debían ser calculadas por máquinas simples o humanos. A pesar de haber pasado mucho tiempo desde su creación, las métricas clásicas siguen siendo utilizadas en muchos estudios y hasta aparecen como condiciones necesarias legales en, por ejemplo, la creación de las pólizas de seguros automotrices. Las métricas estudiadas, exceptuando Flesch–Kincaid Reading Ease, simbolizan en sus valores la edad promedio o nivel educativo necesarios para entender el texto analizado. %lo de automotrices es en USA o aca tambien? pondria una fuente sobre eso
 
 \subsection{ARI}
 
-El índice de legibilidad automatizado (\textbf{ARI})\cite{ari-flesch} fue diseñado a pedido de las fuerzas aéreas de los Estados Unidos con el propósito de monitorear en tiempo real la legibilidad de los textos producidos por máquinas de escribir eléctricas. A diferencia de otros índices, junto con el Coleman-Liau, ARI se basa en un factor de caracteres por palabra en vez de sílabas por palabra. Aunque la opinión sobre la pérdida de precisión en el índice con uso de este factor varía, suele ser más rápido de calcular ya que es más fácil contar cantidad de caracteres que de sílabas\cite{liang}.
+El índice de legibilidad automatizado (\textbf{ARI})\cite{ari-flesch} fue diseñado a pedido de las fuerzas aéreas de los Estados Unidos con el propósito de monitorear en tiempo real la legibilidad de los textos producidos por máquinas de escribir eléctricas. A diferencia de otros índices, junto con el Coleman-Liau, ARI se basa en un factor de caracteres por palabra en vez de sílabas por palabra. Aunque la opinión sobre la pérdida de precisión en el índice con uso de este factor varía, suele ser más rápido de calcular ya que es más fácil contar cantidad de caracteres que de sílabas\cite{liang}. %la parte de a diferencia de otros indices y junto con coleman-liau me hace ruido porque no se hablo de otras metricas hasta ese entonces y no se vio a coleman, capaz se podria poner esa aclaracion en coleman
 
 El índice de legibilidad automatizado posee dos variables: caracteres por palabra y palabras por frase. El resultado corresponde al grado académico en los Estados Unidos. Su fórmula se define como:
 
@@ -69,7 +69,7 @@ donde \textit{caracteres} corresponde a la cantidad de letras y números, \texti
 
 \subsection{Coleman-Liau index}
 
-El índice \textbf{Coleman-Liau}\cite{coleman-liau} fue diseñado para ser calculable de forma mecánica a partir de textos impresos. Dado que se intercambia la cantidad de caracteres por la de sílabas, la métrica podría usarse en conjunto con escáneres mecánicos simplificados. Éstos últimos solamente diferencian si se trata de un caracter, de un límite de palabra o de un límite de oración. De esta forma, se logra eliminar la necesidad de identificación de cada caracter \textit{per se}.
+El índice \textbf{Coleman-Liau}\cite{coleman-liau} fue diseñado para ser calculable de forma mecánica a partir de textos impresos. Dado que se intercambia la cantidad de caracteres por la de sílabas, la métrica podría usarse en conjunto con escáneres mecánicos simplificados. Estos últimos solamente diferencian si se trata de un caracter, de un límite de palabra o de un límite de oración. De esta forma, se logra eliminar la necesidad de identificación de cada caracter \textit{per se}.
 La fórmula del mismo se define como:
 
 $$CLI = 5.88 \cdot \frac{letras}{palabras} - 29.6 \cdot \frac{frases}{palabras} - 15.8$$
@@ -91,7 +91,7 @@ Para calcularlo, se debe contar una serie de frases (al menos 30) y contar las p
 $$SMOG = 1.0430\cdot \sqrt{polisilabas \cdot \frac{30}{frases}} + 3.1291$$
 
 \subsection{Dale–Chall}
-A diferencia del resto de las métricas que usan la cantidad de caracteres o de sílabas en una palabra, \textbf{Dale-Chall}\cite{dale-chall} calcula el nivel de grado aproximado de un texto midiendo las ``palabras difíciles''. Para esto, se encuentra definida una lista de aproximadamente 3.000 palabras conocidas por al menos el 80\% de los niños de quinto grado, esta lista originalmente era más acotada pero fue extendida\cite{dale-chall-ex}. Las palabras consideradas difíciles son las que no se encuentran listadas. La métrica está definida como:
+A diferencia del resto de las métricas que usan la cantidad de caracteres o de sílabas en una palabra, \textbf{Dale-Chall}\cite{dale-chall} calcula el nivel de grado aproximado de un texto midiendo las ``palabras difíciles''. Para esto, se encuentra definida una lista de aproximadamente 3.000 palabras conocidas por al menos el 80\% de los niños de quinto grado. Esta lista era más acotada originalmente pero fue extendida\cite{dale-chall-ex}. Las palabras consideradas difíciles son las que no se encuentran en ella. La métrica está definida como:
 
 $$DCI = 15.79 \cdot PRC+0.0496\cdot \left({\frac{{palabras}}{{frases}}}\right) + ADJ$$
 
@@ -113,7 +113,7 @@ $$
 
 La fórmula de legibilidad Läsbarhetsindex (\textbf{LIX})\cite{lix-rix} fue desarrollada en Suecia por Björnsoon. LIX es una fórmula de legibilidad poco conocida pero rápida de usar, confiable y fácil de interpretar. Fue especialmente diseñada como un índice de legibilidad para textos de lenguajes extranjeros. En 1980, Jonathan Anderson la estudió y comprobó que funcionaba en francés, alemán, griego e inglés. También realizó una simplificación de la misma (RIX), que no fue incluída en el estudio.
 
-Dado que la fórmula es independiente del lenguaje, se la define en base a la cantidad de palabras, de períodos y de palabras largas (en ingles, de más de 6 letras). Se la define como:
+Dado que la fórmula es independiente del lenguaje, se la define en base a la cantidad de palabras, períodos y palabras largas (en ingles, de más de 6 letras). Se la define como:
 
 $$LIX\ =\ \frac{palabras}{periodos} + \ 100 \cdot \frac{palabras\ largas}{palabras}$$\\
 
@@ -121,7 +121,7 @@ Los $periodos$ se dividen con dos puntos o primera mayúscula.\\
 
 \subsection{Verificación de métricas}
 
-Con el fin de comprobar la correctitud de dichas métricas, evaluamos en el Cuadro \ref{table:tablaHP} la saga \textit{Harry Potter}\footnote{http://cor.to/harrypotter}, que presenta (según su autora \footnote{http://www.jkrowling.com/}) una dificultad creciente en el vocabulario de sus títulos.
+Con el fin de comprobar la correctitud de dichas métricas, evaluamos en el Cuadro \ref{table:tablaHP} la saga \textit{Harry Potter}\footnote{http://cor.to/harrypotter}, que presenta (según su autora \footnote{http://www.jkrowling.com/}) una dificultad creciente de sus títulos a medida que avanza la historia.
 
 \begin{table}[H]
 \begin{center}
@@ -160,10 +160,10 @@ La base de datos \textit{Amazon product co-purchasing network metadata}\footnote
 \begin{figure}[H]
   \includegraphics[width=7.0in]{imgs/cantResenasVsCantLibros.png}
   \caption{Cantidad de reseñas vs cantidad de libros}
-  \label{fig:cantReseVsCantLibros}
+  \label{fig:cantResVsCantLibros}
 \end{figure} 
 
-El análisis sobre la distribución de la cantidad de reseñas (Figura \ref{fig:cantReseVsCantLibros}) muestra que la gran mayoría de los libros presentes en la base de datos posee una cantidad escasa de las mismas. Por ejemplo, el 80\% de los libros tiene menos de 10 reseñas. Decidimos utilizar aquellos libros con 40 o más reseñas para asegurarnos de que el puntuaje promedio sea representativo. Esto nos deja con un total de 16402 libros para analizar.
+El análisis sobre la distribución de la cantidad de reseñas (Figura \ref{fig:cantResVsCantLibros}) muestra que la gran mayoría de los libros presentes en la base de datos posee una cantidad escasa de las mismas. Por ejemplo, el 80\% de los libros tiene menos de 10 reseñas. Por este motivo, decidimos utilizar aquellos libros con 40 o más reseñas para asegurarnos de que el puntuaje promedio sea representativo. Esto nos deja con un total de 16.402 libros para analizar.
 
 \begin{figure}[H]
   \includegraphics[width=7.0in]{imgs/cantidadDeLibrosVsPuntaje.png}
