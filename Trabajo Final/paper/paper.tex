@@ -153,7 +153,7 @@ Se puede observar que, en términos generales, todas las métricas presentan una
 
 \section{Análisis del dataset}\label{sec:analisisdeldataset}
 
-La base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html}, producida en el 2007, contiene información sobre 548552 productos, dentro de los cuales 393561 son libros. En la misma, se especifica el ranking de ventas, categorías y reseñas de cada producto. Por otro lado, cada reseña se encuentra identificada por su autor, un puntaje, la fecha en que fue realizada, los votos que recibió por parte de otros usuarios y su utilidad. Originalmente, dicha información fue utilizada para estudiar cómo se desarolla la popularidad de los productos en Amazon mediante la influencia del marketing viral\cite{leskovec}. En nuestro trabajo, utilizamos una versión simplificada de esta base de datos dado que requerimos sólo una porción de esta información: la cantidad de reseñas y el puntaje promedio de los libros.
+La base de datos \textit{Amazon product co-purchasing network metadata}\footnote{http://snap.stanford.edu/data/amazon-meta.html}, producida en el 2007, contiene información sobre 548.552 productos, dentro de los cuales 393.561 son libros. En la misma, se especifica el ranking de ventas, categorías y reseñas de cada producto. Por otro lado, cada reseña se encuentra identificada por su autor, un puntaje, la fecha en que fue realizada, los votos que recibió por parte de otros usuarios y su utilidad. Originalmente, dicha información fue utilizada para estudiar cómo se desarolla la popularidad de los productos en Amazon mediante la influencia del marketing viral\cite{leskovec}. En nuestro trabajo, utilizamos una versión simplificada de esta base de datos dado que requerimos sólo una porción de esta información: la cantidad de reseñas y el puntaje promedio de los libros.
 
 \subsubsection{Enriquecimiento del dataset}
 
@@ -171,7 +171,7 @@ El análisis sobre la distribución de la cantidad de reseñas (Figura \ref{fig:
   \label{fig:cantLibrosVsPuntaje}
 \end{figure} 
 
-El segundo análisis (Figura \ref{fig:cantLibrosVsPuntaje}) de los libros muestra que una amplia porción de éstos se encuentra puntuada entre 4.0 y 4.5, tendencia esperable según algunos estudios\cite{zhang}. Por otro lado, en la Figura \ref{fig:cantReseVsCantLibros} se puede ver que la proporción de los puntajes dentro de los distintos grupos de libros se mantiene en términos generales, lo que evidencia que utilizar libros con 40 o más reseñas es suficiente para sacar conclusiones relevantes.
+El segundo análisis de los libros (Figura \ref{fig:cantLibrosVsPuntaje}) muestra que una amplia porción de éstos se encuentra puntuada entre 4.0 y 4.5, tendencia esperable según algunos estudios\cite{zhang}. Por otro lado, en la Figura \ref{fig:cantReseVsCantLibros} se puede ver que la proporción de los puntajes dentro de los distintos grupos de libros se mantiene en términos generales, lo que evidencia que utilizar libros con 40 o más reseñas es suficiente para sacar conclusiones relevantes.
 
 \begin{figure}[H]
   \includegraphics[width=7.0in]{imgs/cantLibrosVScantReviews.png}
@@ -190,7 +190,6 @@ Por otro lado, nos percatamos de que no sólo la mayoría de los libros se encue
 A partir de la lista de categorías, realizamos una codificación de la base de datos en donde cada libro puede ser descripto como una tira de ceros y unos. Cada cero o uno indica la pertenencia o no a una categoría. Utilizando Weka\footnote{http://www.cs.waikato.ac.nz/ml/weka/}, ejecutamos el algoritmo de clusterización \textit{Expectation Maximization} con 10 folds y 8 clusters. Si bien nuestro objetivo original era obtener 4 clusters, al especificar dicha cantidad uno de los clusters agrupaba demasiados libros dado que el algoritmo agrupa todos aquellos que no puede terminar de clasificar (por el límite asignado) en uno solo.
 
 Como todos los clusters comparten categorías, la formación de éstos totalmente disjunta es imposible. Sin embargo, los formamos minimizando la cantidad de libros que comparten categorías con otros clusters. Probamos distintas maneras de agruparlos y, finalmente, la composición quedó definida de la siguente manera:
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=7.0in]{../results/graph.pdf}
