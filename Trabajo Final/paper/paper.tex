@@ -141,7 +141,7 @@ Con el fin de comprobar la correctitud de dichas métricas, evaluamos en el Cuad
   HP7 & 5.87 & 7.47 & 85.47 & 30.82 & 8.13 & 8.97\\
   \hline
 \end{tabular}
-\caption{\small Evaluación de métricas con la saga Harry Potter}
+\caption{\small \textit{Evaluación de métricas con la saga Harry Potter}}
 \label{table:tablaHP}
 \end{center}
 \end{table}
@@ -156,7 +156,7 @@ La base de datos \textit{Amazon product co-purchasing network metadata}\footnote
 \begin{figure}[H]
   \centering
   \includegraphics[width=6.5in]{imgs/cantResenasVsCantLibros.png}
-  \caption{\small Cantidad de reseñas por cantidad de libros en dataset crudo}
+  \caption{\small \textit{Cantidad de reseñas por cantidad de libros en dataset crudo}}
   \label{fig:cantResVsCantLibros}
 \end{figure} 
 
@@ -165,7 +165,7 @@ El análisis sobre la distribución de la cantidad de reseñas (Figura \ref{fig:
 \begin{figure}[H]
   \centering
   \includegraphics[width=6.5in]{imgs/cantidadDeLibrosVsPuntaje.png}
-  \caption{\small Puntajes por cantidad de libros}
+  \caption{\small \textit{Puntajes por cantidad de libros}}
   \label{fig:cantLibrosVsPuntaje}
 \end{figure} 
 
@@ -174,7 +174,7 @@ El segundo análisis de los libros (Figura \ref{fig:cantLibrosVsPuntaje}) muestr
 \begin{figure}[H]
   \centering
   \includegraphics[width=7.0in]{imgs/cantLibrosVScantReviews.png}
-  \caption{\small Cantidad de reseñas por cantidad de libros}
+  \caption{\small \textit{Cantidad de reseñas por cantidad de libros}}
   \label{fig:cantReseVsCantLibros}
 \end{figure}
 
@@ -189,7 +189,7 @@ Por otro lado, nos percatamos de que no sólo la mayoría de los libros se encue
 \begin{figure}[H]
   \centering
   \includegraphics[width=7.0in]{../results/graph.pdf}
-  \caption{\small Grafo de relaciones entre categorías}
+  \caption{\small \textit{Grafo de relaciones entre categorías}}
   \label{fig:jerarquizacionDeCategorias}  
 \end{figure}
 
@@ -235,7 +235,7 @@ De esta manera, sólo el 20\% de los libros comparte categorías de 2 clusters d
     Total & 4030  & 3447 & 4749 & 4556 \\
     \hline
   \end{tabular}
-  \caption{\small Cantidad de libros de cada cluster dividida en sus respectivas reseñas}
+  \caption{\small \textit{Cantidad de libros de cada cluster dividida en sus respectivas reseñas}}
 	\label{table:puntajecluster}
 \end{table}
 
@@ -244,7 +244,7 @@ De esta manera, sólo el 20\% de los libros comparte categorías de 2 clusters d
 
 Para verificar nuestra hipótesis inicial, realizamos un experimento aplicando cada una de las métricas a una selección de libros. Sobre los resultados, analizamos preliminarmente los gráficos obtenidos para luego verificar mediante un test de hipótesis nuestra asunción inicial.
 
-\subsection{Organización del experimento}
+\subsection{Procedimiento experimental}
 
 Por lo que pudimos observar, los puntajes promedios de las reseñas en la base de datos de Amazon toman a lo sumo 10 valores distintos: desde 0 a 5 en intervalos de 0.5. Utilizando los clusters como medio de referencia, seleccionamos alrededor de 15 libros por cada puntaje promedio distinto dentro de cada cluster, totalizando aproximadamente 600 libros. Sin embargo, los libros pertenecientes a los puntajes promedios más bajos (0 a 2.5) fueron difíciles de hallar, por lo que decidimos compactar dicho rango y utilizar 15 libros para el mismo, con un total entonces de 364 libros.
 
@@ -279,7 +279,7 @@ Una vez obtenidos los resultados (Figura \ref{fig:boxplots}), realizamos un aná
 \begin{subfigure}{0.27\textwidth}
 \includegraphics[scale=0.41]{../unigrams/scripts/boxplots/Dale-Chall.png}
 \end{subfigure}
-\caption{\small Boxplots sobre los resultados normalizados de cada métrica}
+\caption{\small \textit{Boxplots sobre los resultados normalizados de cada métrica}}
 \label{fig:boxplots}
 \end{figure}
 
@@ -293,7 +293,7 @@ Para plantear los tests de hipótesis correspondientes, utilizamos la función $
 $$D_{n}=\sup_{x}|F_{n}(x)-F(x)|$$
 siendo $F(x)$ la función de distribución acumulada. Luego, si el estadístico KS es pequeño o el p-valor grande, no podemos rechazar la hipótesis de que las dos muestras son de la misma distribución\cite{degroot}.\\
 
-La Hipótesis nula es rechazada con nivel $\alpha$ si
+La hipótesis nula es rechazada con nivel de significación $\alpha$ si:
 \begin{equation} \label{eq:1}
 D > C(\alpha) = c(\alpha) \cdot \sqrt{\frac{n_1+n_2}{n_1\cdot n_2}}
 \end{equation}
@@ -321,7 +321,7 @@ Para ejecutar el script, seleccionamos como muestras los conjuntos de libros de 
   SMOGIndex & 8.01e-06 & 3.15e-1 & \textbf{Sí} (8.01e-06 $< \alpha$ y $C(\alpha) <$ 3.15e-1)\\
   \hline
   \end{tabular}
-  \caption{\small Resultado de evaluar los libros con las métricas elegidas}
+  \caption{\small \textit{Resultado de evaluar los libros con las métricas elegidas}}
   \label{table:resultadoMetricas}
   \end{center}
   \end{table}
@@ -329,12 +329,12 @@ Para ejecutar el script, seleccionamos como muestras los conjuntos de libros de 
 
 ~
 
-Como se puede observar en el Cuadro \ref{table:resultadoMetricas}, en 4 de 6 métricas la hipótesis nula fue rechazada para un nivel de significancia bajo. Es importante remarcar que las métricas que fallan en rechazar el test de hipótesis son, probablemente, las menos confiables. Además, si se usa un nivel de significancia un poco más alto, como lo es $\alpha = 0.05$ (o sea $C(0.05) = 0.1746$), todas las métricas rechazan la hipótesis nula. Otra variable a tener en cuenta es que posiblemente 364 libros no sean suficientes para las métricas con mayor p-valor ya que al aumentar la cantidad de muestras el p-valor disminuye y la condición de aceptación de $D$ (\ref{eq:1}) es más fácilmente satisfacible.
+Como se puede observar en el Cuadro \ref{table:resultadoMetricas}, en 4 de 6 métricas la hipótesis nula fue rechazada para un nivel de significancia bajo. Es importante remarcar que las métricas que fallan en rechazar el test de hipótesis son, probablemente, las menos confiables. Además, si se usa un nivel de significancia un poco más alto, como lo es $\alpha = 0.05$ (o sea $C(0.05) = 0.1746$), todas las métricas rechazan la hipótesis nula (datos no mostrados). Otra variable a tener en cuenta es que posiblemente 364 libros no sean suficientes para las métricas con mayor p-valor ya que al aumentar la cantidad de muestras el p-valor disminuye y la condición de aceptación de $D$ (\ref{eq:1}) es más fácilmente satisfacible.
 
 \begin{figure}[H]
 \begin{center}
   \includegraphics[width=3.5in]{../unigrams/scripts/boxplots/not-normalized-SMOGIndex.png}
-  \caption{\small Boxplot de SMOGIndex}
+  \caption{\small \textit{Boxplot de SMOGIndex}}
   \label{fig:boxplotSMOG}
   \end{center}
 \end{figure}
@@ -344,7 +344,7 @@ Si analizamos en detalle el boxplot generado en base a los valores devueltos por
 \begin{figure}[H]
 \begin{center}
   \includegraphics[width=4.0in]{../unigrams/scripts/histogram/08-SMOGIndexhistogram.png}
-  \caption{\small Histograma de la relación entre valores de SMOGIndex y cantidad de libros}
+  \caption{\small \textit{Histograma de la relación entre valores de SMOGIndex y cantidad de libros}}
   \label{fig:histoSMOG}
   \end{center}
 \end{figure}
@@ -363,7 +363,7 @@ Es importante remarcar que durante la búsqueda de algunos de los libros pudimos
 \begin{figure}[H]
 \begin{center}
   \includegraphics[width=4.0in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
-  \caption{\small Cantidad de palabras por cantidad de libros}
+  \caption{\small \textit{Cantidad de palabras por cantidad de libros}}Z
   \label{fig:cantPalabrasVsCantLibros}
   \end{center}
 \end{figure}
