@@ -49,7 +49,7 @@ A pesar del gran esfuerzo en el área lingüística para introducir criterios co
 
 Por otro lado, el trabajo de \textit{Diuk, C. G., et. al., 2012} \cite{diuk} sobre la potencialidad del análisis de grandes repositorios de datos con el fin de hacer predicciones resultó de gran inspiración. En el mismo, se utilizaron textos de distintas épocas en orden cronológico con el fin de probar si el constructo introspección creció o disminuyó a lo largo de los años. %esto vuela?
 
-En la sección \textbf{Métricas}(\ref{sec:metricas}), se explican las métricas utilizadas para medir la legibilidad de los textos: ARI, Coleman-Liau Index, Flesch–Kincaid, SMOG, Dale–Chall y Lix. En la sección \textbf{Análisis del dataset}(\ref{sec:analisisdeldataset}), se detallan los tratamientos y filtros aplicados a la base de datos utilizada para la experimentación, y se presenta un amplio análisis de las reseñas y las categorías que se tuvieron en cuenta a la hora de realizar el filtrado y clusterización de los libros correspondientes para la posterior experimentación. En la sección \textbf{Experimentos y resultados}(\ref{sec:expyres}), se exponen los gráficos resultantes de evaluar los libros con las métricas, así como también el planteo y los resultados del test de hipótesis utilizado para probar la veracidad de los mismos. Finalmente, en la sección \textbf{Conclusiones y trabajo futuro}(\ref{sec:conclusion}), se presenta un espectro de posibilidades para trabajar sobre el tema a futuro, así como también las conclusiones extraídas del trabajo realizado.
+En la sección \textbf{Métricas}(\ref{sec:metricas}), se explican las métricas utilizadas para medir la legibilidad de los textos: ARI, Coleman-Liau Index, Flesch–Kincaid, SMOG, Dale–Chall y Lix. En la sección \textbf{Análisis del dataset}(\ref{sec:analisisdeldataset}), se detallan los tratamientos y filtros aplicados a la base de datos utilizada para la experimentación. También, se presenta un amplio análisis de las reseñas y las categorías que se tuvieron en cuenta a la hora de realizar el filtrado y clusterización de los libros correspondientes para la posterior experimentación. En la sección \textbf{Experimentos y resultados}(\ref{sec:expyres}), se exponen los gráficos resultantes de evaluar los libros con las métricas, así como también el planteo y los resultados del test de hipótesis utilizado para probar la veracidad de los mismos. Finalmente, en la sección \textbf{Conclusiones y trabajo futuro}(\ref{sec:conclusion}), se presenta un espectro de posibilidades para trabajar sobre el tema a futuro, así como también las conclusiones extraídas del trabajo realizado.
 
 \section{Métricas}\label{sec:metricas}
 
@@ -155,7 +155,7 @@ La base de datos \textit{Amazon product co-purchasing network metadata}\footnote
 \subsubsection{Enriquecimiento del dataset}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=6.5in]{imgs/cantResenasVsCantLibros.png}
+  \includegraphics[width=7.5in]{imgs/cantResenasVsCantLibros.png}
   \caption{\small \textit{Cantidad de reseñas por cantidad de libros en dataset crudo}}
   \label{fig:cantResVsCantLibros}
 \end{figure} 
@@ -164,7 +164,7 @@ El análisis sobre la distribución de la cantidad de reseñas (Figura \ref{fig:
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=6.5in]{imgs/cantidadDeLibrosVsPuntaje.png}
+  \includegraphics[width=7.5in]{imgs/cantidadDeLibrosVsPuntaje.png}
   \caption{\small \textit{Puntajes por cantidad de libros}}
   \label{fig:cantLibrosVsPuntaje}
 \end{figure} 
@@ -173,7 +173,7 @@ El segundo análisis de los libros (Figura \ref{fig:cantLibrosVsPuntaje}) muestr
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=7.0in]{imgs/cantLibrosVScantReviews.png}
+  \includegraphics[width=8in]{imgs/cantLibrosVScantReviews.png}
   \caption{\small \textit{Cantidad de reseñas por cantidad de libros}}
   \label{fig:cantReseVsCantLibros}
 \end{figure}
@@ -188,7 +188,7 @@ Por otro lado, nos percatamos de que no sólo la mayoría de los libros se encue
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=7.0in]{../results/graph.pdf}
+  \includegraphics[width=8in]{../results/graph.pdf}
   \caption{\small \textit{Grafo de relaciones entre categorías}}
   \label{fig:jerarquizacionDeCategorias}  
 \end{figure}
@@ -283,7 +283,7 @@ Una vez obtenidos los resultados (Figura \ref{fig:boxplots}), realizamos un aná
 \label{fig:boxplots}
 \end{figure}
 
-En todos los casos, podemos observar una leve tendencia descendente en los valores de las métricas a medida que el puntaje promedio aumenta. Sin embargo, dada la poca diferencia absoluta entre los valores y la incertidumbre que presentan los mismos, es difícil discernir a simple vista si las diferencias son significativas.
+En todos los casos, podemos observar una leve tendencia descendente en los valores de las métricas a medida que el puntaje promedio aumenta. Sin embargo, es difícil discernir a simple vista si las diferencias son significativas.
 
 \subsection{Realización y resultados del test de hipótesis}
 
@@ -321,7 +321,7 @@ Para ejecutar el script, seleccionamos como muestras los conjuntos de libros de 
   SMOGIndex & 8.01e-06 & 3.15e-1 & \textbf{Sí} (8.01e-06 $< \alpha$ y $C(\alpha) <$ 3.15e-1)\\
   \hline
   \end{tabular}
-  \caption{\small \textit{Resultado de evaluar los libros con las métricas elegidas}}
+  \caption{\small \textit{Resultado del test de hipótesis sobre el resultado de las métricas}}
   \label{table:resultadoMetricas}
   \end{center}
   \end{table}
