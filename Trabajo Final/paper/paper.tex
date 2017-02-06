@@ -173,7 +173,7 @@ El segundo análisis de los libros (Figura \ref{fig:cantLibrosVsPuntaje}) muestr
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=8in]{imgs/cantLibrosVScantReviews.png}
+  \includegraphics[width=7.5in]{imgs/cantLibrosVScantReviews.png}
   \caption{\small \textit{Cantidad de reseñas por cantidad de libros}}
   \label{fig:cantReseVsCantLibros}
 \end{figure}
@@ -252,7 +252,7 @@ Cada uno de los libros fue convertido de su formato original a texto plano, remo
 
 \subsection{Análisis preliminar de resultados}
 
-Una vez obtenidos los resultados (Figura \ref{fig:boxplots}), realizamos un análisis preliminar a través de boxplots. Como cada una de las métricas devuelve valores en distintas escalas, normalizamos los resultados para poder compararlos fácilmente. En el caso de Flesch-Kincaid, además de normalizar invertimos sus valores para poder evidenciar la misma relación que en el resto de las métricas.
+Una vez obtenidos los resultados (Figura \ref{fig:boxplots}), realizamos un análisis preliminar a través de boxplots utilizando percentiles. Como cada una de las métricas devuelve valores en distintas escalas, normalizamos los resultados para poder compararlos fácilmente. En el caso de Flesch-Kincaid, además de normalizar invertimos sus valores para poder evidenciar la misma relación que en el resto de las métricas.
 
 
 \begin{figure}[H]
@@ -280,6 +280,10 @@ Una vez obtenidos los resultados (Figura \ref{fig:boxplots}), realizamos un aná
 \includegraphics[scale=0.41]{../unigrams/scripts/boxplots/Dale-Chall.png}
 \end{subfigure}
 \caption{\small \textit{Boxplots sobre los resultados normalizados de cada métrica}}
+\medskip
+\begin{subfigure}{0.80\textwidth}
+\footnotesize Resultados obtenidos de la aplicación de las métricas al conjunto de libros seleccionados. Las medias están simbolizadas en naranja, los limites de las cajas denotan los cuartiles, las lineas muestran el rango de los datos y los circulos denotan outliers.
+\end{subfigure}
 \label{fig:boxplots}
 \end{figure}
 
@@ -349,7 +353,7 @@ Si analizamos en detalle el boxplot generado en base a los valores devueltos por
   \end{center}
 \end{figure}
 
-Para dar algunos ejemplos concretos sobre los valores resultantes de aplicar la métrica a libros, seleccionamos los de menor y mayor requerimiento de años y uno cercano a la media. El libro ``Day No Pigs Would Die'' de ``Robert Newton Peck'' requiere, según la métrica SMOG, 5 años de educación para ser entendido y tiene un puntaje promedio de 3.5. Según los comentarios que pueden ser leídos en la página de Amazon\footnote{https://www.amazon.com/dp/1883332052} pareciera ser un libro con una historia pobre y escrito de manera burda. Por otro lado, el libro ``A New Kind of Science'' de ``Stephen Wolfram'' requiere 15 años de educación y tiene un puntaje promedio de 3. Éste, según los comentarios\footnote{https://www.amazon.com/dp/1579550088}, trata sobre algunos temas de ciencias de la computación, por lo que tiene sentido que su lenguaje sea más complicado. Sin embargo, es un libro que desagrada a muchos usuarios ya que trata como nuevos a temas que son bien conocidos en el ámbito y se extiende mucho sobre los mismos, probablemente por ignorancia del autor\footnote{https://www.amazon.com/review/R2NIU9I3JQZP5J}. Finalmente, el libro ``Watership Down'' de ``Richard Adams'' requiere 7 años de educación y tiene un puntaje promedio de 4.5. Este libro aparenta ser literatura clásica y posee muy buenas reseñas por parte de los usuarios\footnote{https://www.amazon.com/dp/1565115864}.
+Para dar algunos ejemplos concretos sobre los valores resultantes de aplicar la métrica a libros, seleccionamos los de menor y mayor requerimiento de años y uno cercano a la mediana. El libro ``Day No Pigs Would Die'' de ``Robert Newton Peck'' requiere, según la métrica SMOG, 5 años de educación para ser entendido y tiene un puntaje promedio de 3.5. Según los comentarios que pueden ser leídos en la página de Amazon\footnote{https://www.amazon.com/dp/1883332052} pareciera ser un libro con una historia pobre y escrito de manera burda. Por otro lado, el libro ``A New Kind of Science'' de ``Stephen Wolfram'' requiere 15 años de educación y tiene un puntaje promedio de 3. Éste, según los comentarios\footnote{https://www.amazon.com/dp/1579550088}, trata sobre algunos temas de ciencias de la computación, por lo que tiene sentido que su lenguaje sea más complicado. Sin embargo, es un libro que desagrada a muchos usuarios ya que trata como nuevos a temas que son bien conocidos en el ámbito y se extiende mucho sobre los mismos, probablemente por ignorancia del autor\footnote{https://www.amazon.com/review/R2NIU9I3JQZP5J}. Finalmente, el libro ``Watership Down'' de ``Richard Adams'' requiere 7 años de educación y tiene un puntaje promedio de 4.5. Este libro aparenta ser literatura clásica y posee muy buenas reseñas por parte de los usuarios\footnote{https://www.amazon.com/dp/1565115864}.
 
 
 \section{Conclusiones y trabajo futuro}\label{sec:conclusion} 
@@ -362,8 +366,8 @@ Es importante remarcar que durante la búsqueda de algunos de los libros pudimos
 
 \begin{figure}[H]
 \begin{center}
-  \includegraphics[width=4.0in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
-  \caption{\small \textit{Cantidad de palabras por cantidad de libros}}Z
+  \includegraphics[width=3.5in]{../unigrams/scripts/histogram/histogramaDePalabras.png}
+  \caption{\small \textit{Cantidad de palabras por cantidad de libros}}
   \label{fig:cantPalabrasVsCantLibros}
   \end{center}
 \end{figure}
