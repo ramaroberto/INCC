@@ -165,7 +165,7 @@ El análisis sobre la distribución de la cantidad de reseñas (Figura \ref{fig:
 \begin{figure}[H]
   \centering
   \includegraphics[width=7.5in]{imgs/cantidadDeLibrosVsPuntaje.png}
-  \caption{\small \textit{Puntajes por cantidad de libros}}
+  \caption{\small \textit{Puntajes por cantidad de libros en dataset refinado}}
   \label{fig:cantLibrosVsPuntaje}
 \end{figure} 
 
@@ -174,7 +174,7 @@ El segundo análisis de los libros (Figura \ref{fig:cantLibrosVsPuntaje}) muestr
 \begin{figure}[H]
   \centering
   \includegraphics[width=7.5in]{imgs/cantLibrosVScantReviews.png}
-  \caption{\small \textit{Cantidad de reseñas por cantidad de libros}}
+  \caption{\small \textit{Cantidad de reseñas por cantidad de libros en dataset refinado}}
   \label{fig:cantReseVsCantLibros}
 \end{figure}
 
@@ -190,6 +190,10 @@ Por otro lado, nos percatamos de que no sólo la mayoría de los libros se encue
   \centering
   \includegraphics[width=8in]{../results/graph.pdf}
   \caption{\small \textit{Grafo de relaciones entre categorías}}
+  \medskip
+  \begin{subfigure}{0.90\textwidth}
+    \footnotesize La intensidad de los colores y tamaños simbolizan la cantidad de apariciones una categoría, mientras que la intensidad de los trazos la cantidad de apariciones de una relación entre categorías. Definimos que existe una relación entre categorías cuando un libro pertenece a ambas.
+  \end{subfigure}
   \label{fig:jerarquizacionDeCategorias}  
 \end{figure}
 
