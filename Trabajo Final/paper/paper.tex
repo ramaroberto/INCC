@@ -329,13 +329,14 @@ Para ejecutar el script, seleccionamos como muestras los conjuntos de libros de 
   SMOGIndex & 8.01e-06 & 3.15e-1 & \textbf{Sí} (8.01e-06 $< \alpha$ y $C(\alpha) <$ 3.15e-1)\\
   \hline
   \end{tabular}
-  \caption{\small \textit{Resultado del test de hipótesis sobre el resultado de las métricas}}
+  \caption{\small \textit{Resultados del estadístico Kolmogorov-Smirnov sobre los valores de las métricas}}
+  \medskip
+  \begin{subfigure}{0.80\textwidth}
+    \footnotesize Se compararon los valores obtenidos entre un grupo de libros con puntajes mínimos y otro con puntajes máximos utilizando un test de hipótesis. Pueden observarse en la tabla los p-valores, el estadístico (D) y la condición de rechazo para cada una de las métricas.
+  \end{subfigure}
   \label{table:resultadoMetricas}
   \end{center}
   \end{table}
-
-
-~
 
 Como se puede observar en el Cuadro \ref{table:resultadoMetricas}, en 4 de 6 métricas la hipótesis nula fue rechazada para un nivel de significancia bajo. Es importante remarcar que las métricas que fallan en rechazar el test de hipótesis son, probablemente, las menos confiables. Además, si se usa un nivel de significancia un poco más alto, como lo es $\alpha = 0.05$ (o sea $C(0.05) = 0.1746$), todas las métricas rechazan la hipótesis nula (datos no mostrados). Otra variable a tener en cuenta es que posiblemente 364 libros no sean suficientes para las métricas con mayor p-valor ya que al aumentar la cantidad de muestras el p-valor disminuye y la condición de aceptación de $D$ (\ref{eq:1}) es más fácilmente satisfacible.
 
